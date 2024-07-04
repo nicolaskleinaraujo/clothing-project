@@ -67,6 +67,22 @@ const createUserController = async (req, res) => {
         const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
         const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
+        res.cookie("access", accessToken, {
+            httpOnly: true,
+            signed: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1 * 60 * 60 * 1000,
+        })
+
+        res.cookie("refresh", refreshToken, {
+            httpOnly: true,
+            signed: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        })
+
         res.status(200).json({ msg: "Usuario criado com sucesso", user })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
