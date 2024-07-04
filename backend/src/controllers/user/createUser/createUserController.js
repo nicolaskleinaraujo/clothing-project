@@ -46,6 +46,25 @@ const createUserController = async (req, res) => {
     // Hashing the password
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
+
+    try {
+        const user = await prisma.user.create({
+            data: {
+                firstName,
+                lastName,
+                email,
+                number,
+                password: hash,
+                cep,
+                city,
+                district,
+                street,
+                houseNum,
+            },
+        })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
+    }
 }
 
 module.exports = createUserController
