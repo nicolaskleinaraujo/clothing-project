@@ -62,6 +62,12 @@ const createUserController = async (req, res) => {
                 houseNum,
             },
         })
+
+        // Creating the access and refresh JWT Token
+        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+
+        res.status(200).json({ msg: "Usuario criado com sucesso", user })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
