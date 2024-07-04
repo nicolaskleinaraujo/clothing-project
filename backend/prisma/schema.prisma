@@ -6,3 +6,18 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int     @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String  @unique
+  number    String  @unique
+  password  String
+  cep       String
+  city      String
+  district  String
+  street    String
+  houseNum  Int
+  isAdmin   Boolean @default(false)
+}
