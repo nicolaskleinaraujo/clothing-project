@@ -1,4 +1,6 @@
 const prisma = require("../../../db/client")
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const createUserController = async (req, res) => {
     const {
@@ -32,6 +34,7 @@ const createUserController = async (req, res) => {
         return
     }
 
+    // Checking if email or number is already cadastered
     const emailExists = await prisma.user.findUnique({ where: { email } })
     const numberExists = await prisma.user.findUnique({ where: { number } })
 
@@ -40,7 +43,9 @@ const createUserController = async (req, res) => {
         return
     }
 
-    
+    // Hashing the password
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
 }
 
 module.exports = createUserController
