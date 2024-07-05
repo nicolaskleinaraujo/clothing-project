@@ -10,7 +10,7 @@ const deleteUserController = async (req, res) => {
 
     parseInt(id)
 
-    if (id === undefined || password === "") {
+    if (id === "" || password === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
@@ -18,7 +18,7 @@ const deleteUserController = async (req, res) => {
     // Checking if user exists
     const user = await prisma.user.findUnique({ where: { id } })
     if (!user) {
-        res.status(404).json({ msg: "Usuario não encontrador" })
+        res.status(404).json({ msg: "Usuario não encontrado" })
         return
     }
 
@@ -44,7 +44,7 @@ const deleteUserController = async (req, res) => {
 
     // Checking if the provided password matches user password
     const checkPassword = await bcrypt.compare(password, user.password) 
-    if (checkPassword) {
+    if (!checkPassword) {
         res.status(401).json({ msg: "Senha incorreta" })
         return
     }
