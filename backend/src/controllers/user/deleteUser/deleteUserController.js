@@ -8,6 +8,13 @@ const deleteUserController = async (req, res) => {
         password,
     } = req.body
 
+    parseInt(id)
+
+    if (id === undefined || password === "") {
+        res.status(400).json({ msg: "Informações insuficientes" })
+        return
+    }
+
     // Checking if user exists
     const user = await prisma.user.findUnique({ where: { id } })
     if (!user) {
