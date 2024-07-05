@@ -11,7 +11,7 @@ const deleteUserController = async (req, res) => {
     // Checking if user exists
     const user = await prisma.user.findUnique({ where: { id } })
     if (!user) {
-        res.status(400).json({ msg: "Usuario não encontrador" })
+        res.status(404).json({ msg: "Usuario não encontrador" })
         return
     }
 
@@ -40,6 +40,16 @@ const deleteUserController = async (req, res) => {
     if (checkPassword) {
         res.status(401).json({ msg: "Senha incorreta" })
         return
+    }
+
+    try {
+        await prisma.user.delete({
+            where: { id }
+        })
+
+        res.status(200).json({ msg: "Usuario deletado com sucesso" })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
     }
 }
 
