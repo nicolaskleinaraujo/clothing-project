@@ -47,6 +47,9 @@ const deleteUserController = async (req, res) => {
             where: { id }
         })
 
+        res.clearCookie("access")
+        res.clearCookie("refresh")
+
         res.status(200).json({ msg: "Usuario deletado com sucesso" })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente" })
