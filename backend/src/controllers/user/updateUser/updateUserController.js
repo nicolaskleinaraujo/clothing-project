@@ -65,6 +65,32 @@ const updateUserController = async (req, res) => {
         res.status(400).json({ msg: "Senha antiga incorreta" })
         return
     }
+
+    // Hashing the new password
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+
+    try {
+        const updatedUser = await prisma.user.update({
+            where: { id },
+            data: {
+                firstName,
+                lastName,
+                email,
+                number,
+                password: hash,
+                cep,
+                city,
+                district,
+                street,
+                houseNum,
+            },
+        })
+
+        res.status(200).json({ msg: "Informações atualizadas com sucesso", updatedUser })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
+    }
 }
 
 module.exports = updateUserController
