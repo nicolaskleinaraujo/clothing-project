@@ -20,6 +20,6 @@ app.use(
 app.get("/", (req, res) => {
     res.send("Bem-vindo a minha API, para mais informações, confira o repositório do projeto")
 })
-app.use("/user", users)
+app.use("/users", users)
 
 module.exports = app
