@@ -8,16 +8,23 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String  @unique
-  number    String  @unique
+  email     String    @unique
+  number    String    @unique
   password  String
-  cep       String?
-  city      String?
-  district  String?
-  street    String?
-  houseNum  Int?
-  isAdmin   Boolean @default(false)
+  isAdmin   Boolean   @default(false)
+  Address   Address[]
+}
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  cep      String
+  city     String
+  district String
+  street   String
+  houseNum Int
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int
 }
