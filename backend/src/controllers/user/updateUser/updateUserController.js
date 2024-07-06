@@ -41,7 +41,7 @@ const updateUserController = async (req, res) => {
     // Checking if user exists
     const user = await prisma.user.findUnique({ where: { id } })
     if (!user) {
-        res.status(400).json({ msg: "Usuario não encontrado" })
+        res.status(404).json({ msg: "Usuario não encontrado" })
         return
     }
 
