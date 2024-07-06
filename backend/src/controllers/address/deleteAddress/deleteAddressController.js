@@ -21,8 +21,8 @@ const deleteAddressController = async (req, res) => {
     }
 
     // Checking if the provided address ID is valid
-    const address = await prisma.address.findUnique({ where: { id } })
-    if (!address) {
+    const addressExists = await prisma.address.findUnique({ where: { id } })
+    if (!addressExists) {
         res.status(404).json({ msg: "Endereço não encontrado" })
         return
     }
@@ -45,6 +45,14 @@ const deleteAddressController = async (req, res) => {
     if (jwtPayload.id != userId) {
         res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
         return
+    }
+
+    try {
+        await prisma.address.delete({ where: { id } })
+
+        res.status(200).json({ msg: "Endereço deletado com sucesso" })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
