@@ -1,4 +1,5 @@
 const prisma = require("../../../db/client")
+const jwt = require("jsonwebtoken")
 
 const deleteAddressController = async (req, res) => {
     const {
@@ -8,7 +9,7 @@ const deleteAddressController = async (req, res) => {
 
     parseInt(id, userId)
 
-    if (id === undefined) {
+    if (id === undefined || userId === undefined) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
