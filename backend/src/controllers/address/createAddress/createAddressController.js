@@ -15,6 +15,7 @@ const createAddressController = async(req, res) => {
 
     if (
         cep === "" ||
+        city === "" ||
         district === "" ||
         street === "" ||
         houseNum === undefined ||
