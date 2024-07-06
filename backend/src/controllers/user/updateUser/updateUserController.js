@@ -11,14 +11,9 @@ const updateUserController = async (req, res) => {
         number,
         password,
         oldPassword,
-        cep,
-        city,
-        district,
-        street,
-        houseNum,
     } = req.body
 
-    parseInt(id, houseNum)
+    parseInt(id)
 
     if (
         id === undefined ||
@@ -27,12 +22,7 @@ const updateUserController = async (req, res) => {
         email === "" ||
         number === "" ||
         password === "" ||
-        oldPassword === "" ||
-        cep === "" ||
-        city === "" ||
-        district === "" ||
-        street === "" ||
-        houseNum === undefined
+        oldPassword === ""
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -79,11 +69,6 @@ const updateUserController = async (req, res) => {
                 email,
                 number,
                 password: hash,
-                cep,
-                city,
-                district,
-                street,
-                houseNum,
             },
         })
 
