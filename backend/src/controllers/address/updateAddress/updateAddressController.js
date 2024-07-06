@@ -1,4 +1,5 @@
 const prisma = require("../../../db/client")
+const jwt = require("jsonwebtoken")
 
 const updateAddressController = async (req, res) => {
     const {
@@ -57,6 +58,23 @@ const updateAddressController = async (req, res) => {
     if (jwtPayload.id != userId) {
         res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
         return
+    }
+
+    try {
+        const updatedAddress = await prisma.address.update({
+            where: { id },
+            data: {
+                cep,
+                city,
+                district,
+                street,
+                houseNum,
+            },
+        })
+
+        res.status(200).json({ msg: "Endereço atualizado com sucesso", updatedAddress })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
