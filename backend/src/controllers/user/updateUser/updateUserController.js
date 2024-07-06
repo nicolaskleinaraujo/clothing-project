@@ -109,7 +109,7 @@ const updateUserController = async (req, res) => {
 
         res.status(200).json({ msg: "Informações atualizadas com sucesso", updatedUser })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
