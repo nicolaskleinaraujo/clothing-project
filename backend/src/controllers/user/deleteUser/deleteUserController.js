@@ -50,9 +50,7 @@ const deleteUserController = async (req, res) => {
     }
 
     try {
-        await prisma.user.delete({
-            where: { id }
-        })
+        await prisma.user.delete({ where: { id } })
 
         res.clearCookie("access")
         res.clearCookie("refresh")
