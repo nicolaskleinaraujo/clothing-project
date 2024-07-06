@@ -25,9 +25,16 @@ const createAddressController = async(req, res) => {
     }
 
     // Checking if the provided ID is valid
-    const userExists = await prisma.user.findUnique({ where: { id: userId } })
+    const userExists = await prisma.user.findUnique({ where: { id: userId }, include: { Address } })
     if (!userExists) {
         res.status(404).json({ msg: "Usuario não encontrado" })
+        return
+    }
+
+    // Checking if the user already have a address
+    const addressExists = await prisma.address.findMany({ where: { userId } })
+    if (addressExists) {
+        res.status(401).json({ msg: "Endereço já cadastrado" })
         return
     }
 
