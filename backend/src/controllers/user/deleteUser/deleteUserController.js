@@ -59,7 +59,7 @@ const deleteUserController = async (req, res) => {
 
         res.status(200).json({ msg: "Usuario deletado com sucesso" })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
