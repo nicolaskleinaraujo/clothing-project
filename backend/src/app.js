@@ -5,6 +5,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 
 const users = require("./routes/users")
+const address = require("./routes/address")
 
 // Configs
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
     res.send("Bem-vindo a minha API, para mais informações, confira o repositório do projeto")
 })
 app.use("/users", users)
+app.use("/address", address)
 
 module.exports = app
