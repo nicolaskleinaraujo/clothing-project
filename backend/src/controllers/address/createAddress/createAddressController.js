@@ -1,8 +1,10 @@
 const prisma = require("../../../db/client")
+const jwt = require("jsonwebtoken")
 
 const createAddressController = async(req, res) => {
     const {
         cep,
+        city,
         district,
         street,
         houseNum,
@@ -53,7 +55,9 @@ const createAddressController = async(req, res) => {
         const newAddress = await prisma.address.create({
             data: {
                 cep,
+                city,
                 district,
+                street,
                 houseNum,
                 userId,
             },
