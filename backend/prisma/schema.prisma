@@ -14,10 +14,10 @@ model User {
   email     String  @unique
   number    String  @unique
   password  String
-  cep       String
-  city      String
-  district  String
-  street    String
-  houseNum  Int
+  cep       String?
+  city      String?
+  district  String?
+  street    String?
+  houseNum  Int?
   isAdmin   Boolean @default(false)
 }

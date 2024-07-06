@@ -9,26 +9,14 @@ const createUserController = async (req, res) => {
         email,
         number,
         password,
-        cep,
-        city,
-        district,
-        street,
-        houseNum,
     } = req.body
-
-    parseInt(houseNum)
 
     if (
         firstName === "" ||
         lastName === "" ||
         email === "" ||
         number === "" ||
-        password === "" ||
-        cep === "" ||
-        city === "" ||
-        district === "" ||
-        street === "" ||
-        houseNum === undefined
+        password === ""
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -55,11 +43,6 @@ const createUserController = async (req, res) => {
                 email,
                 number,
                 password: hash,
-                cep,
-                city,
-                district,
-                street,
-                houseNum,
             },
         })
 
