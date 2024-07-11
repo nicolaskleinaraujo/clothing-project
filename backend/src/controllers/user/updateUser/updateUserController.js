@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 
 const updateUserController = async (req, res) => {
     const {
-        id,
+        userId,
         firstName,
         lastName,
         email,
@@ -13,10 +13,10 @@ const updateUserController = async (req, res) => {
         oldPassword,
     } = req.body
 
-    parseInt(id)
+    parseInt(userId)
 
     if (
-        id === undefined ||
+        userId === undefined ||
         firstName === "" ||
         lastName === "" ||
         email === "" ||
@@ -28,12 +28,8 @@ const updateUserController = async (req, res) => {
         return
     }
 
-    // Checking if user exists
-    const user = await prisma.user.findUnique({ where: { id } })
-    if (!user) {
-        res.status(404).json({ msg: "Usuario não encontrado" })
-        return
-    }
+    // Getting user info
+    const user = await prisma.user.findUnique({ where: { id: userId } })
 
     // Checking if email or number belongs to other user
     const emailExists = await prisma.user.findUnique({ where: { email } })
@@ -62,7 +58,7 @@ const updateUserController = async (req, res) => {
 
     try {
         const updatedUser = await prisma.user.update({
-            where: { id },
+            where: { id: userId },
             data: {
                 firstName,
                 lastName,
