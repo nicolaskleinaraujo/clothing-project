@@ -4,21 +4,14 @@ const jwt = require("jsonwebtoken")
 
 const deleteUserController = async (req, res) => {
     const {
-        id,
+        userId,
         password,
     } = req.body
 
     parseInt(id)
 
-    if (id === "" || password === "") {
+    if (userId === "" || password === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
-        return
-    }
-
-    // Checking if user exists
-    const user = await prisma.user.findUnique({ where: { id } })
-    if (!user) {
-        res.status(404).json({ msg: "Usuario não encontrado" })
         return
     }
 
@@ -43,14 +36,16 @@ const deleteUserController = async (req, res) => {
     }
 
     // Checking if the provided password matches user password
-    const checkPassword = await bcrypt.compare(password, user.password) 
+    const user = await prisma.user.findUnique({ where: { id: userId } })
+
+    const checkPassword = await bcrypt.compare(password, user.password)
     if (!checkPassword) {
         res.status(401).json({ msg: "Senha incorreta" })
         return
     }
 
     try {
-        await prisma.user.delete({ where: { id } })
+        await prisma.user.delete({ where: { id: userId } })
 
         res.clearCookie("access")
         res.clearCookie("refresh")
