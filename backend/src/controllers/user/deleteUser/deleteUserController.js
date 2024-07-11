@@ -8,9 +8,9 @@ const deleteUserController = async (req, res) => {
         password,
     } = req.body
 
-    parseInt(id)
+    parseInt(userId)
 
-    if (userId === "" || password === "") {
+    if (userId === undefined || password === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
@@ -30,7 +30,7 @@ const deleteUserController = async (req, res) => {
     }
 
     // Checking if the cookie matches the request id
-    if (jwtPayload.id != id) {
+    if (jwtPayload.id != userId) {
         res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
         return
     }
