@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken")
 const validateToken = (req, res, next) => {
     const userId = parseInt(req.body.userId)
 
+    if (userId === undefined) {
+        res.status(400).json({ msg: "Informações insuficientes" })
+        return
+    }
+
     // Verifying the access token
     const accessToken = req.signedCookies.access
     if (!accessToken) {
