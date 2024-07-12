@@ -10,10 +10,18 @@ const validateToken = (req, res, next) => {
         return
     }
 
-    const accessJwt = jwt.verify(accessToken, process.env.JWT_SECRET)
-    if (accessJwt) {
+    jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return
+        }
+
+        if (decoded.id != userId) {
+            res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
+            return
+        }
+
         next()
-    }
+    })
 
     // Verifying the refresh token
     const refreshToken = req.signedCookies.refresh
@@ -22,21 +30,20 @@ const validateToken = (req, res, next) => {
         return
     }
 
-    const refreshJwt = jwt.verify(refreshToken, process.env.JWT_SECRET)
-    if (!refreshJwt) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
+            return
+        }
 
-    // Checking if the cookie matches the user ID
-    if (refreshJwt.id != userId) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
+        if (decoded.id != userId) {
+            res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
+            return
+        }
+    })
 
     // Creating the access and refresh JWT Token
     const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "1h" })
-    const newRefreshToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
     res.cookie("access", newAccessToken, {
         httpOnly: true,
@@ -44,14 +51,6 @@ const validateToken = (req, res, next) => {
         secure: true,
         sameSite: "none",
         maxAge: 1 * 60 * 60 * 1000,
-    })
-
-    res.cookie("refresh", newRefreshToken, {
-        httpOnly: true,
-        signed: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
     next()
