@@ -1,5 +1,4 @@
 const prisma = require("../../../db/client")
-const jwt = require("jsonwebtoken")
 
 const createAddressController = async(req, res) => {
     const {
@@ -29,26 +28,6 @@ const createAddressController = async(req, res) => {
     const addressExists = await prisma.address.findMany({ where: { userId } })
     if (addressExists.length > 0) {
         res.status(401).json({ msg: "Endereço já cadastrado" })
-        return
-    }
-
-    // Checking the refresh token
-    const cookie = req.signedCookies.refresh
-    if (!cookie) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
-
-    // Verifying the JWT
-    const jwtPayload = jwt.verify(cookie, process.env.JWT_SECRET)
-    if (!jwtPayload) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
-
-    // Checking if the cookie matches the request id
-    if (jwtPayload.id != userId) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
         return
     }
 
