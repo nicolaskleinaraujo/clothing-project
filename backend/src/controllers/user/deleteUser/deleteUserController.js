@@ -1,6 +1,5 @@
 const prisma = require("../../../db/client")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 
 const deleteUserController = async (req, res) => {
     const {
@@ -12,26 +11,6 @@ const deleteUserController = async (req, res) => {
 
     if (userId === undefined || password === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
-        return
-    }
-
-    // Checking the refresh token
-    const cookie = req.signedCookies.refresh
-    if (!cookie) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
-
-    // Verifying the JWT
-    const jwtPayload = jwt.verify(cookie, process.env.JWT_SECRET)
-    if (!jwtPayload) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-        return
-    }
-
-    // Checking if the cookie matches the request id
-    if (jwtPayload.id != userId) {
-        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
         return
     }
 
