@@ -1,5 +1,6 @@
 const prisma = require("../../../db/client")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const createLoginController = async (req, res) => {
     const { email, password } = req.body
@@ -22,6 +23,9 @@ const createLoginController = async (req, res) => {
         res.status(400).json({ msg: "Email ou senha incorretos" })
         return
     }
+
+    // Removes password from user to send for the client
+    delete user.password
 
     // Creating the access and refresh token
     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
