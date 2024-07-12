@@ -10,18 +10,14 @@ const validateToken = (req, res, next) => {
         return
     }
 
-    jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return
-        }
+    try {
+        const accessJwt = jwt.verify(accessToken, process.env.JWT_SECRET)
 
-        if (decoded.id != userId) {
+        if (accessJwt.id != userId) {
             res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
             return
         }
-
-        next()
-    })
+    } catch { return }
 
     // Verifying the refresh token
     const refreshToken = req.signedCookies.refresh
@@ -30,17 +26,17 @@ const validateToken = (req, res, next) => {
         return
     }
 
-    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
-            return
-        }
+    try {
+        const refreshJwt = jwt.verify(refreshToken, process.env.JWT_SECRET)
 
-        if (decoded.id != userId) {
+        if (refreshJwt.id != userId) {
             res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
             return
         }
-    })
+    } catch (error) {
+        res.status(401).json({ msg: "Sessão expirada, faça o login novamente" })
+        return
+    }
 
     // Creating the access and refresh JWT Token
     const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "1h" })
