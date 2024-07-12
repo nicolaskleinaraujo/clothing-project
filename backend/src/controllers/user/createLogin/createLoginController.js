@@ -9,18 +9,21 @@ const createLoginController = async (req, res) => {
         return
     }
 
+    // Checks if the provided email matchs a user
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) {
         res.status(404).json({ msg: "Email ou senha incorretos" })
         return
     }
 
+    // Checks if the provided password is correct
     const testPassword = bcrypt.compareSync(password, user.password)
     if (!testPassword) {
         res.status(400).json({ msg: "Email ou senha incorretos" })
         return
     }
 
+    // Creating the access and refresh token
     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
     const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
