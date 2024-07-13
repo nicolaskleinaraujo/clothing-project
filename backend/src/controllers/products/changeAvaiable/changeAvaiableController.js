@@ -14,6 +14,17 @@ const changeAvaiableController = async (req, res) => {
         res.status(404).json({ msg: "Produto não encontrado" })
         return
     }
+
+    try {
+        await prisma.products.update({ 
+            where: { id }, 
+            data: { avaiable: !product.avaiable } 
+        })
+
+        res.status(200).json({ msg: "Produto atualizado com sucesso" })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
+    }
 }
 
 module.exports = changeAvaiableController
