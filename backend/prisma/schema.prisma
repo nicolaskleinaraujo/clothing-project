@@ -30,7 +30,7 @@ model Address {
 }
 
 model Products {
-  id          Int     @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String
   image       String
@@ -38,5 +38,13 @@ model Products {
   sizes       String
   colors      String
   quantity    Int
-  avaiable    Boolean @default(true)
+  avaiable    Boolean    @default(true)
+  category    Categories @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+}
+
+model Categories {
+  id       Int        @id @default(autoincrement())
+  name     String
+  products Products[]
 }
