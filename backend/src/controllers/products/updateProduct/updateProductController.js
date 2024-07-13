@@ -4,6 +4,7 @@ const updateProductController = async (req, res) => {
     const {
         id,
         name,
+        description,
         price,
         sizes,
         colors,
@@ -13,6 +14,7 @@ const updateProductController = async (req, res) => {
     if (
         isNaN(id) ||
         name === "" ||
+        description === "" ||
         isNaN(price) ||
         sizes === "" ||
         colors === "" ||
@@ -34,6 +36,7 @@ const updateProductController = async (req, res) => {
             where: { id },
             data: {
                 name,
+                description,
                 price: parseFloat(price),
                 sizes,
                 colors,
