@@ -1,6 +1,4 @@
 const prisma = require("../../../db/client")
-const fs = require("node:fs")
-const path = require("node:path")
 
 const updateProductController = async (req, res) => {
     const {
@@ -11,8 +9,6 @@ const updateProductController = async (req, res) => {
         colors,
         quantity,
     } = req.body
-
-    const imageName = req.file.filename
 
     if (
         isNaN(id) ||
@@ -31,6 +27,23 @@ const updateProductController = async (req, res) => {
     if (!product) {
         res.status(404).json({ msg: "Produto não encontrado" })
         return
+    }
+
+    try {
+        const newProduct = prisma.products.update({
+            where: { id },
+            data: {
+                name,
+                price,
+                sizes,
+                colors,
+                quantity,
+            }
+        })
+
+        res.status(200).json({ msg: "Produto atualizado com sucesso", newProduct })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
     }
 }
 
