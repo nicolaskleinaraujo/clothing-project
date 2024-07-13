@@ -1,6 +1,6 @@
 // Imports
 const router = require("express").Router()
-const productController = require("../controllers/products/index")
+const productController = require("../controllers/product/index")
 const validateAdmin = require("../middlewares/validateAdmin")
 
 // Multer
