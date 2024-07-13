@@ -23,14 +23,14 @@ const updateProductController = async (req, res) => {
     }
 
     // Checking if the provided product ID is valid
-    const product = await prisma.products.findUnique({ where: id })
+    const product = await prisma.products.findUnique({ where: { id } })
     if (!product) {
         res.status(404).json({ msg: "Produto não encontrado" })
         return
     }
 
     try {
-        const newProduct = prisma.products.update({
+        const newProduct = await prisma.products.update({
             where: { id },
             data: {
                 name,
