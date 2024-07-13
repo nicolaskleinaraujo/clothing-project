@@ -8,6 +8,7 @@ const createProductController = async (req, res) => {
         sizes,
         colors,
         quantity,
+        categoryId,
     } = req.body
 
     const imageName = req.file.filename
@@ -18,7 +19,8 @@ const createProductController = async (req, res) => {
         isNaN(price) ||
         sizes === "" ||
         colors === "" ||
-        isNaN(quantity)
+        isNaN(quantity) ||
+        isNaN(categoryId)
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -34,6 +36,7 @@ const createProductController = async (req, res) => {
                 sizes,
                 colors,
                 quantity: parseInt(quantity),
+                categoryId: parseInt(categoryId),
             }
         })
 
