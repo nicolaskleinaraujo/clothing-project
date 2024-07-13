@@ -1,4 +1,5 @@
 // Controllers
+const changeAvaiableController = require("./changeAvaiable/changeAvaiableController")
 const createProductController = require("./createProduct/createProductController")
 const deleteProductController = require("./deleteProduct/deleteProductController")
 const updateImageController = require("./updateImage/updateImageController")
@@ -10,6 +11,7 @@ const productController = {
     updateProductController,
     updateImageController,
     deleteProductController,
+    changeAvaiableController,
 }
 
 module.exports = productController
