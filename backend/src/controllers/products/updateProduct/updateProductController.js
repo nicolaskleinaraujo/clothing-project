@@ -9,6 +9,7 @@ const updateProductController = async (req, res) => {
         sizes,
         colors,
         quantity,
+        categoryId,
     } = req.body
 
     if (
@@ -18,7 +19,8 @@ const updateProductController = async (req, res) => {
         isNaN(price) ||
         sizes === "" ||
         colors === "" ||
-        isNaN(quantity)
+        isNaN(quantity) ||
+        isNaN(categoryId)
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -41,7 +43,8 @@ const updateProductController = async (req, res) => {
                 sizes,
                 colors,
                 quantity: parseInt(quantity),
-            }
+                categoryId: parseInt(categoryId),
+            },
         })
 
         res.status(200).json({ msg: "Produto atualizado com sucesso", newProduct })
