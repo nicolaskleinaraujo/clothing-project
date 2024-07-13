@@ -11,9 +11,6 @@ const createProductController = async (req, res) => {
 
     const imageName = req.file.filename
 
-    parseInt(quantity)
-    parseFloat(price)
-
     if (
         name === "" ||
         isNaN(price) ||
@@ -30,10 +27,10 @@ const createProductController = async (req, res) => {
             data: {
                 name,
                 image: imageName,
-                price,
+                price: parseFloat(price),
                 sizes,
                 colors,
-                quantity,
+                quantity: parseInt(quantity),
             }
         })
 
