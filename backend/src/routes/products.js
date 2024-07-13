@@ -9,5 +9,6 @@ const upload = multer({ storage })
 
 // Routes
 router.route("/").post(upload.single("file"), (req, res) => productController.createProductController(req, res))
+router.route("/").put(upload.single("file"), (req, res) => productController.createProductController(req, res))
 
 module.exports = router
