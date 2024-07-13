@@ -34,10 +34,10 @@ const updateProductController = async (req, res) => {
             where: { id },
             data: {
                 name,
-                price,
+                price: parseFloat(price),
                 sizes,
                 colors,
-                quantity,
+                quantity: parseInt(quantity),
             }
         })
 
