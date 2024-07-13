@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 
 const users = require("./routes/users")
 const address = require("./routes/address")
+const products = require("./routes/products")
 
 // Configs
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
@@ -23,5 +24,6 @@ app.get("/", (req, res) => {
 })
 app.use("/users", users)
 app.use("/address", address)
+app.use("/products", products)
 
 module.exports = app
