@@ -3,6 +3,7 @@ const prisma = require("../../../db/client")
 const createProductController = async (req, res) => {
     const {
         name,
+        description,
         price,
         sizes,
         colors,
@@ -13,6 +14,7 @@ const createProductController = async (req, res) => {
 
     if (
         name === "" ||
+        description === "" ||
         isNaN(price) ||
         sizes === "" ||
         colors === "" ||
@@ -26,6 +28,7 @@ const createProductController = async (req, res) => {
         const product = await prisma.products.create({
             data: {
                 name,
+                description,
                 image: imageName,
                 price: parseFloat(price),
                 sizes,
