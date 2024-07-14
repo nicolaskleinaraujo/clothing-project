@@ -8,6 +8,7 @@ const path = require("node:path")
 const users = require("./routes/users")
 const address = require("./routes/address")
 const products = require("./routes/products")
+const categories = require("./routes/categories")
 
 // Configs
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
@@ -27,5 +28,6 @@ app.use("/images", express.static(path.resolve("product_images")))
 app.use("/users", users)
 app.use("/address", address)
 app.use("/products", products)
+app.use("/categories", categories)
 
 module.exports = app
