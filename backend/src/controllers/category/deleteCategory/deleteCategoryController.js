@@ -13,6 +13,14 @@ const deleteCategoryController = async (req, res) => {
         res.status(404).json({ msg: "Categoria não encontrada" })
         return
     }
+
+    try {
+        await prisma.categories.delete({ where: { id } })
+
+        res.status(200).json({ msg: "Categoria deletada com sucesso" })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
+    }
 }
 
 module.exports = deleteCategoryController
