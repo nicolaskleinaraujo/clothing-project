@@ -21,6 +21,17 @@ const updateCategoryController = async (req, res) => {
         res.status(404).json({ msg: "Categoria não encontrada" })
         return
     }
+
+    try {
+        const newCategory = await prisma.categories.update({
+            where: { id },
+            data: { name },
+        })
+
+        res.status(200).json({ msg: "Categoria atualizada com sucesso", newCategory })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
+    }
 }
 
 module.exports = updateCategoryController
