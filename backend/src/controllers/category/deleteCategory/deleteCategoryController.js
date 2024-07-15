@@ -15,11 +15,13 @@ const deleteCategoryController = async (req, res) => {
     }
 
     try {
+        await prisma.products.deleteMany({ where: { categoryId: id } })
+
         await prisma.categories.delete({ where: { id } })
 
         res.status(200).json({ msg: "Categoria deletada com sucesso" })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
