@@ -10,7 +10,7 @@ const updateCategoryController = async (req, res) => {
 
     // Checks if the category name is in use
     const nameInUse = await prisma.categories.findUnique({ where: { name } })
-    if (nameInUse.id != id) {
+    if (nameInUse && nameInUse.id != id) {
         res.status(400).json({ msg: "Nome já em uso" })
         return
     }
