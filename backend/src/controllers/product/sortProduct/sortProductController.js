@@ -34,6 +34,16 @@ const sortProductController = async (req, res) => {
             },
         }))
     }
+
+    try {
+        const products = await prisma.products.findMany({
+            where: whereClause
+        })
+    
+        res.status(200).json({ msg: "Feito", products })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
+    }
 }
 
 module.exports = sortProductController
