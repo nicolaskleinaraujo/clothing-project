@@ -35,7 +35,7 @@ model Products {
   description String
   image       String
   price       Float
-  sizes       String
+  sizes       Sizes[]    @relation("ProductSizes")
   colors      String
   quantity    Int
   avaiable    Boolean    @default(true)
@@ -47,4 +47,10 @@ model Categories {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   products Products[]
+}
+
+model Sizes {
+  id       Int        @id @default(autoincrement())
+  size     String     @unique
+  products Products[] @relation("ProductSizes")
 }
