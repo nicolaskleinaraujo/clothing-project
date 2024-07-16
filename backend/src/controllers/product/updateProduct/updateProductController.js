@@ -27,11 +27,21 @@ const updateProductController = async (req, res) => {
     }
 
     // Checking if the provided product ID is valid
-    const product = await prisma.products.findUnique({ where: { id } })
+    const product = await prisma.products.findUnique({ where: { id }, include: { sizes: true } })
     if (!product) {
         res.status(404).json({ msg: "Produto não encontrado" })
         return
     }
+
+    // Transforming the sizes string into an array
+    const sizesArray = sizes.split(", ").map(size => size.trim())
+
+    // Creating the disconnect and connectOrCreate prisma payload
+    const disconnect = product.sizes.map(size => ({ size: size.size }))
+    const connectOrCreate = sizesArray.map(size => ({
+        where: { size: size },
+        create: { size: size },
+    }))
 
     try {
         const newProduct = await prisma.products.update({
@@ -40,7 +50,7 @@ const updateProductController = async (req, res) => {
                 name,
                 description,
                 price: parseFloat(price),
-                sizes,
+                sizes: { disconnect, connectOrCreate },
                 colors,
                 quantity: parseInt(quantity),
                 categoryId: parseInt(categoryId),
