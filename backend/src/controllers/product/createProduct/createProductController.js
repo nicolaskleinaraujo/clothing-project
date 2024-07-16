@@ -26,14 +26,14 @@ const createProductController = async (req, res) => {
         return
     }
 
+    // Transforming the sizes string into an array
     const sizesArray = sizes.split(", ").map(size => size.trim())
-    console.log(sizesArray)
 
+    // Creating the connectOrCreate prisma payload
     const connectOrCreate = sizesArray.map(size => ({
-        where: { name: size },
-        create: { name: size },
+        where: { size: size },
+        create: { size: size },
     }))
-    console.log(connectOrCreate)
 
     try {
         const product = await prisma.products.create({
@@ -42,12 +42,7 @@ const createProductController = async (req, res) => {
                 description,
                 image: imageName,
                 price: parseFloat(price),
-                sizes: {
-                    connectOrCreate: sizesArray.map(size => ({
-                        where: { name: size },
-                        create: { name: size },
-                    })),
-                },
+                sizes: { connectOrCreate },
                 colors,
                 quantity: parseInt(quantity),
                 categoryId: parseInt(categoryId),
