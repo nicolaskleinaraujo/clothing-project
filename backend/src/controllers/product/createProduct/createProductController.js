@@ -26,6 +26,15 @@ const createProductController = async (req, res) => {
         return
     }
 
+    const sizesArray = sizes.split(", ").map(size => size.trim())
+    console.log(sizesArray)
+
+    const connectOrCreate = sizesArray.map(size => ({
+        where: { name: size },
+        create: { name: size },
+    }))
+    console.log(connectOrCreate)
+
     try {
         const product = await prisma.products.create({
             data: {
@@ -33,11 +42,17 @@ const createProductController = async (req, res) => {
                 description,
                 image: imageName,
                 price: parseFloat(price),
-                sizes,
+                sizes: {
+                    connectOrCreate: sizesArray.map(size => ({
+                        where: { name: size },
+                        create: { name: size },
+                    })),
+                },
                 colors,
                 quantity: parseInt(quantity),
                 categoryId: parseInt(categoryId),
-            }
+            },
+            include: { sizes: true }
         })
 
         res.status(201).json({ msg: "Produto criado com sucesso", product })
