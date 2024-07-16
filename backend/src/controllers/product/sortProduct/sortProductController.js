@@ -2,29 +2,38 @@ const prisma = require("../../../db/client")
 
 const sortProductController = async (req, res) => {
     const category = req.query.category
-    const size = req.query.size
+    const sizes = req.query.sizes
 
+    // Creating the where used to sort the products
     const whereClause = {}
 
-    console.log(category)
-    console.log(size)
+    if (category && sizes) {
+        sizesArray = sizes.split(",").map(size => size.trim())
 
-    if (category && size) {
-        whereClause.categoryId = parseInt(category)
-        whereClause.sizes = size
+        whereClause.AND = [
+            { categoryId: parseInt(category) }, 
+
+            ...sizesArray.map(size => ({
+                sizes: {
+                    some: {
+                        size: size,
+                    },
+                },
+            }))
+        ]
     } else if (category) {
         whereClause.categoryId = parseInt(category)
-    } else if (size) {
-        whereClause.sizes = size
+    } else if (sizes) {
+        sizesArray = sizes.split(",").map(size => size.trim())
+
+        whereClause.AND = sizesArray.map(size => ({
+            sizes: {
+                some: {
+                    size: size,
+                },
+            },
+        }))
     }
-
-    console.log(whereClause)
-
-    const products = await prisma.products.findMany({
-        where: whereClause
-    })
-
-    res.status(200).json({ msg: "Feito", products })
 }
 
 module.exports = sortProductController
