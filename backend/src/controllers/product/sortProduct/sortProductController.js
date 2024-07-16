@@ -4,7 +4,7 @@ const sortProductController = async (req, res) => {
     const category = req.query.category
     const sizes = req.query.sizes
 
-    // Creating the where used to sort the products
+    // Creating the where payload used to sort the products
     const whereClause = {}
 
     if (category && sizes) {
@@ -40,7 +40,7 @@ const sortProductController = async (req, res) => {
             where: whereClause
         })
     
-        res.status(200).json({ msg: "Feito", products })
+        res.status(200).json({ msg: "Pesquisa feita com sucesso", products })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
