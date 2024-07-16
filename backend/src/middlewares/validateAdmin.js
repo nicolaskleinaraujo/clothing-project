@@ -4,7 +4,7 @@ const validateAdmin = async (req, res, next) => {
     const userId = req.body.userId
 
     if (isNaN(userId)) {
-        res.status(400).json({ msg: "Informações insuficientes1" })
+        res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
 
