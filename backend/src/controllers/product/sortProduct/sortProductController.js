@@ -12,7 +12,6 @@ const sortProductController = async (req, res) => {
 
         whereClause.AND = [
             { categoryId: parseInt(category) }, 
-
             ...sizesArray.map(size => ({
                 sizes: {
                     some: {
@@ -21,8 +20,6 @@ const sortProductController = async (req, res) => {
                 },
             }))
         ]
-    } else if (category) {
-        whereClause.categoryId = parseInt(category)
     } else if (sizes) {
         sizesArray = sizes.split(",").map(size => size.trim())
 
@@ -33,6 +30,8 @@ const sortProductController = async (req, res) => {
                 },
             },
         }))
+    } else if (category) {
+        whereClause.categoryId = parseInt(category)
     }
 
     try {
@@ -40,7 +39,7 @@ const sortProductController = async (req, res) => {
             where: whereClause
         })
     
-        res.status(200).json({ msg: "Pesquisa feita com sucesso", products })
+        res.status(200).json({ msg: "Pesquisa feita com sucesso", products, whereClause })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
