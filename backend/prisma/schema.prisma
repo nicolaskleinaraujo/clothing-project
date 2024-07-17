@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String    @unique
-  number    String    @unique
+  email     String  @unique
+  number    String  @unique
   password  String
-  isAdmin   Boolean   @default(false)
-  Address   Address[]
+  isAdmin   Boolean @default(false)
+
+  Address Address[]
 }
 
 model Address {
@@ -25,32 +26,59 @@ model Address {
   district String
   street   String
   houseNum Int
-  user     User   @relation(fields: [userId], references: [id])
   userId   Int
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Products {
-  id          Int        @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String
   image       String
   price       Float
-  sizes       Sizes[]    @relation("ProductSizes")
   colors      String
   quantity    Int
-  avaiable    Boolean    @default(true)
-  category    Categories @relation(fields: [categoryId], references: [id])
+  avaiable    Boolean @default(true)
   categoryId  Int
+
+  sizes        Sizes[]
+  category     Categories     @relation(fields: [categoryId], references: [id])
+  OrderProduct OrderProduct[]
 }
 
 model Categories {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
   products Products[]
 }
 
 model Sizes {
-  id       Int        @id @default(autoincrement())
-  size     String     @unique
-  products Products[] @relation("ProductSizes")
+  id   Int    @id @default(autoincrement())
+  size String @unique
+
+  products     Products[]
+  OrderProduct OrderProduct[]
+}
+
+model Orders {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+
+  orderProducts OrderProduct[]
+}
+
+model OrderProduct {
+  id        Int @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  sizeId    Int
+  quantity  Int
+
+  order   Orders   @relation(fields: [orderId], references: [id])
+  product Products @relation(fields: [productId], references: [id])
+  size    Sizes    @relation(fields: [sizeId], references: [id])
+
+  @@unique([orderId, productId, sizeId])
 }
