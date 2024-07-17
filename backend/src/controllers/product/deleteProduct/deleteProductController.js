@@ -11,11 +11,15 @@ const deleteProductController = async (req, res) => {
     }
 
     // Checks if the provided product ID is valid
-    const product = await prisma.products.findUnique({ where: { id } })
+    const product = await prisma.products.findUnique({ where: { id }, include: { OrderProduct: true } })
     if (!product) {
         res.status(404).json({ msg: "Produto não encontrado" })
         return
     }
+
+    /*if (product.OrderProduct.length > 0) {
+        await prisma.orders.deleteMany({ where: {  } })
+    }*/
 
     try {
         // Deleting the image from local storage

@@ -67,6 +67,7 @@ model Orders {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
   userId     Int
+  price      Float
 
   orderProducts OrderProduct[]
   user          User           @relation(fields: [userId], references: [id])
