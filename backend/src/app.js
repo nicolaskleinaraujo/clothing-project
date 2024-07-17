@@ -9,6 +9,7 @@ const users = require("./routes/users")
 const address = require("./routes/address")
 const products = require("./routes/products")
 const categories = require("./routes/categories")
+const orders = require("./routes/orders")
 
 // Configs
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
@@ -29,5 +30,6 @@ app.use("/users", users)
 app.use("/address", address)
 app.use("/products", products)
 app.use("/categories", categories)
+app.use("/orders", orders)
 
 module.exports = app
