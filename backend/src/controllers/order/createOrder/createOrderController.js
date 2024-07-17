@@ -16,6 +16,7 @@ const createOrderController = async (req, res) => {
     }))
 
     // Validates the integrity of the product informed by the client
+    let price = 0
     for (let index = 0; index < orderProducts.length; index++) {
         const id = orderData[index].productId
 
@@ -40,6 +41,9 @@ const createOrderController = async (req, res) => {
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
+
+        // Calculates the order price
+        price += product.price
     }
 
     try {
@@ -47,6 +51,7 @@ const createOrderController = async (req, res) => {
             data: {
                 orderProducts: { create: orderProducts },
                 userId,
+                price,
             }
         })
 
