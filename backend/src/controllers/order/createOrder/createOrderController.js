@@ -15,6 +15,7 @@ const createOrderController = async (req, res) => {
         quantity: item.quantity,
     }))
 
+    // Validates the integrity of the product informed by the client
     for (let index = 0; index < orderProducts.length; index++) {
         const id = orderData[index].productId
 
