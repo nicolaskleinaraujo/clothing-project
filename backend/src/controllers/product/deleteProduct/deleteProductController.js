@@ -17,10 +17,6 @@ const deleteProductController = async (req, res) => {
         return
     }
 
-    /*if (product.OrderProduct.length > 0) {
-        await prisma.orders.deleteMany({ where: {  } })
-    }*/
-
     try {
         // Deleting the image from local storage
         await fs.promises.unlink(path.resolve("product_images", product.image))
