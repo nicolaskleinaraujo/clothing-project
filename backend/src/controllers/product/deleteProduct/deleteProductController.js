@@ -25,7 +25,7 @@ const deleteProductController = async (req, res) => {
 
         res.status(200).json({ msg: "Produto deletado com sucesso" })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
