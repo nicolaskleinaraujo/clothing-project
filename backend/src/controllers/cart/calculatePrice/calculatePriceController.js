@@ -1,4 +1,4 @@
-const calculatePriceController = aysnc(req, res) => {
+const calculatePriceController = async(req, res) => {
     
 }
 
