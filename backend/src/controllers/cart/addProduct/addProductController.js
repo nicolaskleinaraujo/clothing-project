@@ -7,6 +7,19 @@ const addProductController = async(req, res) => {
     } else if (!cart) {
         cart = [ { productId, sizeId, quantity } ]
     }
+
+    try {
+        res.cookie("cart", cart, {
+            httpOnly: true,
+            signed: true,
+            secure: true,
+            sameSite: "none",
+        })
+    
+        res.status(200).json({ msg: "Produto adicionado com sucesso" })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente" })
+    }
 }
 
 module.exports = addProductController
