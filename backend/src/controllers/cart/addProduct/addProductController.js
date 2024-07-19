@@ -2,11 +2,11 @@ const addProductController = async(req, res) => {
     const { productId, sizeId, quantity } = req.body
     let cart = req.signedCookies.cart
 
-    if (cart) {
-        cart += { productId, sizeId, quantity }
-    } else if (!cart) {
-        cart = [ { productId, sizeId, quantity } ]
+    if (!cart) {
+        cart = []
     }
+
+    cart.push({ productId, sizeId, quantity })
 
     try {
         res.cookie("cart", cart, {
@@ -16,7 +16,7 @@ const addProductController = async(req, res) => {
             sameSite: "none",
         })
     
-        res.status(200).json({ msg: "Produto adicionado com sucesso" })
+        res.status(200).json({ msg: "Produto adicionado com sucesso", cart })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente" })
     }
