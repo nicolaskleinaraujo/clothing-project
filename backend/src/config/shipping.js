@@ -9,3 +9,25 @@ const shipping = axios.create({
         'User-Agent': 'Aplicação contatonkfa@gmail.com',
     },
 })
+
+const calculateShipping = async(address) => {
+    const data = {
+        from: { postal_code: "87005100" },
+        to: { postal_code: address},
+        package: {
+            "height": 4,
+            "width": 12,
+            "length": 17,
+            "weight": 0.3,
+        },
+    }
+
+    try {
+        const response = await shipping.post("/shipment/calculate", data)
+        return response
+    } catch (error) {
+        return
+    }
+}
+
+module.exports = calculateShipping
