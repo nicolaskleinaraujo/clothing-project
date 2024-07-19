@@ -1,4 +1,5 @@
 const prisma = require("../../../db/client")
+const calculateShipping = require("../../../config/shipping")
 
 const createOrderController = async (req, res) => {
     const { orderData, userId } = req.body
@@ -45,6 +46,11 @@ const createOrderController = async (req, res) => {
         // Calculates the order price
         price += product.price
     }
+
+    // Gets the user address to calculate the shipping
+    const user = await prisma.user.findUnique({ where: { id: userId }, include: { Address: true } })
+    const shipping = await calculateShipping(user.Address[0].cep)
+    price += parseInt(shipping.price)
 
     try {
         const order = await prisma.orders.create({
