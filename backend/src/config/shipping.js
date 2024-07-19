@@ -1,5 +1,6 @@
 const axios = require("axios")
 
+// Creates the axios config
 const shipping = axios.create({
     baseURL: "https://www.melhorenvio.com.br/api/v2/me",
     headers: {
@@ -11,9 +12,13 @@ const shipping = axios.create({
 })
 
 const calculateShipping = async(address) => {
+    // Sanitize the given address
+    const sanitizedAddress = address.replace("-", "")
+
+    // Prepares the default data
     const data = {
-        from: { postal_code: "87005100" },
-        to: { postal_code: address},
+        from: { postal_code: "06786230" },
+        to: { postal_code: sanitizedAddress},
         package: {
             "height": 4,
             "width": 12,
@@ -24,7 +29,9 @@ const calculateShipping = async(address) => {
 
     try {
         const response = await shipping.post("/shipment/calculate", data)
-        return response
+
+        const services = response.data
+        return services.find(service => service.name === "PAC")
     } catch (error) {
         return
     }
