@@ -68,6 +68,8 @@ model Orders {
   created_at DateTime @default(now())
   userId     Int
   price      Float
+  paid       Boolean  @default(false)
+  received   Boolean  @default(false)
 
   orderProducts OrderProduct[]
   user          User           @relation(fields: [userId], references: [id])
