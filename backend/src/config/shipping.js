@@ -17,7 +17,7 @@ const calculateShipping = async(address) => {
 
     // Prepares the default data
     const data = {
-        from: { postal_code: "06786230" },
+        from: { postal_code: process.env.DEFAULT_CEP },
         to: { postal_code: sanitizedAddress},
         package: {
             "height": 4,
