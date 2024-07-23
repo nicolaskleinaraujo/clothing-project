@@ -1,4 +1,5 @@
 const prisma = require("../../../db/client")
+const slugify = require("slugify")
 
 const createProductController = async (req, res) => {
     const {
@@ -36,7 +37,7 @@ const createProductController = async (req, res) => {
     }))
 
     // Creating the product slug
-    const slug = ""
+    const slug = slugify(name + " " + Date.now(), { lower: true })
 
     try {
         const product = await prisma.products.create({
@@ -49,6 +50,7 @@ const createProductController = async (req, res) => {
                 colors,
                 quantity: parseInt(quantity),
                 categoryId: parseInt(categoryId),
+                slug,
             },
             include: { sizes: true }
         })
