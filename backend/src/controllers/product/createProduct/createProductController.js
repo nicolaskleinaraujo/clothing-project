@@ -35,6 +35,9 @@ const createProductController = async (req, res) => {
         create: { size: size },
     }))
 
+    // Creating the product slug
+    const slug = ""
+
     try {
         const product = await prisma.products.create({
             data: {
