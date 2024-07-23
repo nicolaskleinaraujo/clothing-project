@@ -8,7 +8,10 @@ const calculatePriceController = async(req, res) => {
         return
     }
 
-    let price = 0
+    let productPrice = 0
+    let shippingPrice = 0
+    let orderPrice = 0
+
     for (let index = 0; index < cart.length; index++) {
         const id = cart[index].productId
 
@@ -35,7 +38,7 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Calculates the order price
-        price += product.price
+        productPrice += product.price
     }
 }
 
