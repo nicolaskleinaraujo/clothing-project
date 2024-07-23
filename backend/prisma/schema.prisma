@@ -42,6 +42,7 @@ model Products {
   quantity    Int
   avaiable    Boolean @default(true)
   categoryId  Int
+  slug        String
 
   sizes        Sizes[]
   category     Categories     @relation(fields: [categoryId], references: [id])
