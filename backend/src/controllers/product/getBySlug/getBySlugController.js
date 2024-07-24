@@ -3,6 +3,11 @@ const prisma = require("../../../db/client")
 const getBySlugController = async(req, res) => {
     const slug = req.params.slug
 
+    if (!slug) {
+        res.status(400).json({ msg: "Informações insuficientes" })
+        return
+    }
+
     try {
         const product = await prisma.products.findFirst({ where: { slug }, include: { sizes: true } })
 
