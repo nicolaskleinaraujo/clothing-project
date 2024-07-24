@@ -13,10 +13,15 @@ const deleteAddressController = async (req, res) => {
         return
     }
 
-    // Checking if the provided address ID is valid
+    // Checking if the provided address ID is valid and belongs to user
     const addressExists = await prisma.address.findUnique({ where: { id } })
     if (!addressExists) {
         res.status(404).json({ msg: "Endereço não encontrado" })
+        return
+    }
+
+    if (addressExists.userId != userId) {
+        res.status(401).json({ msg: "Endereço informado não pertence ao usuario" })
         return
     }
 
