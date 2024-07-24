@@ -19,8 +19,8 @@ const validateAddress = async (req, res, next) => {
         return
     }
 
-    if (!user.Address[0].cep) {
-        res.status(401).json({ msg: "Usuario não possui endereço de entrega" })
+    if (user.Address.length === 0) {
+        res.status(401).json({ msg: "Adicione seu endereço" })
         return
     }
 
