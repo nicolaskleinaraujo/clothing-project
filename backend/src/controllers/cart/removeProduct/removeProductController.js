@@ -8,7 +8,7 @@ const removeProductController = async(req, res) => {
     }
 
     try {
-        const updatedCart = cart.filter(item => item.id !== id)
+        const updatedCart = cart.filter(item => item.productId !== id)
 
         res.cookie("cart", updatedCart, {
             httpOnly: true,
