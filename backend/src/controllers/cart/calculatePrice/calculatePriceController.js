@@ -11,6 +11,7 @@ const calculatePriceController = async(req, res) => {
     }
 
     let productPrice = 0
+    let orderProducts = []
     for (let index = 0; index < cart.length; index++) {
         const id = cart[index].productId
 
@@ -36,7 +37,11 @@ const calculatePriceController = async(req, res) => {
             return
         }
 
-        // Calculates the order price
+        // Adds the product to order products
+        product.sizes = product.sizes.filter(size => size.id === cart[index].sizeId)
+        orderProducts.push(product)
+
+        // Calculates the product price
         productPrice += product.price
     }
 
@@ -54,7 +59,14 @@ const calculatePriceController = async(req, res) => {
     
         const orderPrice = productPrice + shippingPrice
     
-        res.status(200).json({ msg: "Carrinho carregado com sucesso", productPrice, shippingPrice, orderPrice, shippingDate })
+        res.status(200).json({ 
+            msg: "Carrinho carregado com sucesso", 
+            productPrice, 
+            shippingPrice, 
+            orderPrice, 
+            shippingDate, 
+            orderProducts,
+        })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
