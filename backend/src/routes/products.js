@@ -15,5 +15,6 @@ router.route("/").patch(upload.single("file"), (req, res) => productController.u
 router.route("/").delete(validateAdmin, (req, res) => productController.deleteProductController(req, res))
 router.route("/avaiable").patch(validateAdmin, (req, res) => productController.changeAvaiableController(req, res))
 router.route("/").get((req, res) => productController.sortProductController(req, res))
+router.route("/slug/:slug").get((req, res) => productController.getBySlugController(req, res))
 
 module.exports = router
