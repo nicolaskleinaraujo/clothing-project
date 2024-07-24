@@ -40,15 +40,24 @@ const calculatePriceController = async(req, res) => {
         productPrice += product.price
     }
 
-    // Gets the user address to calculate the shipping
-    const user = await prisma.user.findUnique({ where: { id: userId }, include: { Address: true } })
-    const shipping = await calculateShipping(user.Address[0].cep)
-    const shippingPrice = parseInt(shipping.price)
-    const shippingDate = shipping.delivery_time
-
-    const orderPrice = productPrice + shippingPrice
-
-    res.status(200).json({ msg: "Carrinho carregado com sucesso", productPrice, shippingPrice, orderPrice, shippingDate })
+    try {
+        // Gets the user address to calculate the shipping
+        let shippingPrice = 0
+        let shippingDate = 0
+    
+        const user = await prisma.user.findUnique({ where: { id: userId }, include: { Address: true } })
+        if (user.Address.length != 0) {
+            const shipping = await calculateShipping(user.Address[0].cep)
+            shippingPrice = parseInt(shipping.price)
+            shippingDate = parseInt(shipping.delivery_time)
+        }
+    
+        const orderPrice = productPrice + shippingPrice
+    
+        res.status(200).json({ msg: "Carrinho carregado com sucesso", productPrice, shippingPrice, orderPrice, shippingDate })
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
+    }
 }
 
 module.exports = calculatePriceController
