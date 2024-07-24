@@ -2,15 +2,16 @@ const prisma = require("../../../db/client")
 const calculateShipping = require("../../../config/shipping")
 
 const createOrderController = async (req, res) => {
-    const { orderData, userId } = req.body
+    const cart = req.signedCookies.cart
+    const { userId } = req.body
 
-    if (!orderData) {
+    if (!cart) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
 
     // Creates the order product payload to create
-    const orderProducts = orderData.map(item => ({
+    const orderProducts = cart.map(item => ({
         product: { connect: { id: item.productId } },
         size: { connect: { id: item.sizeId } },
         quantity: item.quantity,
@@ -19,7 +20,7 @@ const createOrderController = async (req, res) => {
     // Validates the integrity of the product informed by the client
     let price = 0
     for (let index = 0; index < orderProducts.length; index++) {
-        const id = orderData[index].productId
+        const id = cart[index].productId
 
         const product = await prisma.products.findUnique({ where: { id }, include: { sizes: true } })
         if (!product) {
@@ -32,16 +33,23 @@ const createOrderController = async (req, res) => {
             return
         }
 
-        if (product.quantity < orderData[index].quantity) {
+        if (product.quantity < cart[index].quantity) {
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
 
-        const sizeAvaiable = product.sizes.some(size => size.id === orderData[index].sizeId)
+        const sizeAvaiable = product.sizes.some(size => size.id === cart[index].sizeId)
         if (!sizeAvaiable) {
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
+
+        // Removes the product from the stock
+        const quantityToUpdate = product.quantity - cart[index].quantity
+        await prisma.products.update({
+            where: { id },
+            data: { quantity: quantityToUpdate },
+        })
 
         // Calculates the order price
         price += product.price
