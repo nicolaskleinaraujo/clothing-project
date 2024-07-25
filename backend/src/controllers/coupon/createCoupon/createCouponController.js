@@ -16,7 +16,7 @@ const createCouponController = async(req, res) => {
         }
 
         const coupon = await prisma.coupon.create({ data: { code } })
-        
+
         res.status(201).json({ msg: "Cupom criado com sucesso", coupon })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
