@@ -17,10 +17,12 @@ const invalidateCouponController = async(req, res) => {
 
         const updatedCoupon = await prisma.coupon.update({
             where: { id },
-            data: {  }
+            data: { valid: !coupon.valid },
         })
+
+        res.status(200).json({ msg: "Cupom alterado com sucesso", updatedCoupon })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
