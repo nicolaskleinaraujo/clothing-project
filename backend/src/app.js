@@ -11,6 +11,7 @@ const products = require("./routes/products")
 const categories = require("./routes/categories")
 const orders = require("./routes/orders")
 const cart = require("./routes/cart")
+const coupons = require("./routes/coupons")
 
 // Configs
 app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
@@ -33,5 +34,6 @@ app.use("/products", products)
 app.use("/categories", categories)
 app.use("/orders", orders)
 app.use("/cart", cart)
+app.use("/coupons", coupons)
 
 module.exports = app
