@@ -1,9 +1,9 @@
 const prisma = require("../../../db/client")
 
 const createCouponController = async(req, res) => {
-    const code = req.body.code
+    const { code, percentage, quantity } = req.body
 
-    if (code === "") {
+    if (code === "" || percentage == "" || isNaN(quantity)) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
@@ -15,7 +15,13 @@ const createCouponController = async(req, res) => {
             return
         }
 
-        const coupon = await prisma.coupon.create({ data: { code } })
+        const coupon = await prisma.coupon.create({ 
+            data: { 
+                code, 
+                percentage, 
+                quantity: parseInt(quantity) 
+            } 
+        })
 
         res.status(201).json({ msg: "Cupom criado com sucesso", coupon })
     } catch (error) {
