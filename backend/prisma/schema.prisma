@@ -96,6 +96,7 @@ model Coupon {
   code       String  @unique
   percentage Boolean
   quantity   Int
+  valid      Boolean @default(true)
   userId     Int?
 
   user User? @relation(fields: [userId], references: [id])

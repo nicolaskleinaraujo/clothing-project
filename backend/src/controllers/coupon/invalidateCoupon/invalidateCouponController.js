@@ -14,6 +14,11 @@ const invalidateCouponController = async(req, res) => {
             res.status(404).json({ msg: "Cupom não encontrado" })
             return
         }
+
+        const updatedCoupon = await prisma.coupon.update({
+            where: { id },
+            data: {  }
+        })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente" })
     }
