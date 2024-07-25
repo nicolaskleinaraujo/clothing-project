@@ -18,6 +18,7 @@ model User {
 
   Address Address[]
   Orders  Orders[]
+  Coupon  Coupon[]
 }
 
 model Address {
@@ -88,4 +89,12 @@ model OrderProduct {
   size    Sizes    @relation(fields: [sizeId], references: [id])
 
   @@unique([orderId, productId, sizeId])
+}
+
+model Coupon {
+  id     Int    @id @default(autoincrement())
+  code   String
+  userId Int
+
+  user User @relation(fields: [userId], references: [id])
 }
