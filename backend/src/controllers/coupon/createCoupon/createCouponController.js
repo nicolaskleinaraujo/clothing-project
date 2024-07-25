@@ -7,6 +7,12 @@ const createCouponController = async(req, res) => {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
+
+    try {
+        const codeAlreadyExists = prisma.coupon.
+    } catch (error) {
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
+    }
 }
 
 module.exports = createCouponController
