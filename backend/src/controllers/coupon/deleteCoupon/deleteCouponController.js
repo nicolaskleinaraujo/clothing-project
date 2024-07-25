@@ -14,6 +14,10 @@ const deleteCouponController = async(req, res) => {
             res.status(404).json({ msg: "Cupom não encontrado" })
             return
         }
+
+        await prisma.coupon.delete({ where: { id } })
+
+        res.status(200).json({ msg: "Cupom deletado com sucesso" })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
