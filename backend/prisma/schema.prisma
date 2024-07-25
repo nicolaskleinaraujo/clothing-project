@@ -94,7 +94,7 @@ model OrderProduct {
 model Coupon {
   id     Int    @id @default(autoincrement())
   code   String @unique
-  userId Int
+  userId Int?
 
-  user User @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
 }
