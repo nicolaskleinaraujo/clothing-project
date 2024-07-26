@@ -58,12 +58,11 @@ const calculatePriceController = async(req, res) => {
         }
     
         const orderPrice = productPrice + shippingPrice
+        const allPrices = { productPrice, shippingPrice, orderPrice }
     
         res.status(200).json({ 
             msg: "Carrinho carregado com sucesso", 
-            productPrice, 
-            shippingPrice, 
-            orderPrice, 
+            allPrices,
             shippingDate, 
             orderProducts,
         })
