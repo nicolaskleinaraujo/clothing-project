@@ -65,12 +65,16 @@ const calculatePriceController = async(req, res) => {
         if (coupon) {
             const searchCoupon = await prisma.coupon.findUnique({ where: { code: coupon } })
 
-            if (searchCoupon.percentage) {
-                discount = orderPrice * (searchCoupon.quantity / 100)
-                orderPrice -= parseFloat(discount)
-            } else if (!searchCoupon.percentage) {
-                discount = orderPrice - searchCoupon.quantity
-                orderPrice -= parseFloat(discount)
+            if (searchCoupon.minimum < orderPrice) {
+                if (searchCoupon.percentage) {
+                    discount = orderPrice * (searchCoupon.quantity / 100)
+                    orderPrice -= parseFloat(discount)
+                } else if (!searchCoupon.percentage) {
+                    discount = orderPrice - searchCoupon.quantity
+                    orderPrice -= parseFloat(discount)
+                }
+            } else if (searchCoupon.minimum > orderPrice) {
+                discount = `Pedido minimo de R$${searchCoupon.minimum}`
             }
         }
 
