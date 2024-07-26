@@ -63,27 +63,35 @@ const calculatePriceController = async(req, res) => {
         // Calculates and aplies discount to order price
         let discount
         if (coupon) {
-            const searchCoupon = await prisma.coupon.findUnique({ where: { code: coupon } })
+            const searchCoupon = await prisma.coupon.findUnique({
+                where: { code: coupon },
+                include: { users: true }, 
+            })
 
-            if (searchCoupon.minimum < orderPrice) {
-                if (searchCoupon.percentage) {
-                    discount = orderPrice * (searchCoupon.quantity / 100)
-                    orderPrice -= parseFloat(discount)
-                } else if (!searchCoupon.percentage) {
-                    discount = orderPrice - searchCoupon.quantity
-                    orderPrice -= parseFloat(discount)
+            if (!searchCoupon) {
+                res.status(404).json({ msg: "Codigo de cupom incorreto" })
+                return
+            }
+
+            const alreadyUsed = searchCoupon.users.find(userCoupon => userCoupon.id === userId)
+            if (!alreadyUsed) {
+                if (searchCoupon.minimum < orderPrice) {
+                    if (searchCoupon.percentage) {
+                        discount = orderPrice * (searchCoupon.quantity / 100)
+                        orderPrice -= parseFloat(discount)
+                    } else if (!searchCoupon.percentage) {
+                        discount = orderPrice - searchCoupon.quantity
+                        orderPrice -= parseFloat(discount)
+                    }
+                } else if (searchCoupon.minimum > orderPrice) {
+                    discount = `Pedido minimo de R$${searchCoupon.minimum}`
                 }
-
-                await prisma.coupon.update({
-                    where: { code: coupon },
-                    data: { userId: parseInt(userId) },
-                })
-            } else if (searchCoupon.minimum > orderPrice) {
-                discount = `Pedido minimo de R$${searchCoupon.minimum}`
+            } else if (alreadyUsed) {
+                discount = "Cupom já foi utilizado"
             }
         }
 
-        // Payloads all prices
+        // Payload all prices
         const allPrices = { productPrice, shippingPrice, orderPrice, discount }        
     
         res.status(200).json({ 
