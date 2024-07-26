@@ -5,7 +5,7 @@ const calculatePriceController = async(req, res) => {
     const cart = req.signedCookies.cart
     const { userId, coupon } = req.body
 
-    if (!cart) {
+    if (!cart || cart.length === 0) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
