@@ -3,7 +3,7 @@ const calculateShipping = require("../../../config/shipping")
 
 const calculatePriceController = async(req, res) => {
     const cart = req.signedCookies.cart
-    const userId = parseInt(req.body.userId)
+    const { userId, coupon } = req.body
 
     if (!cart) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -50,15 +50,32 @@ const calculatePriceController = async(req, res) => {
         let shippingPrice = 0
         let shippingDate = 0
     
-        const user = await prisma.user.findUnique({ where: { id: userId }, include: { Address: true } })
+        const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
         if (user.Address.length != 0) {
             const shipping = await calculateShipping(user.Address[0].cep)
             shippingPrice = parseInt(shipping.price)
             shippingDate = parseInt(shipping.delivery_time)
         }
-    
-        const orderPrice = productPrice + shippingPrice
-        const allPrices = { productPrice, shippingPrice, orderPrice }
+
+        // Calculates the order price
+        let orderPrice = productPrice + shippingPrice
+
+        // Calculates and aplies discount to order price
+        let discount
+        if (coupon) {
+            const searchCoupon = await prisma.coupon.findUnique({ where: { code: coupon } })
+
+            if (searchCoupon.percentage) {
+                discount = orderPrice * (searchCoupon.quantity / 100)
+                orderPrice -= parseFloat(discount)
+            } else if (!searchCoupon.percentage) {
+                discount = orderPrice - searchCoupon.quantity
+                orderPrice -= parseFloat(discount)
+            }
+        }
+
+        // Payloads all prices
+        const allPrices = { productPrice, shippingPrice, orderPrice, discount }        
     
         res.status(200).json({ 
             msg: "Carrinho carregado com sucesso", 
