@@ -18,7 +18,7 @@ model User {
 
   Address Address[]
   Orders  Orders[]
-  Coupon  Coupon[]
+  coupons Coupon[]  @relation("UsersCoupon")
 }
 
 model Address {
@@ -98,7 +98,6 @@ model Coupon {
   quantity   Int
   valid      Boolean @default(true)
   minimum    Int     @default(0)
-  userId     Int?
 
-  user User? @relation(fields: [userId], references: [id])
+  users User[] @relation("UsersCoupon")
 }

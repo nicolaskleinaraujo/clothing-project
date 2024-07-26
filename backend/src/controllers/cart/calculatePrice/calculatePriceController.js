@@ -73,6 +73,11 @@ const calculatePriceController = async(req, res) => {
                     discount = orderPrice - searchCoupon.quantity
                     orderPrice -= parseFloat(discount)
                 }
+
+                await prisma.coupon.update({
+                    where: { code: coupon },
+                    data: { userId: parseInt(userId) },
+                })
             } else if (searchCoupon.minimum > orderPrice) {
                 discount = `Pedido minimo de R$${searchCoupon.minimum}`
             }
