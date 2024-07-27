@@ -14,6 +14,10 @@ const sortByUserController = async(req, res) => {
             res.status(401).json({ msg: "Usuario não é admin" })
             return
         }
+
+        const orders = await prisma.orders.findMany({ where: { userId: id }, include: { orderProducts: true } })
+
+        res.status(200).json({ msg: "Pesquisa feita com sucesso", orders })
     } catch (error) {
         res.status(500).json({ msg: "Erro intero, tente novamente" })
     }
