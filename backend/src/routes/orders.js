@@ -10,5 +10,6 @@ const validateAddress = require("../middlewares/validateAddress")
 router.route("/").post(validateToken, validateUser, validateAddress, (req, res) => orderController.createOrderController(req, res))
 router.route("/").delete(validateToken, validateAdmin, (req, res) => orderController.deleteOrderController(req, res))
 router.route("/").patch(validateToken, validateUser, (req, res) => orderController.updateReceivedController(req, res))
+router.route("/").get(validateToken, validateUser, (req, res) => orderController.sortByUserController(req, res))
 
 module.exports = router
