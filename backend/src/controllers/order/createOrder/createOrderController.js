@@ -104,6 +104,11 @@ const createOrderController = async (req, res) => {
                 const discount = price - searchCoupon.quantity
                 price -= parseFloat(discount)
             }
+
+            await prisma.coupon.update({
+                where: { code: coupon },
+                data: { users: { connect: [{ id: userId }] } }
+            })
         }
     }
 
