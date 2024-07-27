@@ -1,7 +1,7 @@
 const prisma = require("../../../db/client")
 
 const updateReceivedController = async(req, res) => {
-    const id = parseInt(req.body.id)
+    const { id, received, tracking_code } = req.body
 
     if (isNaN(id)) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -15,7 +15,14 @@ const updateReceivedController = async(req, res) => {
             return
         }
 
-        const updatedOrder = await prisma.orders.update({ where: { id }, data: { received: true } })
+        let data
+        if (received) {
+            data = { received: true }
+        } else if (tracking_code != "") {
+            data = { tracking_code }
+        }
+
+        const updatedOrder = await prisma.orders.update({ where: { id }, data })
 
         res.status(200).json({ msg: "Pedido atualizado com sucesso", updatedOrder })
     } catch (error) {
