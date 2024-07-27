@@ -130,10 +130,12 @@ const createOrderController = async (req, res) => {
                 orderProducts: { create: orderProducts },
                 userId,
                 price,
+                payment,
+                shipping_time: shippingDate
             }
         })
 
-        res.status(201).json({ msg: "Pedido feito com sucesso", order, payment, shippingDate })
+        res.status(201).json({ msg: "Pedido feito com sucesso", order })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
