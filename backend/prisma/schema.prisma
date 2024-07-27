@@ -74,6 +74,7 @@ model Orders {
   payment       String
   received      Boolean  @default(false)
   shipping_time Int
+  tracking_code String?
 
   orderProducts OrderProduct[]
   user          User           @relation(fields: [userId], references: [id])
