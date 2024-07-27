@@ -63,7 +63,6 @@ const createOrderController = async (req, res) => {
         }
 
         // Updates the product stock
-        // const quantityToUpdate = product.quantity - cart[index].quantity
         await prisma.products.update({
             where: { id: cart[index].productId },
             data: { quantity: product.quantity - cart[index].quantity },
