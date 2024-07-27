@@ -1,12 +1,12 @@
 const createOrderController = require("./createOrder/createOrderController")
 const deleteOrderController = require("./deleteOrder/deleteOrderController")
 const sortByUserController = require("./sortByUser/sortByUserController")
-const updateReceivedController = require("./updateReceived/updateReceivedController")
+const updateStatusController = require("./updateStatus/updateStatusController")
 
 const orderController = {
     createOrderController,
     deleteOrderController,
-    updateReceivedController,
+    updateStatusController,
     sortByUserController,
 }
 

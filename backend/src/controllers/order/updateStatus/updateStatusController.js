@@ -1,6 +1,6 @@
 const prisma = require("../../../db/client")
 
-const updateReceivedController = async(req, res) => {
+const updateStatusController = async(req, res) => {
     const { id, received, tracking_code } = req.body
 
     if (isNaN(id)) {
@@ -30,4 +30,4 @@ const updateReceivedController = async(req, res) => {
     }
 }
 
-module.exports = updateReceivedController
+module.exports = updateStatusController
