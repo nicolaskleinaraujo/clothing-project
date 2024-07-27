@@ -8,13 +8,13 @@ const preference = new Preference(client)
 
 const createPayment = async(payload) => {
   const body = {
-    "items": payload.products.map((product, index) => ({
-      "id": index + 1,
-      "title": product.name,
+    "items": [{
+      "id": 1,
+      "title": "Produtos",
       "quantity": 1,
       "currency_id": "BRL",
-      "unit_price": product.price
-    })),
+      "unit_price": payload.price
+    }],
 
     "back_urls": {
       "success": "https://www.youtube.com/",
