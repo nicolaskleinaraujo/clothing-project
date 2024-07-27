@@ -1,5 +1,6 @@
 const MercadoPago = require("mercadopago").MercadoPagoConfig
 const Preference = require("mercadopago").Preference
+const dayjs = require("dayjs")
 
 const client = new MercadoPago({
   accessToken: process.env.MERCADO_PAGO_TOKEN,
@@ -7,6 +8,9 @@ const client = new MercadoPago({
 const preference = new Preference(client)
 
 const createPayment = async(payload) => {
+  const expiration_date_from = dayjs().toISOString()
+  const expiration_date_to = dayjs().add(5, "minute").toISOString()
+
   const body = {
     "items": [{
       "id": 1,
@@ -27,7 +31,11 @@ const createPayment = async(payload) => {
     "payer": {
       "email": payload.userEmail,
       "name": payload.userName
-    }
+    },
+
+    "expires": true,
+    "expiration_date_from": expiration_date_from,
+    "expiration_date_to": expiration_date_to,
   }
 
   try {
