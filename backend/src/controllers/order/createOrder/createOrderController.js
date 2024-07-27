@@ -4,7 +4,7 @@ const createPayment = require("../../../config/mercadopago")
 
 const createOrderController = async (req, res) => {
     const cart = req.signedCookies.cart
-    const { userId } = req.body
+    const { userId, coupon } = req.body
 
     if (!cart) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -13,7 +13,7 @@ const createOrderController = async (req, res) => {
 
     // Creates the payment payload
     const paymentPayload = {
-        products: [],
+        price: 0,
         userName: "",
         userEmail: "",
     }
@@ -26,11 +26,6 @@ const createOrderController = async (req, res) => {
         const shipping = await calculateShipping(user.Address[0].cep)
         price += parseFloat(shipping.price)
         shippingDate = parseInt(shipping.delivery_time)
-
-        paymentPayload.products.push({
-            name: "Frete",
-            price: parseFloat(shipping.price),
-        })
     } else if (user.Address.length == 0) {
         res.status(400).json({ msg: "Cadastre seu endereço primeiramente" })
         return
@@ -75,12 +70,45 @@ const createOrderController = async (req, res) => {
         })
 
         // Calculates the order price
-        paymentPayload.products.push({
-            name: `${cart[index].quantity}x ${product.name}`,
-            price: product.price * cart[index].quantity,
-        })
-        price += product.price * cart[index].quantity
+        price += parseFloat((product.price * cart[index].quantity).toFixed(2))
     }
+
+    // Calculates and aplies discount to order price
+    if (coupon) {
+        const searchCoupon = await prisma.coupon.findUnique({
+            where: { code: coupon },
+            include: { users: true }, 
+        })
+
+        if (!searchCoupon) {
+            res.status(404).json({ msg: "Codigo de cupom incorreto" })
+            return
+        }
+
+        const alreadyUsed = searchCoupon.users.find(userCoupon => userCoupon.id === userId)
+        if (alreadyUsed) {
+            res.status(400).json({ msg: "Cupom já foi utilizado" })
+            return
+        }
+
+        if (searchCoupon.minimum > price) {
+            res.status(400).json({ msg: `Pedido minimo de R$${searchCoupon.minimum}` })
+            return
+        }
+
+        if (searchCoupon.minimum < price) {
+            if (searchCoupon.percentage) {
+                const discount = price * (searchCoupon.quantity / 100)
+                price -= parseFloat(discount)
+            } else if (!searchCoupon.percentage) {
+                const discount = price - searchCoupon.quantity
+                price -= parseFloat(discount)
+            }
+        }
+    }
+
+    price = parseFloat(price.toFixed(2))
+    paymentPayload.price = price
 
     try {
         const payment = await createPayment(paymentPayload)
