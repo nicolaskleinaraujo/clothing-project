@@ -66,12 +66,14 @@ model Sizes {
 }
 
 model Orders {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
-  userId     Int
-  price      Float
-  paid       Boolean  @default(false)
-  received   Boolean  @default(false)
+  id            Int      @id @default(autoincrement())
+  created_at    DateTime @default(now())
+  userId        Int
+  price         Float
+  paid          Boolean  @default(false)
+  payment       String
+  received      Boolean  @default(false)
+  shipping_time Int
 
   orderProducts OrderProduct[]
   user          User           @relation(fields: [userId], references: [id])
