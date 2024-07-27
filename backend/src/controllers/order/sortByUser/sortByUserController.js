@@ -15,7 +15,10 @@ const sortByUserController = async(req, res) => {
             return
         }
 
-        const orders = await prisma.orders.findMany({ where: { userId: id }, include: { orderProducts: true } })
+        const orders = await prisma.orders.findMany({
+            where: { userId: id },
+            orderBy: { id: "desc" },
+        })
 
         res.status(200).json({ msg: "Pesquisa feita com sucesso", orders })
     } catch (error) {
