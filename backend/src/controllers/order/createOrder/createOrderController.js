@@ -19,17 +19,25 @@ const createOrderController = async (req, res) => {
     }
 
     // Gets the user address to calculate the shipping price
-    const user = await prisma.user.findUnique({ where: { id: userId }, include: { Address: true } })
-    const shipping = await calculateShipping(user.Address[0].cep)
-    let price = parseFloat(shipping.price)
+    let price = 0
+    let shippingDate = 0
+    const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
+    if (user.Address.length != 0) {
+        const shipping = await calculateShipping(user.Address[0].cep)
+        price += parseFloat(shipping.price)
+        shippingDate = parseInt(shipping.delivery_time)
+
+        paymentPayload.products.push({
+            name: "Frete",
+            price: parseFloat(shipping.price),
+        })
+    } else if (user.Address.length == 0) {
+        res.status(400).json({ msg: "Cadastre seu endereço primeiramente" })
+        return
+    }
 
     paymentPayload.userName = user.firstName
     paymentPayload.userEmail = user.email
-
-    paymentPayload.products.push({
-        name: "Frete",
-        price: parseFloat(shipping.price),
-    })
 
     // Validates the integrity of the product informed by the client
     for (let index = 0; index < cart.length; index++) {
@@ -92,7 +100,7 @@ const createOrderController = async (req, res) => {
             }
         })
 
-        res.status(201).json({ msg: "Pedido feito com sucesso", order, payment })
+        res.status(201).json({ msg: "Pedido feito com sucesso", order, payment, shippingDate })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
