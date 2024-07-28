@@ -1,5 +1,10 @@
+const MercadoPago = require("mercadopago").MercadoPagoConfig
 const Payment = require("mercadopago").Payment
-const payment = new Payment()
+
+const client = new MercadoPago({
+    accessToken: process.env.MERCADO_PAGO_TOKEN,
+})
+const payment = new Payment(client)
 
 const ipnController = async(req, res) => {
     var topic = req.query.topic
