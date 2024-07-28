@@ -9,7 +9,7 @@ const preference = new Preference(client)
 
 const createPayment = async(payload) => {
   const expiration_date_from = dayjs().toISOString()
-  const expiration_date_to = dayjs().add(5, "minute").toISOString()
+  const expiration_date_to = dayjs().add(10, "minute").toISOString()
 
   const body = {
     "items": [{
