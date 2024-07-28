@@ -7,21 +7,19 @@ const client = new MercadoPago({
 const payment = new Payment(client)
 
 const ipnController = async(req, res) => {
-    var topic = req.query.topic
-    var id = req.query.id
+    const topic = req.query.topic
+    const id = req.query.id
 
-    try {
-        if (topic === 'payment') {
-            const userPayment = await payment.get({ id })
-            console.log(userPayment)
-            console.log(userPayment.status)
-        }
+    console.log(topic)
 
-        res.sendStatus(200)
-        res.status(200)
-    } catch (error) {
-        res.status(500)
+    if (topic === 'payment') {
+        const userPayment = await payment.get({ id })
+        console.log(userPayment)
+        console.log(userPayment.status)
     }
+
+    res.sendStatus(200)
+    res.status(200)
 }
 
 module.exports = ipnController
