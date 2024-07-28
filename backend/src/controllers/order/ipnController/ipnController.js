@@ -10,15 +10,10 @@ const ipnController = async(req, res) => {
     const topic = req.query.topic
     const id = req.query.id
 
-    console.log(topic)
-
     if (topic === 'payment') {
-        const userPayment = await payment.get({ id })
-        console.log(userPayment)
-        console.log(userPayment.status)
+        payment.get({ id }).then((payment) => console.log(payment))
     }
 
-    res.sendStatus(200)
     res.status(200)
 }
 
