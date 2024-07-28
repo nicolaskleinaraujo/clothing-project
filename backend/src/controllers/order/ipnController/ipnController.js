@@ -10,9 +10,11 @@ const ipnController = async(req, res) => {
     const topic = req.query.topic
     const id = req.query.id
 
-    if (topic === 'payment') {
-        payment.get({ id }).then(console.log).catch(console.log)
-    }
+    setTimeout(() => {
+        if (topic === 'payment') {
+            payment.get({ id }).then(console.log).catch(console.log)
+        }
+    }, 20000)
 
     res.sendStatus(200)
 }
