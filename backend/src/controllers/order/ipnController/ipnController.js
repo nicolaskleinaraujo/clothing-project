@@ -6,7 +6,7 @@ const ipnController = async(req, res) => {
     var id = req.query.id
 
     if (topic === 'payment') {
-        const userPayment = payment.get(id)
+        const userPayment = payment.get({ id })
         console.log(userPayment)
     }
 
