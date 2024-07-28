@@ -40,4 +40,9 @@ app.use("/orders", orders)
 app.use("/cart", cart)
 app.use("/coupons", coupons)
 
+app.post("/not", (req, res) => {
+    console.log(req)
+    res.status(200).json({ req })
+})
+
 module.exports = app
