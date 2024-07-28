@@ -4,7 +4,10 @@ const app = express()
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const path = require("node:path")
+const cron = require("node-cron")
+const deleteExpiredOrders = require("./config/cron")
 
+// Routers
 const users = require("./routes/users")
 const address = require("./routes/address")
 const products = require("./routes/products")
@@ -22,6 +25,7 @@ app.use(
         credentials: true,
     })
 )
+cron.schedule("* * * * *", deleteExpiredOrders)
 
 // Routes
 app.get("/", (req, res) => {
