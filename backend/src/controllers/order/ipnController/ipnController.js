@@ -14,7 +14,7 @@ const ipnController = async(req, res) => {
         payment.get({ id }).then(console.log).catch(console.log)
     }
 
-    res.status(200)
+    res.sendStatus(200)
 }
 
 module.exports = ipnController
