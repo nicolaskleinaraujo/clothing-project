@@ -41,7 +41,9 @@ app.use("/cart", cart)
 app.use("/coupons", coupons)
 
 app.post("/not", (req, res) => {
-    console.log(req)
+    console.log(req.body.payment_id)
+    console.log(req.body.status)
+    console.log(req.query)
     res.status(200).json({ req })
 })
 
