@@ -11,5 +11,6 @@ router.route("/").post(validateToken, validateUser, validateAddress, (req, res) 
 router.route("/").delete(validateToken, validateAdmin, (req, res) => orderController.deleteOrderController(req, res))
 router.route("/").patch(validateToken, validateUser, (req, res) => orderController.updateStatusController(req, res))
 router.route("/").get(validateToken, validateUser, (req, res) => orderController.sortByUserController(req, res))
+router.route("/ipn").post((req, res) => orderController.ipnController(req, res))
 
 module.exports = router

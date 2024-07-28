@@ -40,9 +40,4 @@ app.use("/orders", orders)
 app.use("/cart", cart)
 app.use("/coupons", coupons)
 
-app.post("/not", (req, res) => {
-    console.log(req.query.topic)
-    res.status(200).json({ req })
-})
-
 module.exports = app

@@ -37,7 +37,7 @@ const createPayment = async(payload) => {
     "expiration_date_from": expiration_date_from,
     "expiration_date_to": expiration_date_to,
 
-    "notification_url": `${process.env.API_URL}/not`,
+    "notification_url": `${process.env.API_URL}/orders/ipn`,
   }
 
   try {
