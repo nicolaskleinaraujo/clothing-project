@@ -17,6 +17,7 @@ const ipnController = async(req, res) => {
             console.log(userPayment.status)
         }
 
+        res.sendStatus(200)
         res.status(200)
     } catch (error) {
         res.status(500)
