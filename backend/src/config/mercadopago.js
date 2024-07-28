@@ -42,7 +42,7 @@ const createPayment = async(payload) => {
 
   try {
     const payment = await preference.create({ body })
-    return payment.init_point
+    return payment.sandbox_init_point
   } catch (error) {
     console.log(error)
   }
