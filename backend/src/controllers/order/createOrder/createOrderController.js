@@ -1,6 +1,7 @@
 const prisma = require("../../../db/client")
 const calculateShipping = require("../../../config/shipping")
 const createPayment = require("../../../config/mercadopago")
+const { v4: uuidv4 } = require('uuid')
 
 const createOrderController = async (req, res) => {
     const cart = req.signedCookies.cart
@@ -16,6 +17,7 @@ const createOrderController = async (req, res) => {
         price: 0,
         userName: "",
         userEmail: "",
+        external_reference: uuidv4(),
     }
 
     // Gets the user address to calculate the shipping price

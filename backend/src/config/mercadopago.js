@@ -40,6 +40,7 @@ const createPayment = async(payload) => {
     "expiration_date_to": expiration_date_to,
 
     "notification_url": `${process.env.API_URL}/orders/ipn`,
+    "external_reference": payload.external_reference,
   }
 
   try {
