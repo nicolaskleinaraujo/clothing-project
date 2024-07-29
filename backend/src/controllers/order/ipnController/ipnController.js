@@ -7,12 +7,19 @@ const client = new MercadoPago({
 const payment = new Payment(client)
 
 const ipnController = async(req, res) => {
-    const topic = req.query.topic
-    const id = req.query.id
+    const topic = req.query.type
+    const id = req.query["data.id"]
 
     setTimeout(() => {
-        if (topic === 'payment') {
-            payment.get({ id }).then(console.log).catch(console.log)
+        if (topic === "payment") {
+            payment.get({ id }).then((result) => {
+                console.log("RESULTADO")
+                console.log(result)
+                console.log(result)
+            }).catch((error) => {
+                console.log("ERRO")
+                console.log(error)
+            })
         }
     }, 20000)
 
