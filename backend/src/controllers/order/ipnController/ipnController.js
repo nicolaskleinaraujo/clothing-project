@@ -1,3 +1,4 @@
+const prisma = require("../../../db/client")
 const MercadoPago = require("mercadopago").MercadoPagoConfig
 const Payment = require("mercadopago").Payment
 
@@ -16,6 +17,12 @@ const ipnController = async(req, res) => {
                 console.log("RESULTADO")
                 console.log(result.status)
                 console.log(result.external_reference)
+
+                prisma.orders.findUnique({ where: { payment_reference: result.external_reference } }).then((result) => {
+                    console.log(result)
+                }).catch((error) => {
+                    console.log(error)
+                })
             }).catch((error) => {
                 console.log("ERRO")
                 console.log(error)
