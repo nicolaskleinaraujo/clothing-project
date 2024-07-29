@@ -132,7 +132,8 @@ const createOrderController = async (req, res) => {
                 userId,
                 price,
                 payment,
-                shipping_time: shippingDate
+                payment_reference: paymentPayload.external_reference,
+                shipping_time: shippingDate,
             }
         })
 

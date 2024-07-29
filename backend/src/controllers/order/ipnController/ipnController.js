@@ -14,8 +14,8 @@ const ipnController = async(req, res) => {
         if (topic === "payment") {
             payment.get({ id }).then((result) => {
                 console.log("RESULTADO")
-                console.log(result)
-                console.log(result)
+                console.log(result.status)
+                console.log(result.external_reference)
             }).catch((error) => {
                 console.log("ERRO")
                 console.log(error)
