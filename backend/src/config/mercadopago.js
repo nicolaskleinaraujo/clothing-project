@@ -12,13 +12,15 @@ const createPayment = async(payload) => {
   const expiration_date_to = dayjs().add(10, "minute").toISOString()
 
   const body = {
-    "items": [{
-      "id": 1,
-      "title": "Produtos",
-      "quantity": 1,
-      "currency_id": "BRL",
-      "unit_price": payload.price
-    }],
+    "items": [
+      {
+        "id": 1,
+        "title": "Produtos",
+        "quantity": 1,
+        "currency_id": "BRL",
+        "unit_price": payload.price,
+      }
+    ],
 
     "back_urls": {
       "success": "https://www.youtube.com/",
@@ -42,7 +44,7 @@ const createPayment = async(payload) => {
 
   try {
     const payment = await preference.create({ body })
-    return payment.sandbox_init_point
+    return payment.init_point
   } catch (error) {
     console.log(error)
   }
