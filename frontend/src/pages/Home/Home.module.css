@@ -1,0 +1,56 @@
+.home_products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.home_products div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #F5DADF;
+    background-color: #00453D;
+    width: 15em;
+    height: 24em;
+    padding: .3em;
+    margin: .3em;
+    border-radius: .3em;
+}
+
+.home_products img {
+    width: 180px;
+    height: 200px;
+}
+
+.home_products p {
+    position: relative;
+    top: .8em;
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.home_products button {
+    position: relative;
+    top: 1em;
+    border: none;
+    background-color: transparent;
+    color: #F5DADF;
+    cursor: pointer;
+    margin-top: .5em;
+    padding: .3em;
+    border-radius: .5em;
+    transition: .3s
+}
+
+.home_products button:hover {
+    color: #00453D;
+    background-color: #F5DADF;
+}
+
+.home_products button svg {
+    font-size: 1.5em;
+}

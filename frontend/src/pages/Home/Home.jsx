@@ -6,6 +6,7 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect } from "react"
+import { MdOutlineAddShoppingCart } from "react-icons/md"
 
 const Home = () => {
     const [products, setProducts] = useState([])
@@ -20,19 +21,19 @@ const Home = () => {
     }, [])
 
     return (
-        <div>
-            <h1>Home</h1>
-            <button onClick={() => console.log(import.meta.env.VITE_API_URL)}>TESTE</button>
-
-            {
-                products && products.map(product => (
-                    <div key={product.id}>
-                        <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" width={150} />
-                        {product.name}
-                        R${product.price}
-                    </div>
-                ))
-            }
+        <div className={styles.home}>
+            <div className={styles.home_products}>
+                {
+                    products && products.map(product => (
+                        <div key={product.id}>
+                            <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                            <p>{product.name}</p>
+                            <p>R${product.price}</p>
+                            <button><MdOutlineAddShoppingCart /></button>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     )
 }
