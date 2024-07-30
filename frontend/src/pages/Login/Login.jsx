@@ -1,10 +1,20 @@
 // CSS
 import styles from "./Login.module.css"
 
+// DbFetch
+import dbFetch from "../../config/axios"
+
+// Modules
+import { useState } from "react"
+
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log("Handled!")
+        const res = await dbFetch.post("/users/login", { email, password })
+        console.log(res)
     }
 
     return (
@@ -14,12 +24,12 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Email</p>
-                    <input type="email" />
+                    <input type="email" onChange={(e) => setEmail(e.target.value)} />
                 </label>
 
                 <label>
                     <p>Senha</p>
-                    <input type="password" />
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
                 </label>
 
                 <input type="submit" value="Login" />
