@@ -22,11 +22,10 @@
 .home_products img {
     width: 180px;
     height: 200px;
+    margin-bottom: .8em;
 }
 
 .home_products p {
-    position: relative;
-    top: .8em;
     font-size: 1.2em;
     text-align: center;
     max-width: 80%;
@@ -34,8 +33,6 @@
 }
 
 .home_products button {
-    position: relative;
-    top: 1em;
     border: none;
     background-color: transparent;
     color: #F5DADF;
