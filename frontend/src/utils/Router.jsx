@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar/Navbar"
 import Login from "../pages/Login/Login"
 import Register from "../pages/Register/Register"
 import Home from "../pages/Home/Home"
+import Product from "../pages/Product/Product"
 
 const Router = () => {
     return (
@@ -18,6 +19,7 @@ const Router = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/" element={<Home />} />
+                    <Route path="/product/:slug" element={<Product />} />
                 </Routes>
             </BrowserRouter>
         </>

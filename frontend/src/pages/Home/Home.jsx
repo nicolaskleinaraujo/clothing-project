@@ -26,12 +26,14 @@ const Home = () => {
             <div className={styles.home_products}>
                 {
                     products && products.map(product => (
-                        <div key={product.id}>
-                            <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
-                            <p>{product.name}</p>
-                            <p>R${product.price}</p>
-                            <Link to={`/product/${product.slug}`}><MdReadMore /></Link>
-                        </div>
+                        <Link to={`/product/${product.slug}`} key={product.id}>
+                            <div>
+                                <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                                <p>{product.name}</p>
+                                <p>R${product.price}</p>
+                                <Link to={`/product/${product.slug}`}><MdReadMore /></Link>
+                            </div>
+                        </Link>
                     ))
                 }
             </div>
