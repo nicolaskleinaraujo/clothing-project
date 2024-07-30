@@ -39,6 +39,11 @@ const createPayment = async(payload) => {
     "expiration_date_from": expiration_date_from,
     "expiration_date_to": expiration_date_to,
 
+    "payment_methods": {
+      "excluded_payment_types": [{ "id": "ticket" }],
+      "installments": 4,
+    },
+
     "notification_url": `${process.env.API_URL}/orders/ipn`,
     "external_reference": payload.external_reference,
   }
