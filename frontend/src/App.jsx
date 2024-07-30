@@ -1,5 +1,6 @@
 // CSS
 import './App.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Router
 import Router from './utils/Router'

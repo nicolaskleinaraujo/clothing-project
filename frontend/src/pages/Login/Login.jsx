@@ -7,6 +7,7 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -21,10 +22,14 @@ const Login = () => {
             const res = await dbFetch.post("/users/login", { email, password })
 
             if (res.status === 200) {
+                toast.success(res.data.msg)
                 navigate("/")
+            } else {
+                console.log("tesre")
+                toast.error(res.data.msg)
             }
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.msg)
         }
     }
 
