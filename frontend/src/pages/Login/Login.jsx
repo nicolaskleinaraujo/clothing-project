@@ -30,8 +30,6 @@ const Login = () => {
 
     return (
         <div className={styles.login}>
-            <img src="https://via.placeholder.com/462x200" alt="Imagem Roupa" />
-
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Email</p>
@@ -47,6 +45,8 @@ const Login = () => {
 
                 <p>Não tem uma conta? <Link to="/register">Criar</Link></p>
             </form>
+
+            <img src="/cabin-photo.png" alt="Imagem Roupa" />
         </div>
     )
 }
