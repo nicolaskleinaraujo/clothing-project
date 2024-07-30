@@ -4,7 +4,7 @@ import styles from "./Navbar.module.css"
 const Navbar = () => {
     return (
         <div className={styles.navbar}>
-            <img src="https://via.assets.so/img.jpg?w=100&h=100&tc=black&bg=#cecece&t=logo" alt="Logo do Projeto" />
+            <img src="https://via.placeholder.com/70x70" alt="Logo do Projeto" />
 
             <div className={styles.category}>
                 <button>Categorias &#8595;</button>
