@@ -1,32 +1,29 @@
+const { MercadoPagoConfig, Payment } = require("mercadopago")
 const prisma = require("../../../db/client")
-const MercadoPago = require("mercadopago").MercadoPagoConfig
-const Payment = require("mercadopago").Payment
 
-const client = new MercadoPago({
+const client = new MercadoPagoConfig({
     accessToken: process.env.MERCADO_PAGO_TOKEN,
 })
 const payment = new Payment(client)
 
-const ipnController = async(req, res) => {
+const ipnController = (req, res) => {
     const topic = req.query.type
     const id = req.query["data.id"]
 
-    setTimeout(() => {
+    setTimeout(async () => {
         if (topic === "payment") {
-            payment.get({ id }).then((result) => {
-                console.log("RESULTADO")
-                console.log(result.status)
-                console.log(result.external_reference)
+            try {
+                const result = await payment.get({ id })
 
-                prisma.orders.findUnique({ where: { payment_reference: result.external_reference } }).then((result) => {
-                    console.log(result)
-                }).catch((error) => {
-                    console.log(error)
-                })
-            }).catch((error) => {
-                console.log("ERRO")
+                if (result.status === "approved") {
+                    await prisma.orders.update({
+                        where: { payment_reference: result.external_reference },
+                        data: { paid: true }
+                    })
+                }
+            } catch (error) {
                 console.log(error)
-            })
+            }
         }
     }, 20000)
 
