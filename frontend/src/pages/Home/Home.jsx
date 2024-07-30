@@ -6,7 +6,8 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect } from "react"
-import { MdOutlineAddShoppingCart } from "react-icons/md"
+import { MdReadMore } from "react-icons/md"
+import { Link } from "react-router-dom"
 
 const Home = () => {
     const [products, setProducts] = useState([])
@@ -29,7 +30,7 @@ const Home = () => {
                             <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
                             <p>{product.name}</p>
                             <p>R${product.price}</p>
-                            <button><MdOutlineAddShoppingCart /></button>
+                            <Link to={`/product/${product.slug}`}><MdReadMore /></Link>
                         </div>
                     ))
                 }
