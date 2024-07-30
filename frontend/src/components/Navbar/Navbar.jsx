@@ -7,7 +7,7 @@ const Navbar = () => {
             <img src="https://via.assets.so/img.jpg?w=100&h=100&tc=black&bg=#cecece&t=logo" alt="Logo do Projeto" />
 
             <div className={styles.category}>
-                <button>Categorias&#8595;</button>
+                <button>Categorias &#8595;</button>
                 <div className={styles.category_content}>
                     <a href="#">Masculini</a>
                     <a href="#">Feminino</a>
@@ -19,7 +19,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.size}>
-                <button>Tamanhos&#8595;</button>
+                <button>Tamanhos &#8595;</button>
                 <div className={styles.size_content}>
                     <a href="#">Tamanho 1</a>
                 </div>
