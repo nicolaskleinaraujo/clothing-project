@@ -24,7 +24,7 @@ const Navbar = () => {
 
     return (
         <div className={styles.navbar}>
-            <img src="https://via.placeholder.com/70x70" alt="Logo do Projeto" />
+            <img src="/project-logo.png" alt="Logo do Projeto" />
 
             <div className={styles.category}>
                 <button>Categorias <IoIosArrowDown /></button>
