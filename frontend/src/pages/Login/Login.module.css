@@ -25,12 +25,15 @@
     font-size: 1.2em;
     color: white;
     width: 18em;
+    height: 2em;
     background-color: #00453D;
 }
 
 .login > input {
     margin: .8em;
-    border-radius: .3em;
+    border-radius: .5em;
+    width: 18em;
+    height: 3em;
     cursor: pointer;
     border: none;
     background-color: #00453D;
