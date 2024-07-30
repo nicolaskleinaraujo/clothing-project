@@ -6,6 +6,7 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect } from "react"
+import { IoIosArrowDown } from "react-icons/io"
 
 const Navbar = () => {
     const [categories, setCategories] = useState([])
@@ -25,7 +26,7 @@ const Navbar = () => {
             <img src="https://via.placeholder.com/70x70" alt="Logo do Projeto" />
 
             <div className={styles.category}>
-                <button>Categorias &#8595;</button>
+                <button>Categorias <IoIosArrowDown /></button>
                 <div className={styles.category_content}>
                     {
                         categories && categories.map(category => (
@@ -36,7 +37,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.size}>
-                <button>Tamanhos &#8595;</button>
+                <button>Tamanhos <IoIosArrowDown /></button>
                 <div className={styles.size_content}>
                     <a href="#">Tamanho 1</a>
                 </div>
