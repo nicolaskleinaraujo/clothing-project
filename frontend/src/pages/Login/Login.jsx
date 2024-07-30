@@ -6,15 +6,26 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 
 const Login = () => {
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        const res = await dbFetch.post("/users/login", { email, password })
-        console.log(res)
+
+        try {
+            const res = await dbFetch.post("/users/login", { email, password })
+
+            if (res.status === 200) {
+                navigate("/")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -34,7 +45,7 @@ const Login = () => {
 
                 <input type="submit" value="Login" />
 
-                <p>Não tem uma conta? <a href="/register">Criar</a></p>
+                <p>Não tem uma conta? <Link to="/register">Criar</Link></p>
             </form>
         </div>
     )
