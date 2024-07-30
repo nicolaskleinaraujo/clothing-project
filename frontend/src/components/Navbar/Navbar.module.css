@@ -1,0 +1,53 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.category, .size {
+    position: relative;
+    display: inline-block;
+}
+
+.category button, .size button {
+    border: none;
+    cursor: pointer;
+    padding: 1em 1.25em;
+    font-size: 1em;
+    background-color: transparent;
+    transition: .3s;
+    border-radius: .5em .5em 0 0;
+}
+
+.category button:hover, .size button:hover {
+    background-color: rgb(228, 227, 227);
+    border: rgb(228, 227, 227);
+}
+
+.category_content, .size_content {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: #f9f9f9;
+    padding: .8em;
+    min-width: 8em;
+    z-index: 1;
+    border-radius: 0 0 .5em .5em;
+}
+
+.category_content a, .size_content a {
+    display: block;
+    text-decoration: none;
+    padding: .3em;
+    color: black;
+}
+
+.category_content a:hover, .size_content a:hover {
+    background-color: rgb(228, 227, 227);
+}
+
+.category:hover .category_content, .size:hover .size_content {
+    display: block;
+}
