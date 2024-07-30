@@ -9,7 +9,7 @@ import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate()
 
     const [firstName, setFirstName] = useState("")
@@ -38,7 +38,9 @@ const Login = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className={styles.login}>
+            <form onSubmit={handleSubmit} className={styles.register}>
+                <h1>Criar Conta</h1>
+
                 <label>
                     <p>Nome</p>
                     <input type="text" onChange={(e) => setFirstName(e.target.value)} />
@@ -66,10 +68,10 @@ const Login = () => {
 
                 <input type="submit" value="Criar" />
 
-                <p>Já tem uma conta? <Link to="/register">Entrar</Link></p>
+                <p>Já tem uma conta? <Link to="/login">Entrar</Link></p>
             </form>
         </div>
     )
 }
 
-export default Login
+export default Register

@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar/Navbar"
 
 // Pages
 import Login from "../pages/Login/Login"
+import Register from "../pages/Register/Register"
 
 const Router = () => {
     return (
@@ -14,6 +15,7 @@ const Router = () => {
                 <Navbar />
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                 </Routes>
             </BrowserRouter>
         </>
