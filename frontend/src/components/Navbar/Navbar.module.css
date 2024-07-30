@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1em;
+    border-bottom: 1px solid black;
 }
 
 .category, .size {
@@ -47,4 +48,18 @@
 
 .category:hover .category_content, .size:hover .size_content {
     display: block;
+}
+
+.account a {
+    color: black;
+    margin: .7em;
+}
+
+.account a svg {
+    font-size: 1.5em;
+    border-radius: .2em;
+}
+
+.account a:hover svg {
+    background-color: rgb(228, 227, 227);
 }

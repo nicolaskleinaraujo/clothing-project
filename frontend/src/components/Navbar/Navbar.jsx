@@ -7,6 +7,7 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useState, useEffect } from "react"
 import { IoIosArrowDown } from "react-icons/io"
+import { FiUser, FiShoppingBag } from "react-icons/fi"
 
 const Navbar = () => {
     const [categories, setCategories] = useState([])
@@ -44,8 +45,8 @@ const Navbar = () => {
             </div>
 
             <div className={styles.account}>
-                <a href="#">conta</a>
-                <a href="#">pedidos</a>
+                <a href="#"><FiUser /></a>
+                <a href="#"><FiShoppingBag /></a>
             </div>
         </div>
     )
