@@ -13,7 +13,7 @@ const Navbar = () => {
 
     const getInfos = async() => {
         const categoryData = await dbFetch.get("/categories")
-        console.log(categoryData)
+        setCategories(categoryData.data.categories)
     }
 
     useEffect(() => {
@@ -27,12 +27,11 @@ const Navbar = () => {
             <div className={styles.category}>
                 <button>Categorias &#8595;</button>
                 <div className={styles.category_content}>
-                    <a href="#">Masculini</a>
-                    <a href="#">Feminino</a>
-                    <a href="#">Camisas</a>
-                    <a href="#">Calças</a>
-                    <a href="#">meias</a>
-                    <a href="#">Cuecas</a>
+                    {
+                        categories && categories.map(category => (
+                            <a href="#" key={category.id}>{category.name}</a>
+                        ))
+                    }
                 </div>
             </div>
 

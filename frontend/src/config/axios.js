@@ -1,4 +1,4 @@
-import axios from ""
+import axios from "axios"
 
 axios.defaults.withCredentials = true
 const dbFetch = axios.create({
