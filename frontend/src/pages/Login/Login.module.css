@@ -7,6 +7,10 @@
     height: 100vw;
 }
 
+.login h1 {
+    font-size: 2em;
+}
+
 .login label {
     margin: 1em;
     color: #00453D;
