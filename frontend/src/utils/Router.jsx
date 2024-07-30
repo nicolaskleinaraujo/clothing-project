@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Navbar from "../components/Navbar/Navbar"
 
 // Pages
-import User from "../pages/User/User"
+import Login from "../pages/Login/Login"
 
 const Router = () => {
     return (
@@ -13,7 +13,7 @@ const Router = () => {
             <BrowserRouter>
                 <Navbar />
                 <Routes>
-                    <Route path="/user" element={<User />} />
+                    <Route path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </>
