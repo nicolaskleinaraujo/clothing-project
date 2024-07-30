@@ -5,12 +5,14 @@ import styles from "./Register.module.css"
 import dbFetch from "../../config/axios"
 
 // Modules
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import { UserContext } from "../../context/UserContext"
 
 const Register = () => {
     const navigate = useNavigate()
+    const { setUserId } = useContext(UserContext)
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -29,6 +31,8 @@ const Register = () => {
                 number,
                 password, 
             })
+            setUserId(res.data.user.id)
+
             toast.success(res.data.msg)
             navigate("/")
         } catch (error) {

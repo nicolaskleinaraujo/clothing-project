@@ -7,6 +7,8 @@ import Router from './utils/Router'
 
 // Modules
 import { Flip, ToastContainer } from 'react-toastify'
+import { UserContext } from './context/UserContext'
+import { useContext } from 'react'
 
 function App() {
   return (

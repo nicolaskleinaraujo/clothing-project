@@ -5,12 +5,14 @@ import styles from "./Login.module.css"
 import dbFetch from "../../config/axios"
 
 // Modules
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import { UserContext } from "../../context/UserContext"
 
 const Login = () => {
     const navigate = useNavigate()
+    const { setUserId, setIsAdmin } = useContext(UserContext)
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -20,6 +22,9 @@ const Login = () => {
 
         try {
             const res = await dbFetch.post("/users/login", { email, password })
+            setUserId(res.data.user.id)
+            setIsAdmin(res.data.user.isAdmin)
+
             toast.success(res.data.msg)
             navigate("/")
         } catch (error) {
