@@ -1,7 +1,25 @@
 // CSS
 import styles from "./Navbar.module.css"
 
+// Axios
+import dbFetch from "../../config/axios"
+
+// Modules
+import { useState, useEffect } from "react"
+
 const Navbar = () => {
+    const [categories, setCategories] = useState([])
+    const [sizes, setSizes] = useState([])
+
+    const getInfos = async() => {
+        const categoryData = await dbFetch.get("/categories")
+        console.log(categoryData)
+    }
+
+    useEffect(() => {
+        getInfos()
+    }, [])
+
     return (
         <div className={styles.navbar}>
             <img src="https://via.placeholder.com/70x70" alt="Logo do Projeto" />
