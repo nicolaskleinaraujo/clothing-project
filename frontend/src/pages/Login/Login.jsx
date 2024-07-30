@@ -20,22 +20,16 @@ const Login = () => {
 
         try {
             const res = await dbFetch.post("/users/login", { email, password })
-
-            if (res.status === 200) {
-                toast.success(res.data.msg)
-                navigate("/")
-            } else {
-                console.log("tesre")
-                toast.error(res.data.msg)
-            }
+            toast.success(res.data.msg)
+            navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)
         }
     }
 
     return (
-        <div className={styles.login}>
-            <form onSubmit={handleSubmit}>
+        <div>
+            <form onSubmit={handleSubmit} className={styles.login}>
                 <label>
                     <p>Email</p>
                     <input type="email" onChange={(e) => setEmail(e.target.value)} />
@@ -50,8 +44,6 @@ const Login = () => {
 
                 <p>Não tem uma conta? <Link to="/register">Criar</Link></p>
             </form>
-
-            <img src="/cabin-photo.png" alt="Imagem Roupa" />
         </div>
     )
 }
