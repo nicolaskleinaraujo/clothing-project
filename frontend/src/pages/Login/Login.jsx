@@ -9,7 +9,7 @@ const Login = () => {
 
     return (
         <div className={styles.login}>
-            <img src="https://via.placeholder.com/500x650" alt="Imagem Roupa" />
+            <img src="https://via.placeholder.com/462x200" alt="Imagem Roupa" />
 
             <form onSubmit={handleSubmit}>
                 <label>

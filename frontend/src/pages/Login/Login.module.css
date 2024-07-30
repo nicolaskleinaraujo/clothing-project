@@ -1,0 +1,47 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.login form label {
+    margin: 1em;
+}
+
+.login form label p,
+.login form label input {
+    font-size: 1.5em;
+}
+
+.login form label input {
+    border-radius: .2em;
+    border: 1px solid rgb(169, 169, 169);
+}
+
+.login form > input {
+    margin: .8em;
+    border-radius: .3em;
+    cursor: pointer;
+    border: none;
+    background-color: #00453D;
+    color: white;
+    padding: 1em;
+}
+
+.login form > p {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: .8em;
+}
+
+.login form > p a {
+    font-size: 1em;
+    text-decoration: none;
+    color: #00453D;
+}
