@@ -47,7 +47,6 @@ const Product = () => {
 
     return (
         <div className={styles.product}>
-            <button onClick={() => console.log(selectedColor)}>TESTE</button>
             { product && 
                 <div>
                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />

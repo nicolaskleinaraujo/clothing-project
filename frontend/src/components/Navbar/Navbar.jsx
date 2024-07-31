@@ -52,7 +52,7 @@ const Navbar = () => {
 
             <div className={styles.account}>
                 <a href="#"><FiUser /></a>
-                <a href="#"><FiShoppingBag /></a>
+                <Link to="/cart"><FiShoppingBag /></Link>
             </div>
         </div>
     )
