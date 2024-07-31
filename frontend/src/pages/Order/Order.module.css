@@ -1,0 +1,48 @@
+.order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #F5DADF;
+    background-color: #F5DADF;
+}
+
+.order h1 {
+    color: #00453D;
+    margin: 1em;
+    font-size: 1.5em;
+}
+
+.order_products {
+    align-self: flex-start;
+    margin-left: 1em;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.order_products div {
+    display: flex;
+    align-items: center;
+    background-color: #00453D;
+    border-radius: .5em;
+    margin-bottom: .8em;
+}
+
+.order_products div img {
+    width: 80px;
+    border-radius: .5em 0 0 .5em;
+}
+
+.order_products > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 40%;
+    margin: 0 2em;
+}
+
+.order_products > div > div > p:first-child {
+    margin-bottom: .5em;
+}
