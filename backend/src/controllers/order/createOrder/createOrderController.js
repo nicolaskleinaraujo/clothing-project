@@ -124,7 +124,9 @@ const createOrderController = async (req, res) => {
             product: { connect: { id: item.productId } },
             size: { connect: { id: item.sizeId } },
             quantity: item.quantity,
+            color: item.color
         }))
+        console.log(orderProducts)
 
         const order = await prisma.orders.create({
             data: {
