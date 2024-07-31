@@ -73,23 +73,25 @@ const Cart = () => {
     }, [loading === true])
 
     return (
-        <div>
+        <div className={styles.cart}>
             <h1>Seu carrinho</h1>
 
-            <div>
+            <div className={styles.cart_products}>
                 { products &&
                     products.map(product => (
                         <div key={product.id}>
+                            <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
                             <p>{product.name}</p>
-                            <p>{product.price}</p>
+                            <p>{product.sizes[0].size} | {product.colors[0]}</p>
                             <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
+                            <p>{product.price}</p>
                         </div>
                     ))
                 }
             </div>
 
-            { orderPrice &&
-                <div>
+            { orderPrice != 0 &&
+                <div className={styles.cart_infos}>
                     <p>Produtos: {productPrice}</p>
                     <p>Envio: {shippingPrice}</p>
                     { discount != undefined && <p>Disconto: {discount}</p> }
