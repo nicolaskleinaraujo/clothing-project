@@ -51,7 +51,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.account}>
-                <a href="#"><FiUser /></a>
+                <Link to="/login"><FiUser /></Link>
                 <Link to="/cart"><FiShoppingBag /></Link>
             </div>
         </div>

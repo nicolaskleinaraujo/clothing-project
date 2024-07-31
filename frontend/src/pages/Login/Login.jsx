@@ -20,6 +20,11 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
 
+        if (email === "" || password === "") {
+            toast.info("Informe seu email e senha")
+            return
+        }
+
         try {
             const res = await dbFetch.post("/users/login", { email, password })
             setUserId(res.data.user.id)
@@ -39,12 +44,12 @@ const Login = () => {
 
                 <label>
                     <p>Email</p>
-                    <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
                 </label>
 
                 <label>
                     <p>Senha</p>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
                 </label>
 
                 <input type="submit" value="Login" />
