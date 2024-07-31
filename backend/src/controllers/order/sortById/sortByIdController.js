@@ -11,7 +11,15 @@ const sortById = async(req, res) => {
     try {
         const order = await prisma.orders.findUnique({
             where: { id: parseInt(id) },
-            include: { orderProducts: { include: { product: true } }},
+            include: {
+                orderProducts: {
+                    include: {
+                        product: {
+                            include: { sizes: true }
+                        }
+                    }
+                }
+            }
         })
 
         if (!order) {
