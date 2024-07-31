@@ -70,7 +70,13 @@ const Cart = () => {
 
     const createOrder = async() => {
         try {
-            
+            const res = await dbFetch.post("/orders", {
+                "coupon": coupon,
+                "userId": userId,
+            })
+
+            toast.success(res.data.msg)
+            navigate(`/order/${res.data.order.id}`)
         } catch (error) {
             toast.error(error.response.data.msg)
         }
@@ -110,7 +116,17 @@ const Cart = () => {
                 </div>
             }
 
-            <button onClick={() => console.log("concluido")}>Concluir compra</button>
+            <h2>Você possui algum cupom?</h2>
+            <input 
+                type="text" 
+                name="coupon" 
+                id="coupon" 
+                onChange={(e) => setCoupon(e.target.value)} 
+                value={coupon}
+                placeholder="Digite o cupom"
+            />
+
+            <button onClick={() => createOrder()}>Concluir compra</button>
         </div>
     )
 }
