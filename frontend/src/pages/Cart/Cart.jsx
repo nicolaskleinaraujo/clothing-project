@@ -94,13 +94,15 @@ const Cart = () => {
 
             { orderPrice != 0 &&
                 <div className={styles.cart_infos}>
-                    <p>Produtos: {productPrice}</p>
-                    <p>Envio: {shippingPrice}</p>
-                    { discount != undefined && <p>Disconto: {discount}</p> }
-                    <p>Preço total: {orderPrice}</p>
-                    <p>Prazo de entrega: {shippingDate} dias</p>
+                    <p>Produtos: R${productPrice}</p>
+                    <p>Envio: R${shippingPrice}</p>
+                    { discount != undefined && <p>Disconto: R${discount}</p> }
+                    <p>Preço total: R${orderPrice}</p>
+                    <p>Prazo de entrega: até {shippingDate} dias</p>
                 </div>
             }
+
+            <button onClick={() => console.log("concluido")}>Concluir compra</button>
         </div>
     )
 }

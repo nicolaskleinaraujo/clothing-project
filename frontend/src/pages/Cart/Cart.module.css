@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     color: #F5DADF;
+    background-color: #F5DADF;
 }
 
 .cart h1 {
@@ -61,4 +62,31 @@
     background-color: #F5DADF;
     color: #00453D;
     border: 2px solid #00453D;
+}
+
+.cart_infos {
+    color: #00453D;
+}
+
+.cart_infos p {
+    font-size: 1.5em;
+    font-family: "Platypi", sans-serif;
+    font-size: 1.5em;
+}
+
+.cart > button {
+    border: 2px solid #00453D;
+    color: #00453D;
+    background-color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    margin: 1.5em;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.cart > button:hover {
+    border: 2px solid #F5DADF;
+    color: #F5DADF;
+    background-color: #00453D;
 }
