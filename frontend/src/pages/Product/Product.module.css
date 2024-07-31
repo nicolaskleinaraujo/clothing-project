@@ -22,7 +22,8 @@
     margin-left: .5em;
 }
 
-.product_colors label input, .product_sizes label input {
+.product_colors label input,
+.product_sizes label input {
     display: none;
 }
 
@@ -32,6 +33,7 @@
     padding: .2em;
     border-radius: .5em;
     background-color: #00453D;
+    cursor: pointer;
 }
 
 .product_colors p:hover, .product_sizes p:hover {
@@ -40,4 +42,27 @@
     border: 2px solid #00453D;
 }
 
+.product_colors label input:checked + p,
+.product_sizes label input:checked + p {
+    color: #00453D;
+    background-color: #F5DADF;
+    border: 2px solid #00453D;
+}
 
+.product button {
+    border: none;
+    background-color: #00453D;
+    color: #F5DADF;
+    margin: 1.5em .5em;
+    font-size: 1.2em;
+    padding: .5em;
+    border-radius: .3em;
+    border: 2px solid #00453D;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.product button:hover {
+    background-color: #F5DADF;
+    color: #00453D;
+}

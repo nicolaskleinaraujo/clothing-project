@@ -7,6 +7,7 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { MdAddShoppingCart } from "react-icons/md"
 
 const Product = () => {
     const { slug } = useParams()
@@ -38,9 +39,9 @@ const Product = () => {
                     <div className={styles.product_colors}>
                         { colors &&
                             colors.map((color, index) => (
-                                <label>
+                                <label key={index}>
+                                    <input type="radio" name="colors" id="colors" value={color} />
                                     <p>{color}</p>
-                                    <input type="radio" name="colors" id="colors" value={color} key={index} />
                                 </label>
                             ))
                         }
@@ -50,13 +51,15 @@ const Product = () => {
                     <div className={styles.product_sizes}>
                         { sizes &&
                             sizes.map(size => (
-                                <label>
+                                <label key={size.id}>
+                                    <input type="radio" name="sizes" id="sizes" value={size.size} />
                                     <p>{size.size}</p>
-                                    <input type="radio" name="sizes" id="sizes" value={size.size} key={size.id} />
                                 </label>
                             ))
                         }
                     </div>
+
+                    <button>ADICIONAR AO CARRINHO</button>
                 </div>
             }
         </div>
