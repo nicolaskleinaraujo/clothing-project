@@ -7,13 +7,16 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { MdAddShoppingCart } from "react-icons/md"
+import { toast } from "react-toastify"
 
 const Product = () => {
     const { slug } = useParams()
     const [product, setProduct] = useState({})
     const [colors, setColors] = useState([])
     const [sizes, setSizes] = useState([])
+
+    const [selectedColor, setSelectedColor] = useState("")
+    const [selectedSize, setSelectedSize] = useState(0)
 
     const getProduct = async() => {
         const res = await dbFetch.get(`/products/slug/${slug}`)
@@ -22,12 +25,29 @@ const Product = () => {
         setSizes(res.data.product.sizes)
     }
 
+    const addToCart = async() => {
+        try {
+            const res = await dbFetch.post("/cart", {
+                "productId": product.id,
+                "sizeId": parseInt(selectedSize),
+                "quantity": 1,
+                "color": selectedColor,
+                "userId": 1
+            })
+    
+            toast.success(res.data.msg)
+        } catch (error) {
+            toast.error(error.response.data.msg)
+        }
+    }
+
     useEffect(() => {
         getProduct()
     }, [])
 
     return (
         <div className={styles.product}>
+            <button onClick={() => console.log(selectedColor)}>TESTE</button>
             { product && 
                 <div>
                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
@@ -40,7 +60,13 @@ const Product = () => {
                         { colors &&
                             colors.map((color, index) => (
                                 <label key={index}>
-                                    <input type="radio" name="colors" id="colors" value={color} />
+                                    <input 
+                                        type="radio" 
+                                        name="colors" 
+                                        id="colors" 
+                                        value={color} 
+                                        onChange={(e) => setSelectedColor(e.target.value)} 
+                                    />
                                     <p>{color}</p>
                                 </label>
                             ))
@@ -52,14 +78,20 @@ const Product = () => {
                         { sizes &&
                             sizes.map(size => (
                                 <label key={size.id}>
-                                    <input type="radio" name="sizes" id="sizes" value={size.size} />
+                                    <input 
+                                        type="radio" 
+                                        name="sizes" 
+                                        id="sizes" 
+                                        value={size.id} 
+                                        onChange={(e) => setSelectedSize(e.target.value)} 
+                                    />
                                     <p>{size.size}</p>
                                 </label>
                             ))
                         }
                     </div>
 
-                    <button>ADICIONAR AO CARRINHO</button>
+                    <button onClick={() => addToCart()}>ADICIONAR AO CARRINHO</button>
                 </div>
             }
         </div>
