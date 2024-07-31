@@ -14,6 +14,7 @@ const Order = () => {
 
     const [products, setProducts] = useState([])
     const [orderPrice, setOrderPrice] = useState(0)
+    const [paid, setPaid] = useState(false)
     const [paymentUrl, setPaymentUrl] = useState("")
     const [received, setReceived] = useState(false)
     const [shippingTime, setShippingTime] = useState(0)
@@ -26,9 +27,9 @@ const Order = () => {
                 "userId": userId,
             })
 
-            console.log(res.data.order.orderProducts)
             setProducts(res.data.order.orderProducts)
             setOrderPrice(res.data.order.price)
+            setPaid(res.data.order.paid)
             setPaymentUrl(res.data.order.payment)
             setReceived(res.data.order.received)
             setShippingTime(res.data.order.shipping_time)
@@ -62,6 +63,19 @@ const Order = () => {
                     ))
                 }
             </div>
+
+            { orderPrice != 0 &&
+                <div className={styles.order_infos}>
+                    <p>Status: {
+                        paid ? received ? "Entregue" : "Pago" : "Aguardando Pagamento"
+                    }</p>
+                    <p>Preço total: R${orderPrice}</p>
+                    <p>Prazo de entrega: {shippingTime} dias</p>
+                    {trackingCode && <p>{trackingCode}</p>}
+                </div>
+            }
+
+            { !paid && <iframe src={paymentUrl}></iframe> }
         </div>
     )
 }
