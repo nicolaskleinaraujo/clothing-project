@@ -1,7 +1,7 @@
 const prisma = require("../../../db/client")
 
 const addProductController = async(req, res) => {
-    const { productId, sizeId, quantity } = req.body
+    const { productId, sizeId, quantity, color } = req.body
     let cart = req.signedCookies.cart
 
     // Validates all the necessary info of the informed product
@@ -27,12 +27,17 @@ const addProductController = async(req, res) => {
         return
     }
 
+    if (!product.colors.includes(color)) {
+        res.status(400).json({ msg: "Erro ao processar carrinho, tente novamente" })
+        return
+    }
+
     // Initializes a empty array if cart does not exists
     if (!cart) {
         cart = []
     }
 
-    cart.push({ productId, sizeId, quantity })
+    cart.push({ productId, sizeId, quantity, color })
 
     try {
         res.cookie("cart", cart, {
