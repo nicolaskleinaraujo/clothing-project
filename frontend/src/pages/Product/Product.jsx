@@ -30,12 +30,12 @@ const Product = () => {
             { product && 
                 <div>
                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
-                    
-                    <div>
-                        <p>{product.name}</p>
-                        <p>{product.price}</p>
 
-                        <h2>Cor</h2>
+                    <p>{product.name}</p>
+                    <p style={{ color: "red" }}>R${product.price}</p>
+
+                    <h2>Cor</h2>
+                    <div className={styles.product_colors}>
                         { colors &&
                             colors.map((color, index) => (
                                 <label>
@@ -44,8 +44,10 @@ const Product = () => {
                                 </label>
                             ))
                         }
+                    </div>
 
-                        <h2>Tamanho</h2>
+                    <h2>Tamanho</h2>
+                    <div className={styles.product_sizes}>
                         { sizes &&
                             sizes.map(size => (
                                 <label>
