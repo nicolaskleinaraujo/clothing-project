@@ -81,10 +81,12 @@ const Cart = () => {
                     products.map(product => (
                         <div key={product.id}>
                             <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
-                            <p>{product.name}</p>
-                            <p>{product.sizes[0].size} | {product.colors[0]}</p>
+                            <div>
+                                <p>{product.name}</p>
+                                <p>{product.sizes[0].size} | {product.colors[0]}</p>
+                            </div>
                             <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
-                            <p>{product.price}</p>
+                            <p>R${product.price}</p>
                         </div>
                     ))
                 }
@@ -96,7 +98,7 @@ const Cart = () => {
                     <p>Envio: {shippingPrice}</p>
                     { discount != undefined && <p>Disconto: {discount}</p> }
                     <p>Preço total: {orderPrice}</p>
-                    <p>Chega em {shippingDate} dias</p>
+                    <p>Prazo de entrega: {shippingDate} dias</p>
                 </div>
             }
         </div>
