@@ -82,11 +82,12 @@ model Orders {
 }
 
 model OrderProduct {
-  id        Int @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   orderId   Int
   productId Int
   sizeId    Int
   quantity  Int
+  color     String
 
   order   Orders   @relation(fields: [orderId], references: [id])
   product Products @relation(fields: [productId], references: [id])
