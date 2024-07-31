@@ -37,6 +37,11 @@ const calculatePriceController = async(req, res) => {
             return
         }
 
+        if (!product.colors.includes(cart[index].color)) {
+            res.status(400).json({ msg: "Pedido invalido" })
+            return
+        }
+
         // Adds the product to order products
         product.sizes = product.sizes.filter(size => size.id === cart[index].sizeId)
         orderProducts.push(product)
