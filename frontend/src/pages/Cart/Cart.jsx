@@ -117,14 +117,17 @@ const Cart = () => {
             }
 
             <h2>Você possui algum cupom?</h2>
-            <input 
-                type="text" 
-                name="coupon" 
-                id="coupon" 
-                onChange={(e) => setCoupon(e.target.value)} 
-                value={coupon}
-                placeholder="Digite o cupom"
-            />
+            <div className={styles.cart_coupon}>
+                <input
+                    type="text"
+                    name="coupon"
+                    id="coupon"
+                    onChange={(e) => setCoupon(e.target.value)}
+                    value={coupon}
+                    placeholder="Digite o cupom"
+                />
+                <button onClick={() => calculatePrice()}>Adicionar Cupom</button>
+            </div>
 
             <button onClick={() => createOrder()}>Concluir compra</button>
         </div>

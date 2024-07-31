@@ -80,7 +80,7 @@
     font-size: 1.2em;
 }
 
-.cart > input {
+.cart_coupon input {
     border: 2px solid #00453D;
     color: #F5DADF;
     background-color: #00453D;
@@ -90,8 +90,25 @@
     font-size: .9em;
 }
 
-.cart > input::placeholder {
+.cart_coupon input::placeholder {
     color: #F5DADF;
+}
+
+.cart_coupon button {
+    border: 2px solid #00453D;
+    color: #00453D;
+    background-color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    margin: 0 1em;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.cart_coupon button:hover {
+    border: 2px solid #F5DADF;
+    color: #F5DADF;
+    background-color: #00453D;
 }
 
 .cart > button {
