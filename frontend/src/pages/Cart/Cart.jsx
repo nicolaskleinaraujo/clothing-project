@@ -68,6 +68,14 @@ const Cart = () => {
         }
     }
 
+    const createOrder = async() => {
+        try {
+            
+        } catch (error) {
+            toast.error(error.response.data.msg)
+        }
+    }
+
     useEffect(() => {
         calculatePrice()
     }, [loading === true])

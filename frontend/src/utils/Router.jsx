@@ -10,6 +10,7 @@ import Register from "../pages/Register/Register"
 import Home from "../pages/Home/Home"
 import Product from "../pages/Product/Product"
 import Cart from "../pages/Cart/Cart"
+import Order from "../pages/Order/Order"
 
 const Router = () => {
     return (
@@ -22,6 +23,7 @@ const Router = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/product/:slug" element={<Product />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/order/:id" element={<Order />} />
                 </Routes>
             </BrowserRouter>
         </>
