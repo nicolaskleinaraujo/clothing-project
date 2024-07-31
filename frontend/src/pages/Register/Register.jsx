@@ -23,6 +23,14 @@ const Register = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
 
+        if (
+            firstName === "" ||
+            lastName === "" ||
+            email === "" ||
+            number === "" ||
+            password === ""
+        ) { return toast.info("Informe suas credenciais") }
+
         try {
             const res = await dbFetch.post("/users", {
                 firstName,
@@ -47,27 +55,27 @@ const Register = () => {
 
                 <label>
                     <p>Nome</p>
-                    <input type="text" onChange={(e) => setFirstName(e.target.value)} />
+                    <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
                 </label>
 
                 <label>
                     <p>Sobrenome</p>
-                    <input type="text" onChange={(e) => setLastName(e.target.value)} />
+                    <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
                 </label>
 
                 <label>
                     <p>Email</p>
-                    <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
                 </label>
 
                 <label>
                     <p>Número de Celular</p>
-                    <input type="text" onChange={(e) => setNumber(e.target.value)} />
+                    <input type="text" onChange={(e) => setNumber(e.target.value)} value={number} />
                 </label>
 
                 <label>
                     <p>Senha</p>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
                 </label>
 
                 <input type="submit" value="Criar" />
