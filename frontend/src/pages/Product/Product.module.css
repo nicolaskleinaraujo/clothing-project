@@ -1,25 +1,30 @@
+.product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .product img {
     width: 250px;
     height: 300px;
     border-bottom: 3px solid #F5DADF;
 }
 
-.product p {
+.product > div > p {
     text-align: left;
-    margin-left: .5em;
-    font-size: 1.2em;
+    font-size: 2em;
+    font-family: "Platypi", sans-serif;
 }
 
 .product h2 {
-    font-size: 1.2em;
-    margin: .8em 0 .4em .5em;
+    font-size: 1.5em;
+    margin: .8em 0 .4em 0;
 }
 
 .product_colors, .product_sizes {
     display: flex;
     flex-direction: row;
     gap: 1.5em;
-    margin-left: .5em;
 }
 
 .product_colors label input,
@@ -30,7 +35,8 @@
 .product_colors p, .product_sizes p {
     color: #F5DADF;
     border: 2px solid #F5DADF;
-    padding: .2em;
+    padding: .3em .5em;
+    font-size: 2em;
     border-radius: .5em;
     background-color: #00453D;
     cursor: pointer;
@@ -53,8 +59,8 @@
     border: none;
     background-color: #00453D;
     color: #F5DADF;
-    margin: 1.5em .5em;
-    font-size: 1.2em;
+    margin: 1.5em 0;
+    font-size: 1.5em;
     padding: .5em;
     border-radius: .3em;
     border: 2px solid #00453D;

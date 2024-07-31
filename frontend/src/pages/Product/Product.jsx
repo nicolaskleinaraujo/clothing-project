@@ -66,8 +66,9 @@ const Product = () => {
                 <div>
                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
 
-                    <p>{product.name}</p>
-                    <p style={{ color: "red" }}>R${product.price}</p>
+                    <p style={{ fontFamily: "Yeseva one, sans-serif" }}>{product.name}</p>
+                    <p style={{ color: "#70012b" }}>R${product.price}</p>
+                    <p style={{ fontSize: "1.5em", color: "#70012b", fontWeight: "bolder" }}>Parcelamos até 5x no cartão</p>
 
                     <h2>Cor</h2>
                     <div className={styles.product_colors}>
@@ -106,6 +107,8 @@ const Product = () => {
                     </div>
 
                     <button onClick={() => addToCart()}>ADICIONAR AO CARRINHO</button>
+
+                    <p style={{ fontSize: "1.5em", fontWeight: "lighter", paddingBottom: "1.8em" }}>{product.description}</p>
                 </div>
             }
         </div>
