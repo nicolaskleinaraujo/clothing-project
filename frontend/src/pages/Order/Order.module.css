@@ -7,6 +7,24 @@
     background-color: #F5DADF;
 }
 
+.order > iframe {
+    width: 90%;
+    height: 48em;
+    margin: 2.5em 0;
+}
+
+.order_infos {
+    color: #00453D;
+    font-size: .9em;
+    margin: 0 .5em 1.5em .5em;
+}
+
+.order_infos p {
+    font-size: 1.5em;
+    font-family: "Platypi", sans-serif;
+    font-size: 1.5em;
+}
+
 .order h1 {
     color: #00453D;
     margin: 1em;
@@ -45,21 +63,4 @@
 
 .order_products > div > div > p:first-child {
     margin-bottom: .5em;
-}
-
-.order_infos {
-    color: #00453D;
-    margin-bottom: 3em;
-}
-
-.order_infos p {
-    font-size: 1.5em;
-    font-family: "Platypi", sans-serif;
-    font-size: 1.5em;
-}
-
-.order > iframe {
-    width: 90%;
-    height: 50em;
-    margin-bottom: 5em;
 }

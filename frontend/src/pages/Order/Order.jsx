@@ -45,8 +45,20 @@ const Order = () => {
 
     return (
         <div className={styles.order}>
-            <h1>Seu Pedido</h1>
+            { !paid && <iframe src={paymentUrl}></iframe> }
 
+            { orderPrice != 0 &&
+                <div className={styles.order_infos}>
+                    <p>Status: {
+                        paid ? received ? "Entregue" : "Pago" : "Aguardando Pagamento"
+                    }</p>
+                    <p>Preço total: R${orderPrice}</p>
+                    <p>Prazo de entrega: {shippingTime} dias</p>
+                    {trackingCode && <p>Codigo rastreamento: {trackingCode}</p>}
+                </div>
+            }
+
+            <h1>Resumo do Pedido</h1>
             <div className={styles.order_products}>
                 { products &&
                     products.map(product => (
@@ -63,19 +75,6 @@ const Order = () => {
                     ))
                 }
             </div>
-
-            { orderPrice != 0 &&
-                <div className={styles.order_infos}>
-                    <p>Status: {
-                        paid ? received ? "Entregue" : "Pago" : "Aguardando Pagamento"
-                    }</p>
-                    <p>Preço total: R${orderPrice}</p>
-                    <p>Prazo de entrega: {shippingTime} dias</p>
-                    {trackingCode && <p>{trackingCode}</p>}
-                </div>
-            }
-
-            { !paid && <iframe src={paymentUrl}></iframe> }
         </div>
     )
 }
