@@ -5,18 +5,22 @@ import styles from "./Product.module.css"
 import dbFetch from "../../config/axios"
 
 // Modules
-import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useEffect, useState, useContext } from "react"
 import { toast } from "react-toastify"
+import { UserContext } from "../../context/UserContext"
 
 const Product = () => {
     const { slug } = useParams()
+    const navigate = useNavigate()
+
     const [product, setProduct] = useState({})
     const [colors, setColors] = useState([])
     const [sizes, setSizes] = useState([])
 
     const [selectedColor, setSelectedColor] = useState("")
     const [selectedSize, setSelectedSize] = useState(0)
+    const { userId } = useContext(UserContext)
 
     const getProduct = async() => {
         const res = await dbFetch.get(`/products/slug/${slug}`)
@@ -26,13 +30,24 @@ const Product = () => {
     }
 
     const addToCart = async() => {
+        if (userId === 0) {
+            toast.info("Faça seu login")
+            navigate("/login")
+            return
+        }
+
+        if (selectedColor === "" || selectedSize === 0) {
+            toast.info("Escolha a cor e o tamanho")
+            return
+        }
+
         try {
             const res = await dbFetch.post("/cart", {
                 "productId": product.id,
                 "sizeId": parseInt(selectedSize),
                 "quantity": 1,
                 "color": selectedColor,
-                "userId": 1
+                "userId": userId,
             })
     
             toast.success(res.data.msg)
