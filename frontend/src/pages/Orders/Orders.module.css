@@ -16,7 +16,7 @@
     text-decoration: none;
 }
 
-.orders_products div {
+.orders_products > a > div {
     display: flex;
     align-items: center;
     background-color: #00453D;
@@ -30,5 +30,24 @@
 }
 
 .orders_products p {
+    text-align: center;
     color: #F5DADF;
+}
+
+.orders_products div > p {
+    margin-left: .1em;
+}
+
+.orders_products div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 32%;
+    margin: 0 0;
+}
+
+.orders_products div > div > p:first-child {
+    margin-bottom: .7em;
 }
