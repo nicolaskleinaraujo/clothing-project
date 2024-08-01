@@ -6,11 +6,25 @@ import 'react-toastify/dist/ReactToastify.css'
 import Router from './utils/Router'
 
 // Modules
-import { Flip, ToastContainer } from 'react-toastify'
+import dbFetch from './config/axios'
 import { UserContext } from './context/UserContext'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+import { Flip, ToastContainer, toast } from 'react-toastify'
 
 function App() {
+  const { setUserId, setIsAdmin } = useContext(UserContext)
+
+  const tryAuth = async() => {
+    const res = await dbFetch.post("/users/tryauth")
+    setUserId(res.data.user.id)
+    setIsAdmin(res.data.user.isAdmin)
+    toast.success(res.data.msg)
+  }
+
+  useEffect(() => {
+    tryAuth()
+  }, [])
+
   return (
     <>
       <ToastContainer 
