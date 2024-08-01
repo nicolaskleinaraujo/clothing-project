@@ -2,34 +2,21 @@ const prisma = require("../../../db/client")
 const jwt = require("jsonwebtoken")
 
 const tryAuthController = async(req, res) => {
-    const accessToken = req.signedCookies.access
     const refreshToken = req.signedCookies.refresh
 
-    if (!accessToken || !refreshToken) {
+    if (!refreshToken) {
         res.status(400).json({ msg: "Falha ao tentar autenticação" })
         return
     }
 
     try {
-        jwt.verify(accessToken, process.env.JWT_SECRET, (err) => {
-            if (err.name !== 'TokenExpiredError') {
-                res.status(400).json({ msg: "Falha ao tentar autenticação" })
-                return
-            }
-        })
-
-        jwt.verify(refreshToken, process.env.JWT_SECRET, (err) => {
-            if (err) {
-                res.status(400).json({ msg: "Falha ao tentar autenticação" })
-                return
-            }
-        })
+        const refreshJwt = jwt.verify(refreshToken, process.env.JWT_SECRET)
 
         // Getting user from ID inside token
-        const user = await prisma.user.findUnique({ where: { id: refreshToken.id } })
+        const user = await prisma.user.findUnique({ where: { id: refreshJwt.id } })
 
         // Creating the access and refresh JWT Token
-        const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        const newAccessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
 
         res.cookie("access", newAccessToken, {
             httpOnly: true,
