@@ -1,11 +1,15 @@
 .navbar {
     display: flex;
-    flex-direction: row;
+    gap: .4em;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    padding: 1em .5em;
     border-bottom: 1px solid #F5DADF;
     background-color: #00453D;
+}
+
+.navbar img {
+    width: 40px;
 }
 
 .navbar_category, .navbar_size {
@@ -13,9 +17,12 @@
     display: inline-block;
 }
 
+.navbar_category {
+    margin: 0 .2em;
+}
+
 .navbar_category button, .navbar_size button {
     background-color: transparent;
-    padding: 1em;
     font-size: 1em;
     border: none;
     cursor: pointer;
@@ -55,7 +62,7 @@
 
 .navbar_account a {
     color: #F5DADF;
-    margin: .7em;
+    margin: .6em;
 }
 
 .navbar_account a svg {
