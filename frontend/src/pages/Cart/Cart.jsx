@@ -9,7 +9,7 @@ import { useState, useEffect, useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
-import { MdOutlineRemoveShoppingCart, MdTurnRight } from "react-icons/md"
+import { MdOutlineRemoveShoppingCart } from "react-icons/md"
 
 const Cart = () => {
     const navigate = useNavigate()
@@ -42,13 +42,14 @@ const Cart = () => {
             toast.success(res.data.msg)
             setLoading(false)
         } catch (error) {
-            if (error.response.status === 401) {
-                toast.info("Faça seu login")
-                navigate("/login")
+            if (error.response.data.msg === "Informações insuficientes") {
+                toast.info("Adicione produtos no seu carrinho")
+                navigate("/")
                 return
             }
 
-            toast.error(error.response.data.msg)
+            toast.error("Faça seu login")
+            navigate("/login")
         }
     }
 
