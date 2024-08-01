@@ -3,14 +3,24 @@ import styles from "./Order.module.css"
 
 // Modules
 import dbFetch from "../../config/axios"
+import dayjs from "dayjs"
+import utc from 'dayjs/plugin/utc'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { useState, useEffect, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
+
+// DayJS Configs
+dayjs.extend(utc);
+dayjs.extend(advancedFormat);
 
 const Order = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
+
+    const [hours, setHours] = useState(0)
+    const [minutes, setMinutes] = useState(0)
 
     const [products, setProducts] = useState([])
     const [orderPrice, setOrderPrice] = useState(0)
@@ -34,6 +44,11 @@ const Order = () => {
             setReceived(res.data.order.received)
             setShippingTime(res.data.order.shipping_time)
             setTrackingCode(res.data.order.tracking_code)
+
+            // Calculates and sets payment expiration
+            const expiresIn = dayjs.utc(res.data.order.created_at).add(10, "minute")
+            setHours(expiresIn.hour())
+            setMinutes(expiresIn.minute())
         } catch (error) {
             console.log(error)
         }
@@ -45,6 +60,7 @@ const Order = () => {
 
     return (
         <div className={styles.order}>
+            { !paid && <p>Você tem até as {hours}:{minutes} de hoje para efetuar o pagamento</p> }
             { !paid && <iframe src={paymentUrl} loading="Carregando..."></iframe> }
 
             { orderPrice != 0 &&
