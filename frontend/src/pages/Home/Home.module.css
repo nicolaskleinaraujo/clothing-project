@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: .8em;
 }
 
 .home_products > a {
@@ -16,8 +17,8 @@
     align-items: center;
     color: #F5DADF;
     background-color: #00453D;
-    width: 15em;
-    height: 24em;
+    width: 11em;
+    height: 18em;
     padding: .3em;
     margin: .3em;
     border-radius: .3em;
@@ -25,13 +26,14 @@
 
 .home_products img {
     padding-top: .3em;
-    width: 180px;
-    height: 200px;
+    width: 100px;
+    height: 120px;
     margin-bottom: .8em;
+    border-radius: .5em;
 }
 
 .home_products p {
-    font-size: 1.2em;
+    font-size: 1em;
     text-align: center;
     max-width: 80%;
     word-wrap: break-word;
@@ -43,7 +45,7 @@
     margin-top: .5em;
     padding: .3em;
     border-radius: .5em;
-    transition: .3s
+    transition: .3s;
 }
 
 .home_products div a:hover {
