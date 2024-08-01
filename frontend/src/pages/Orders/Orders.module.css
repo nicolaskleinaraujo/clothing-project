@@ -1,0 +1,34 @@
+.orders {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.orders_products {
+    align-self: flex-start;
+    margin: 3em auto 0 auto;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.orders_products a {
+    text-decoration: none;
+}
+
+.orders_products div {
+    display: flex;
+    align-items: center;
+    background-color: #00453D;
+    border-radius: .5em;
+    margin-bottom: 3em;
+}
+
+.orders_products img {
+    width: 26%;
+    border-radius: .5em 0 0 .5em;
+}
+
+.orders_products p {
+    color: #F5DADF;
+}
