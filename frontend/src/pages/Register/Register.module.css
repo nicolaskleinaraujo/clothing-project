@@ -3,8 +3,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #F5DADF;
-    padding: 2em;
-    height: 100%;
+    padding: 3em 0;
 }
 
 .register h1 {
