@@ -16,7 +16,7 @@ const sortByUserController = async(req, res) => {
         }
 
         const orders = await prisma.orders.findMany({
-            where: { userId: id },
+            where: { userId: parseInt(id) },
             orderBy: { id: "desc" },
         })
 
