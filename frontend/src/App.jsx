@@ -8,7 +8,7 @@ import Router from './utils/Router'
 // Modules
 import dbFetch from './config/axios'
 import { UserContext } from './context/UserContext'
-import { useContext, useEffect } from 'react'
+import { useContext, useLayoutEffect } from 'react'
 import { Flip, ToastContainer, toast } from 'react-toastify'
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
     toast.success(res.data.msg)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     tryAuth()
   }, [])
 
