@@ -8,21 +8,20 @@
 }
 
 .order > iframe {
-    width: 90%;
-    height: 48em;
-    margin: 2.5em 0;
+    width: 98%;
+    height: 40em;
+    margin-top: 3em;
 }
 
 .order_infos {
     color: #00453D;
     font-size: .9em;
-    margin: 0 .5em 1.5em .5em;
+    margin: 3em 0 1.5em 0;
 }
 
 .order_infos p {
     font-size: 1.5em;
     font-family: "Platypi", sans-serif;
-    font-size: 1.5em;
 }
 
 .order h1 {
@@ -63,4 +62,8 @@
 
 .order_products > div > div > p:first-child {
     margin-bottom: .5em;
+}
+
+.order_products > div > p {
+    margin-right: 2em;
 }

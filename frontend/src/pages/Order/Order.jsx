@@ -45,7 +45,7 @@ const Order = () => {
 
     return (
         <div className={styles.order}>
-            { !paid && <iframe src={paymentUrl}></iframe> }
+            { !paid && <iframe src={paymentUrl} loading="Carregando..."></iframe> }
 
             { orderPrice != 0 &&
                 <div className={styles.order_infos}>
