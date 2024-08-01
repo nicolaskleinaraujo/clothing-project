@@ -8,12 +8,12 @@
     background-color: #00453D;
 }
 
-.category, .size {
+.navbar_category, .navbar_size {
     position: relative;
     display: inline-block;
 }
 
-.category button, .size button {
+.navbar_category button, .navbar_size button {
     background-color: transparent;
     padding: 1em;
     font-size: 1em;
@@ -23,13 +23,17 @@
     color: #F5DADF;
 }
 
-.category button:hover, .size button:hover {
+.navbar_category button:hover, .navbar_size button:hover {
     background-color: #F5DADF;
     color: #00453D;
 }
 
-.category_content, .size_content {
+.navbar_category_content, .navbar_size_content {
     display: none;
+}
+
+.navbar_category_open_content, .navbar_size_open_content {
+    display: block;
     position: absolute;
     background-color: #00453D;
     min-width: 12em;
@@ -37,33 +41,29 @@
     z-index: 1;
 }
 
-.category_content a, .size_content a {
+.navbar_category_open_content a, .navbar_size_open_content a {
     color: #F5DADF;
     padding: 1em 1.2em;
     text-decoration: none;
     display: block;
 }
 
-.category_content a:hover, .size_content a:hover {
+.navbar_category_open_content a:hover, .navbar_size_open_content a:hover {
     background-color: #F5DADF;
     color: #00453D;
 }
 
-.category:hover .category_content, .size:hover .size_content {
-    display: block;
-}
-
-.account a {
+.navbar_account a {
     color: #F5DADF;
     margin: .7em;
 }
 
-.account a svg {
+.navbar_account a svg {
     font-size: 1.5em;
     border-radius: .2em;
 }
 
-.account a:hover svg {
+.navbar_account a:hover svg {
     background-color: #F5DADF;
     color: #00453D;
 }
