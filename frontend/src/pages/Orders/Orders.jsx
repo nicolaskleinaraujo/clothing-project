@@ -48,7 +48,7 @@ const Orders = () => {
                                 <img src={`${import.meta.env.VITE_API_URL}/images/${order.orderProducts[0].product.image}`} alt="Foto do Produto" />
                                 <p>Realizado em {data}</p>
                                 <div>
-                                    <p> {order.paid ? order.received ? "Entregue" : "Pago" : "Aguardando Pagamento"}</p>
+                                    <p>{order.paid ? order.received ? "Entregue" : "Pago" : "Aguardando Pagamento"}</p>
                                     <p>R${order.price}</p>
                                 </div>
                             </div>
