@@ -60,12 +60,14 @@ const Navbar = () => {
             <div className={styles.navbar_account}>
                 { userId === 0 ? (
                     <Link to="/login"><FiUser /></Link>
-                ): (
+                ) : (
                     <>
                         <a onMouseEnter={() => setUserOpen(true)} onMouseLeave={() => setUserOpen(false)}><FiUser /></a>
-                        <div className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}>
-                            <Link to={`/orders/${userId}`}>Pedidos</Link>
-                        </div>
+                        <div 
+                            onMouseEnter={() => setUserOpen(true)} 
+                            onMouseLeave={() => setUserOpen(false)} 
+                            className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}
+                        > <Link to={`/orders/${userId}`}>Pedidos</Link> </div>
                     </>
                 )}
 
