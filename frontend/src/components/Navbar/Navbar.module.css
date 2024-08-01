@@ -35,11 +35,15 @@
     color: #00453D;
 }
 
-.navbar_category_content, .navbar_size_content {
+.navbar_category_content,
+.navbar_size_content,
+.navbar_user_content {
     display: none;
 }
 
-.navbar_category_open_content, .navbar_size_open_content {
+.navbar_category_open_content,
+.navbar_size_open_content,
+.navbar_user_open_content {
     display: block;
     position: absolute;
     background-color: #00453D;
@@ -48,21 +52,32 @@
     z-index: 1;
 }
 
-.navbar_category_open_content a, .navbar_size_open_content a {
+.navbar_category_open_content a,
+.navbar_size_open_content a,
+.navbar_user_open_content a {
     color: #F5DADF;
     padding: 1em 1.2em;
     text-decoration: none;
     display: block;
 }
 
-.navbar_category_open_content a:hover, .navbar_size_open_content a:hover {
+.navbar_user_open_content {
+    right: 0;
+}
+
+.navbar_category_open_content a:hover,
+.navbar_size_open_content a:hover 
+.navbar_user_open_content a:hover {
     background-color: #F5DADF;
     color: #00453D;
 }
 
-.navbar_account a {
+.navbar_account a,
+.navbar_account button {
     color: #F5DADF;
     margin: .6em;
+    border: none;
+    background-color: transparent;
 }
 
 .navbar_account a svg {

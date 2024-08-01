@@ -13,7 +13,7 @@ const Orders = () => {
 
     const [orders, setOrders] = useState([])
 
-    const getOrder = async() => {
+    const getOrders = async() => {
         try {
             const res = dbFetch.post("/orders/user", {
                 "id": id,
@@ -27,7 +27,7 @@ const Orders = () => {
     }
 
     useEffect(() => {
-        getOrder()
+        getOrders()
     }, [])
 
     return (

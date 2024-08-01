@@ -5,14 +5,18 @@ import styles from "./Navbar.module.css"
 import dbFetch from "../../config/axios"
 
 // Modules
-import { useState, useEffect } from "react"
-import { IoIosArrowDown } from "react-icons/io"
+import { useState, useEffect, useContext } from "react"
 import { FiUser, FiShoppingBag } from "react-icons/fi"
+import { IoIosArrowDown } from "react-icons/io"
+import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
+    const { userId } = useContext(UserContext)
+
     const [categoriesOpen, setCategoriesOpen] = useState(false)
     const [sizesOpen, setSizesOpen] = useState(false)
+    const [userOpen, setUserOpen] = useState(false)
 
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
@@ -54,7 +58,17 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar_account}>
-                <Link to="/login"><FiUser /></Link>
+                { userId === 0 ? (
+                    <Link to="/login"><FiUser /></Link>
+                ): (
+                    <>
+                        <a onMouseEnter={() => setUserOpen(true)} onMouseLeave={() => setUserOpen(false)}><FiUser /></a>
+                        <div className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}>
+                            <Link to={`/orders/${userId}`}>Pedidos</Link>
+                        </div>
+                    </>
+                )}
+
                 <Link to="/cart"><FiShoppingBag /></Link>
             </div>
         </div>

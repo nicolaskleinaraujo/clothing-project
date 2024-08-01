@@ -22,7 +22,7 @@ const sortByUserController = async(req, res) => {
 
         res.status(200).json({ msg: "Pesquisa feita com sucesso", orders })
     } catch (error) {
-        res.status(500).json({ msg: "Erro intero, tente novamente" })
+        res.status(500).json({ msg: "Erro intero, tente novamente", error })
     }
 }
 
