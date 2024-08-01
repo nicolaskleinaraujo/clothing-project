@@ -39,7 +39,7 @@
 
 .order_products {
     align-self: flex-start;
-    margin-left: 1em;
+    margin: auto;
     flex-wrap: wrap;
     width: 90%;
 }
