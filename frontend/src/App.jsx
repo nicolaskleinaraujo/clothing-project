@@ -19,7 +19,6 @@ function App() {
         transition={Flip} 
       />
 
-      <button onClick={() => console.log(userId)}>TESTEE</button>
       <Router />
     </>
   )

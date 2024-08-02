@@ -47,9 +47,6 @@ const Cart = () => {
                 navigate("/")
                 return
             }
-
-            toast.error("Faça seu login")
-            navigate("/login")
         }
     }
 
