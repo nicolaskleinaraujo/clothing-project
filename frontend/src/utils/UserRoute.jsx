@@ -1,18 +1,19 @@
 // Modules
-import { useContext } from "react"
-import { UserContext } from "../context/UserContext"
 import { Outlet, Navigate } from "react-router-dom"
-import { useAuth } from "../hooks/useAuth"
+import useAuth from "../hooks/useAuth"
 
 const UserRoute = () => {
-    const { userId, setUserId } = useContext(UserContext)
+    const { userId, loading } = useAuth()
 
-    if (userId === 0) {
-        const tryAuth = useAuth()
-        setUserId(tryAuth.userId)
+    if (loading) {
+        return
     }
 
-    return userId != 0 ? <Outlet /> : <Navigate to="/" />
+    if (userId === 0) {
+        return <Navigate to="/login" replace />
+    }
+
+    return <Outlet />
 }
 
 export default UserRoute

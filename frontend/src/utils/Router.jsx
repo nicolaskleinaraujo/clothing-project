@@ -1,5 +1,6 @@
 // Modules
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import UserRoute from "./UserRoute"
 
 // Components
 import Navbar from "../components/Navbar/Navbar"
@@ -23,9 +24,12 @@ const Router = () => {
                     <Route path="/register" element={ <Register /> } />
                     <Route path="/" element={ <Home /> } />
                     <Route path="/product/:slug" element={ <Product /> } />
-                    <Route path="/cart" element={ <Cart /> } />
                     <Route path="/order/:id" element={ <Order /> } />
                     <Route path="/orders/:id" element={ <Orders /> } />
+
+                    <Route element={ <UserRoute /> }>
+                        <Route path="/cart" element={ <Cart /> } />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </>
