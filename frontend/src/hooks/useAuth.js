@@ -11,15 +11,19 @@ const useAuth = () => {
     const [loading, setLoading] = useState(true)
 
     const fetchData = async() => {
-        const res = await dbFetch.post("/users/tryauth")
+        try {
+            const res = await dbFetch.post("/users/tryauth")
 
-        setAuthUserId(res.data.user.id)
-        setAuthIsAdmin(res.data.user.isAdmin)
-
-        setUserId(res.data.user.id)
-        setIsAdmin(res.data.user.isAdmin)
-
-        setLoading(false)
+            setAuthUserId(res.data.user.id)
+            setAuthIsAdmin(res.data.user.isAdmin)
+    
+            setUserId(res.data.user.id)
+            setIsAdmin(res.data.user.isAdmin)
+    
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
