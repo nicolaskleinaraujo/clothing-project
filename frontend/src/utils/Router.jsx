@@ -13,6 +13,7 @@ import Product from "../pages/Product/Product"
 import Cart from "../pages/Cart/Cart"
 import Order from "../pages/Order/Order"
 import Orders from "../pages/Orders/Orders"
+import Address from "../pages/Address/Address"
 
 const Router = () => {
     return (
@@ -29,6 +30,7 @@ const Router = () => {
                         <Route path="/cart" element={ <Cart /> } />
                         <Route path="/order/:id" element={ <Order /> } />
                         <Route path="/orders/:id" element={ <Orders /> } />
+                        <Route path="/address" element={ <Address /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
