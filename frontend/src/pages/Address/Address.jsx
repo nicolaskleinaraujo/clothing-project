@@ -19,12 +19,21 @@ const Address = () => {
     const [houseNum, setHouseNum] = useState("")
 
     const getUserinfos = async() => {
-        const res = await dbFetch.post("/address/user", {
-            "id": userId,
-            "userId": userId,
-        })
-
-        setUserAddress(res.data.address)
+        try {
+            const res = await dbFetch.post("/address/user", {
+                "id": userId,
+                "userId": userId,
+            })
+    
+            setUserAddress(res.data.address)
+            setCep(res.data.address.cep)
+            setCity(res.data.address.city)
+            setDistrict(res.data.address.district)
+            setStreet(res.data.address.street)
+            setHouseNum(res.data.address.houseNum)
+        } catch (error) {
+            
+        }
     }
 
     const handleSubmit = async(e) => {
@@ -70,7 +79,7 @@ const Address = () => {
                 { Object.keys(userAddress).length === 0 ? (
                     <h1>Criar Endereço</h1>
                 ) : (
-                    <h1>Endereço</h1>
+                    <h1>Atualizar Endereço</h1>
                 )}
 
                 <label>
@@ -79,7 +88,7 @@ const Address = () => {
                         type="text" 
                         name="cep" 
                         id="cep" 
-                        value={userAddress.cep} 
+                        value={cep} 
                         onChange={(e) => setCep(e.target.value)} 
                     />
                 </label>
@@ -90,7 +99,7 @@ const Address = () => {
                         type="text" 
                         name="city" 
                         id="city" 
-                        value={userAddress.city} 
+                        value={city} 
                         onChange={(e) => setCity(e.target.value)}
                     />
                 </label>
@@ -101,7 +110,7 @@ const Address = () => {
                         type="text" 
                         name="district" 
                         id="district" 
-                        value={userAddress.district} 
+                        value={district} 
                         onChange={(e) => setDistrict(e.target.value)}
                     />
                 </label>
@@ -112,7 +121,7 @@ const Address = () => {
                         type="text" 
                         name="street" 
                         id="street" 
-                        value={userAddress.street} 
+                        value={street} 
                         onChange={(e) => setStreet(e.target.value)}
                     />
                 </label>
@@ -123,7 +132,7 @@ const Address = () => {
                         type="text" 
                         name="housenum" 
                         id="housenum" 
-                        value={userAddress.houseNum} 
+                        value={houseNum} 
                         onChange={(e) => setHouseNum(e.target.value)}
                     />
                 </label>
