@@ -3,8 +3,37 @@ import styles from "./CreateOrder.module.css"
 
 // Modules
 import dbFetch from "../../config/axios"
+import { toast } from "react-toastify"
+import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
 
 const CreateOrder = () => {
+    const navigate = useNavigate()
+    const { userId } = useContext(UserContext)
+
+    const [userAddress, setUserAddress] = useState({})
+    const [coupon, setCoupon] = useState("")
+
+
+    const getAddress = async() => {
+        try {
+            const res = await dbFetch.post("/address/user", {
+                "id": userId,
+                "userId": userId,
+            })
+
+            setUserAddress(res.data.address)
+        } catch (error) {
+            toast.error("Cadastre seu endereço")
+            navigate("/address")
+        }
+    }
+
+    useEffect(() => {
+        getAddress()
+    }, [])
+
     return (
         <div>
             <h2>Endereço</h2>
