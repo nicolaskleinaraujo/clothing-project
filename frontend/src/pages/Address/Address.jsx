@@ -11,6 +11,12 @@ const Address = () => {
 
     const [userAddress, setUserAddress] = useState({})
 
+    const [cep, setCep] = useState("")
+    const [city, setCity] = useState("")
+    const [district, setDistrict] = useState("")
+    const [street, setStreet] = useState("")
+    const [houseNum, setHouseNum] = useState("")
+
     const getUserinfos = async() => {
         const res = await dbFetch.post("/address/user", {
             "id": userId,
@@ -22,6 +28,8 @@ const Address = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+
+        
     }
 
     useEffect(() => {
@@ -39,27 +47,57 @@ const Address = () => {
 
                 <label>
                     <p>CEP</p>
-                    <input type="text" name="cep" id="cep" value={userAddress.cep} />
+                    <input 
+                        type="text" 
+                        name="cep" 
+                        id="cep" 
+                        value={userAddress.cep} 
+                        onChange={(e) => setCep(e.target.value)} 
+                    />
                 </label>
 
                 <label>
                     <p>Cidade</p>
-                    <input type="text" name="city" id="city" value={userAddress.city} />
+                    <input 
+                        type="text" 
+                        name="city" 
+                        id="city" 
+                        value={userAddress.city} 
+                        onChange={(e) => setCity(e.target.value)}
+                    />
                 </label>
 
                 <label>
                     <p>Bairro</p>
-                    <input type="text" name="district" id="district" value={userAddress.district} />
+                    <input 
+                        type="text" 
+                        name="district" 
+                        id="district" 
+                        value={userAddress.district} 
+                        onChange={(e) => setDistrict(e.target.value)}
+                    />
                 </label>
 
                 <label>
                     <p>Rua</p>
-                    <input type="text" name="street" id="street" value={userAddress.street} />
+                    <input 
+                        type="text" 
+                        name="street" 
+                        id="street" 
+                        value={userAddress.street} 
+                        onChange={(e) => setStreet(e.target.value)}
+                    />
                 </label>
 
                 <label>
                     <p>Número</p>
-                    <input type="text" name="housenum" id="housenum" value={userAddress.houseNum} />
+                    <input 
+                        type="text" 
+                        name="housenum" 
+                        id="housenum" 
+                        value={userAddress.houseNum} 
+                        onChange={(e) => setHouseNum(e.target.value)}
+                    />
                 </label>
 
                 { Object.keys(userAddress).length === 0 ? (
