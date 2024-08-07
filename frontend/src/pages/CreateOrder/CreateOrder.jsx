@@ -37,7 +37,7 @@ const CreateOrder = () => {
     return (
         <div>
             <h2>Endereço</h2>
-            <p>...</p>
+            <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
 
             <h2>Cupom</h2>
             <div>
