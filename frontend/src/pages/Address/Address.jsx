@@ -33,18 +33,18 @@ const Address = () => {
         try {
             let res
 
-            if (userAddress) {
-                res = await dbFetch.put("/address", {
-                    "id": userAddress.id,
+            if (Object.keys(userAddress).length === 0) {
+                res = await dbFetch.post("/address", {
                     "cep": cep,
                     "city": city,
                     "district": district,
                     "street": street,
                     "houseNum": houseNum,
                     "userId": userId,
-                })
+                })                
             } else {
-                res = await dbFetch.post("/address", {
+                res = await dbFetch.put("/address", {
+                    "id": userAddress.id,
                     "cep": cep,
                     "city": city,
                     "district": district,
