@@ -11,22 +11,21 @@ const updateAddressController = async (req, res) => {
         userId,
     } = req.body
 
-    parseInt(id, houseNum, userId)
-
     if (
+        isNaN(id) ||
         cep === "" ||
         city === "" ||
         district === "" ||
         street === "" ||
-        houseNum === undefined ||
-        userId === undefined
+        isNaN(houseNum) ||
+        isNaN(userId)
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
 
     // Checking if the provided address ID is valid and belongs to user
-    const addressExists = await prisma.address.findUnique({ where: { id } })
+    const addressExists = await prisma.address.findUnique({ where: { id: parseInt(id) } })
     if (!addressExists) {
         res.status(404).json({ msg: "Endereço não encontrado" })
         return
@@ -39,13 +38,13 @@ const updateAddressController = async (req, res) => {
 
     try {
         const updatedAddress = await prisma.address.update({
-            where: { id },
+            where: { id: parseInt(id) },
             data: {
                 cep,
                 city,
                 district,
                 street,
-                houseNum,
+                houseNum: parseInt(houseNum),
             },
         })
 
