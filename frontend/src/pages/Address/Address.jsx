@@ -9,10 +9,14 @@ import { UserContext } from "../../context/UserContext"
 const Address = () => {
     const { userId } = useContext(UserContext)
 
-    const [userAddress, setUserAddress] = useState([])
+    const [userAddress, setUserAddress] = useState({})
 
     const getUserinfos = async() => {
-        const res = await dbFetch.get(`/address/${userId}`)
+        const res = await dbFetch.post("/address/user", {
+            "id": userId,
+            "userId": userId,
+        })
+
         setUserAddress(res.data.address)
     }
 
