@@ -20,14 +20,22 @@ const Address = () => {
         setUserAddress(res.data.address)
     }
 
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+    }
+
     useEffect(() => {
         getUserinfos()
     }, [])
 
     return (
         <div>
-            <form className={styles.address}>
-                <h1>Endereço</h1>
+            <form onSubmit={handleSubmit} className={styles.address}>
+                { Object.keys(userAddress).length === 0 ? (
+                    <h1>Criar Endereço</h1>
+                ) : (
+                    <h1>Endereço</h1>
+                )}
 
                 <label>
                     <p>CEP</p>
@@ -51,8 +59,14 @@ const Address = () => {
 
                 <label>
                     <p>Número</p>
-                    <input type="text" name="housenum" id="housenum" value={userAddress.housenum} />
+                    <input type="text" name="housenum" id="housenum" value={userAddress.houseNum} />
                 </label>
+
+                { Object.keys(userAddress).length === 0 ? (
+                    <input type="submit" value="Cadastrar" />
+                ) : (
+                    <input type="submit" value="Atualizar" />
+                )}
             </form>
         </div>
     )
