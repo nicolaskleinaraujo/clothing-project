@@ -67,7 +67,10 @@ const Navbar = () => {
                             onMouseEnter={() => setUserOpen(true)} 
                             onMouseLeave={() => setUserOpen(false)} 
                             className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}
-                        > <Link to={`/orders/${userId}`}>Pedidos</Link> </div>
+                        > 
+                            <Link to={`/orders/${userId}`}>Pedidos</Link> 
+                            <Link to={"/address"}>Endereço</Link>
+                        </div>
                     </>
                 )}
 
