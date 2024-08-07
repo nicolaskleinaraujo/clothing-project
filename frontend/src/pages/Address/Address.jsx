@@ -5,6 +5,7 @@ import styles from "./Address.module.css"
 import dbFetch from "../../config/axios"
 import { useState, useEffect, useContext } from "react"
 import { UserContext } from "../../context/UserContext"
+import { toast } from "react-toastify"
 
 const Address = () => {
     const { userId } = useContext(UserContext)
@@ -29,7 +30,34 @@ const Address = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
 
-        
+        try {
+            let res
+
+            if (userAddress) {
+                res = await dbFetch.put("/address", {
+                    "id": userAddress.id,
+                    "cep": cep,
+                    "city": city,
+                    "district": district,
+                    "street": street,
+                    "houseNum": houseNum,
+                    "userId": userId,
+                })
+            } else {
+                res = await dbFetch.post("/address", {
+                    "cep": cep,
+                    "city": city,
+                    "district": district,
+                    "street": street,
+                    "houseNum": houseNum,
+                    "userId": userId,
+                })
+            }
+
+            toast.success(res.data.msg)
+        } catch (error) {
+            toast.error(error.response.data.msg)
+        }
     }
 
     useEffect(() => {
