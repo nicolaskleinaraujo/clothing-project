@@ -14,6 +14,7 @@ import Cart from "../pages/Cart/Cart"
 import Order from "../pages/Order/Order"
 import Orders from "../pages/Orders/Orders"
 import Address from "../pages/Address/Address"
+import CreateOrder from "../pages/CreateOrder/CreateOrder"
 
 const Router = () => {
     return (
@@ -31,6 +32,7 @@ const Router = () => {
                         <Route path="/order/:id" element={ <Order /> } />
                         <Route path="/orders/:id" element={ <Orders /> } />
                         <Route path="/address" element={ <Address /> } />
+                        <Route path="/create-order" element={ <CreateOrder /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
