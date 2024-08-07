@@ -26,7 +26,34 @@ const Address = () => {
 
     return (
         <div>
-            <h1>Endereço</h1>
+            <form className={styles.address}>
+                <h1>Endereço</h1>
+
+                <label>
+                    <p>CEP</p>
+                    <input type="text" name="cep" id="cep" value={userAddress.cep} />
+                </label>
+
+                <label>
+                    <p>Cidade</p>
+                    <input type="text" name="city" id="city" value={userAddress.city} />
+                </label>
+
+                <label>
+                    <p>Bairro</p>
+                    <input type="text" name="district" id="district" value={userAddress.district} />
+                </label>
+
+                <label>
+                    <p>Rua</p>
+                    <input type="text" name="street" id="street" value={userAddress.street} />
+                </label>
+
+                <label>
+                    <p>Número</p>
+                    <input type="text" name="housenum" id="housenum" value={userAddress.housenum} />
+                </label>
+            </form>
         </div>
     )
 }
