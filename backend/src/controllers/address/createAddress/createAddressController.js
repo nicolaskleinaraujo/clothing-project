@@ -10,8 +10,6 @@ const createAddressController = async(req, res) => {
         userId,
     } = req.body
 
-    parseInt(houseNum, userId)
-
     if (
         cep === "" ||
         city === "" ||
@@ -25,7 +23,7 @@ const createAddressController = async(req, res) => {
     }
 
     // Checking if the user already have a address
-    const addressExists = await prisma.address.findMany({ where: { userId } })
+    const addressExists = await prisma.address.findMany({ where: { userId: parseInt(userId) } })
     if (addressExists.length > 0) {
         res.status(401).json({ msg: "Endereço já cadastrado" })
         return
@@ -38,8 +36,8 @@ const createAddressController = async(req, res) => {
                 city,
                 district,
                 street,
-                houseNum,
-                userId,
+                houseNum: parseInt(houseNum),
+                userId: parseInt(userId),
             },
         })
 
