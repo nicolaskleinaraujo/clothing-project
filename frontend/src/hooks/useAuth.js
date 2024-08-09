@@ -2,13 +2,15 @@
 import dbFetch from "../config/axios"
 import { useEffect, useState, useContext } from 'react'
 import { UserContext } from "../context/UserContext"
+import { LoadingContext } from "../context/LoadingContext"
 
 const useAuth = () => {
     const { setUserId, setIsAdmin } = useContext(UserContext)
 
+    const {loading, setLoading} = useContext(LoadingContext)
+
     const [authUserId, setAuthUserId] = useState(0)
     const [authIsAdmin, setAuthIsAdmin] = useState(false)
-    const [loading, setLoading] = useState(true)
 
     const fetchData = async() => {
         try {
