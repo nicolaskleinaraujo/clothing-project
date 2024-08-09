@@ -7,10 +7,13 @@ import dayjs from "dayjs"
 import { useState, useEffect, useContext } from "react"
 import { useParams, Link } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
+import { LoadingContext } from "../../context/LoadingContext"
+import Loading from "../../components/Loading/Loading"
 
 const Orders = () => {
     const { id } = useParams()
     const { userId } = useContext(UserContext)
+    const { loading, setLoading } = useContext(LoadingContext)
 
     const [orders, setOrders] = useState([])
     const [data, setData] = useState("")
@@ -29,33 +32,42 @@ const Orders = () => {
             setData(`${day}/${month}/${year}`)
 
             setOrders(res.data.orders)
+
+            setLoading(false)
         } catch (error) {
             console.log(error.response)
         }
     }
 
     useEffect(() => {
+        setLoading(true)
         getOrders()
     }, [])
 
     return (
         <div className={styles.orders}>
-            <div className={styles.orders_products}>
-                { orders &&
-                    orders.map(order => (
-                        <Link to={`/order/${order.id}`} key={order.id}>
-                            <div>
-                                <img src={`${import.meta.env.VITE_API_URL}/images/${order.orderProducts[0].product.image}`} alt="Foto do Produto" />
-                                <p>Realizado em {data}</p>
-                                <div>
-                                    <p>{order.paid ? order.received ? "Entregue" : "Pago" : "Aguardando Pagamento"}</p>
-                                    <p>R${order.price}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    ))
-                }
-            </div>
+            { loading ? (
+                <Loading />
+            ) : (
+                <>
+                    <div className={styles.orders_products}>
+                        { orders &&
+                            orders.map(order => (
+                                <Link to={`/order/${order.id}`} key={order.id}>
+                                    <div>
+                                        <img src={`${import.meta.env.VITE_API_URL}/images/${order.orderProducts[0].product.image}`} alt="Foto do Produto" />
+                                        <p>Realizado em {data}</p>
+                                        <div>
+                                            <p>{order.paid ? order.received ? "Entregue" : "Pago" : "Aguardando Pagamento"}</p>
+                                            <p>R${order.price}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div>
+                </>
+            )}
         </div>
     )
 }
