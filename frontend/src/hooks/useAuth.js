@@ -6,11 +6,11 @@ import { LoadingContext } from "../context/LoadingContext"
 
 const useAuth = () => {
     const { setUserId, setIsAdmin } = useContext(UserContext)
-
-    const {loading, setLoading} = useContext(LoadingContext)
+    const { setLoading } = useContext(LoadingContext)
 
     const [authUserId, setAuthUserId] = useState(0)
     const [authIsAdmin, setAuthIsAdmin] = useState(false)
+    const [ authLoading, setAuthLoading ] = useState(true)
 
     const fetchData = async() => {
         try {
@@ -22,8 +22,10 @@ const useAuth = () => {
             setUserId(res.data.user.id)
             setIsAdmin(res.data.user.isAdmin)
     
+            setAuthLoading(false)
             setLoading(false)
         } catch (error) {
+            setAuthLoading(false)
             setLoading(false)
         }
     }
@@ -32,7 +34,7 @@ const useAuth = () => {
         fetchData()
     }, [])
 
-    return { authUserId, authIsAdmin, loading }
+    return { authUserId, authIsAdmin, authLoading }
 }
 
 export default useAuth
