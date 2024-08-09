@@ -5,11 +5,14 @@ import './index.css'
 
 // Context
 import { UserProvider } from './context/UserContext.jsx'
+import { LoadingProvider } from './context/LoadingContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
     </UserProvider>
   </React.StrictMode>,
 )
