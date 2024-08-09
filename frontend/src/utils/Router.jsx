@@ -15,7 +15,6 @@ import Order from "../pages/Order/Order"
 import Orders from "../pages/Orders/Orders"
 import Address from "../pages/Address/Address"
 import CreateOrder from "../pages/CreateOrder/CreateOrder"
-import Loading from "../components/Loading/Loading"
 
 const Router = () => {
     return (
@@ -34,7 +33,6 @@ const Router = () => {
                         <Route path="/orders/:id" element={ <Orders /> } />
                         <Route path="/address" element={ <Address /> } />
                         <Route path="/create-order" element={ <CreateOrder /> } />
-                        <Route path="/loading" element={ <Loading /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
