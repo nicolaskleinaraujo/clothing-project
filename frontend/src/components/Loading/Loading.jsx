@@ -6,12 +6,12 @@ import 'ldrs/hatch'
 
 const Loading = () => {
     return (
-        <div>
+        <div className={styles.loading}>
             <l-hatch
-                size="28"
-                stroke="4"
-                speed="4.5"
-                color="#F5DADF" 
+                size="80"
+                stroke="10"
+                speed="3.8"
+                color="#F5DADF"
             ></l-hatch>
         </div>
     )
