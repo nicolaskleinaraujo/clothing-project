@@ -8,9 +8,9 @@ const UserRoute = () => {
     const { userId } = useContext(UserContext)
 
     if (userId === 0) {
-        const { authUserId, loading } = useAuth()
+        const { authUserId, authLoading } = useAuth()
 
-        if (loading) {
+        if (authLoading) {
             return
         }
     
