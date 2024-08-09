@@ -9,9 +9,12 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
+import { LoadingContext } from "../../context/LoadingContext"
+import Loading from "../../components/Loading/Loading"
 
 const Product = () => {
     const { slug } = useParams()
+    const { loading, setLoading } = useContext(LoadingContext)
     const navigate = useNavigate()
 
     const [product, setProduct] = useState({})
@@ -24,9 +27,12 @@ const Product = () => {
 
     const getProduct = async() => {
         const res = await dbFetch.get(`/products/slug/${slug}`)
+
         setProduct(res.data.product)
         setColors(res.data.product.colors.split(", "))
         setSizes(res.data.product.sizes)
+
+        setLoading(false)
     }
 
     const addToCart = async() => {
@@ -57,12 +63,15 @@ const Product = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         getProduct()
     }, [])
 
     return (
         <div className={styles.product}>
-            { product && 
+            { loading ? (
+                <Loading />
+            ) : (
                 <div>
                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
 
@@ -110,7 +119,7 @@ const Product = () => {
 
                     <p style={{ fontSize: "1.5em", fontWeight: "lighter", paddingBottom: "1.8em" }}>{product.description}</p>
                 </div>
-            }
+            )}
         </div>
     )
 }
