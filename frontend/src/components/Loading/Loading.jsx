@@ -10,8 +10,8 @@ const Loading = () => {
             <l-hatch
                 size="28"
                 stroke="4"
-                speed="3.5"
-                color="black" 
+                speed="4.5"
+                color="#F5DADF" 
             ></l-hatch>
         </div>
     )
