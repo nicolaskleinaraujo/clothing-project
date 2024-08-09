@@ -6,12 +6,15 @@ import './index.css'
 // Context
 import { UserProvider } from './context/UserContext.jsx'
 import { LoadingProvider } from './context/LoadingContext.jsx'
+import { RedirectProvider } from './context/RedirectContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserProvider>
       <LoadingProvider>
-        <App />
+        <RedirectProvider>
+          <App />
+        </RedirectProvider>
       </LoadingProvider>
     </UserProvider>
   </React.StrictMode>,
