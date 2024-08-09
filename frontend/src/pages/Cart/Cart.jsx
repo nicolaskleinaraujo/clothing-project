@@ -7,14 +7,16 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useState, useEffect, useContext } from "react"
 import { UserContext } from "../../context/UserContext"
+import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { MdOutlineRemoveShoppingCart } from "react-icons/md"
+import Loading from "../../components/Loading/Loading"
 
 const Cart = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
-    const [loading, setLoading] = useState(true)
+    const { loading, setLoading } = useContext(LoadingContext)
 
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
@@ -39,7 +41,6 @@ const Cart = () => {
             setDiscount(res.data.allPrices.discount)
             setShippingDate(res.data.shippingDate)
 
-            toast.success(res.data.msg)
             setLoading(false)
         } catch (error) {
             if (error.response.data.msg === "Informações insuficientes") {
@@ -52,15 +53,15 @@ const Cart = () => {
 
     const removeItem = async(id) => {
         try {
-            const res = await dbFetch.delete("/cart", {
+            await dbFetch.delete("/cart", {
                 data: {
                     "id": id,
                     "userId": userId,
                 }
             })
 
-            toast.success(res.data.msg)
             setLoading(true)
+            calculatePrice()
         } catch (error) {
             toast.error(error.response.data.msg)
         }
@@ -81,53 +82,61 @@ const Cart = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         calculatePrice()
-    }, [loading === true])
+    }, [])
 
     return (
         <div className={styles.cart}>
-            <h1>Seu carrinho</h1>
+            { loading ? (
+                <Loading />
+            ) : (
+                <>
+                    <h1>Seu carrinho</h1>
 
-            <div className={styles.cart_products}>
-                { products &&
-                    products.map(product => (
-                        <div key={product.id}>
-                            <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
-                            <div>
-                                <p style={{ marginBottom: ".5em" }}>{product.name}</p>
-                                <p>{product.sizes[0].size} | {product.colors[0]}</p>
-                            </div>
-                            <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
-                            <p>R${product.price}</p>
+                    <div className={styles.cart_products}>
+                        { products &&
+                            products.map(product => (
+                                <div key={product.id}>
+                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
+                                    <div>
+                                        <p style={{ marginBottom: ".5em" }}>{product.name}</p>
+                                        <p>{product.sizes[0].size} | {product.colors[0]}</p>
+                                    </div>
+                                    <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
+                                    <p>R${product.price}</p>
+                                </div>
+                            ))
+                        }
+                    </div>
+
+                    { orderPrice != 0 &&
+                        <div className={styles.cart_infos}>
+                            <p>Produtos: R${productPrice}</p>
+                            <p>Envio: R${shippingPrice}</p>
+                            { discount != undefined && <p>Disconto: R${discount}</p> }
+                            <p>Preço total: R${orderPrice}</p>
+                            <p>Prazo de entrega: até {shippingDate} dias</p>
                         </div>
-                    ))
-                }
-            </div>
+                    }
 
-            { orderPrice != 0 &&
-                <div className={styles.cart_infos}>
-                    <p>Produtos: R${productPrice}</p>
-                    <p>Envio: R${shippingPrice}</p>
-                    { discount != undefined && <p>Disconto: R${discount}</p> }
-                    <p>Preço total: R${orderPrice}</p>
-                    <p>Prazo de entrega: até {shippingDate} dias</p>
-                </div>
-            }
+                    <h2>Você possui algum cupom?</h2>
+                    <div className={styles.cart_coupon}>
+                        <input
+                            type="text"
+                            name="coupon"
+                            id="coupon"
+                            onChange={(e) => setCoupon(e.target.value)}
+                            value={coupon}
+                            placeholder="Digite o cupom"
+                        />
+                        <button onClick={() => calculatePrice()}>Adicionar Cupom</button>
+                    </div>
 
-            <h2>Você possui algum cupom?</h2>
-            <div className={styles.cart_coupon}>
-                <input
-                    type="text"
-                    name="coupon"
-                    id="coupon"
-                    onChange={(e) => setCoupon(e.target.value)}
-                    value={coupon}
-                    placeholder="Digite o cupom"
-                />
-                <button onClick={() => calculatePrice()}>Adicionar Cupom</button>
-            </div>
+                    <button onClick={() => createOrder()}>Concluir compra</button>
+                </>
+            )}
 
-            <button onClick={() => createOrder()}>Concluir compra</button>
         </div>
     )
 }
