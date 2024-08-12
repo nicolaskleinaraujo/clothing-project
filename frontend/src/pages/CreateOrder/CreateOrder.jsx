@@ -18,14 +18,33 @@ const CreateOrder = () => {
     const [userAddress, setUserAddress] = useState({})
     const [coupon, setCoupon] = useState("")
 
+    const [products, setProducts] = useState([])
+    const [productPrice, setProductPrice] = useState(0)
+    const [shippingPrice, setShippingPrice] = useState(0)
+    const [orderPrice, setOrderPrice] = useState(0)
+    const [discount, setDiscount] = useState(0)
+    const [shippingDate, setShippingDate] = useState(0)
 
     const getOrderInfos = async() => {
         try {
-            const res = await dbFetch.post("/address/user", {
+            const addressRes = await dbFetch.post("/address/user", {
                 "id": userId,
                 "userId": userId,
             })
-            setUserAddress(res.data.address)
+            setUserAddress(addressRes.data.address)
+
+            const orderRes = await dbFetch.post("/cart/calculate", {
+                "coupon": coupon,
+                "userId": userId,
+            })
+
+            setProducts(orderRes.data.orderProducts)
+            setProductPrice(orderRes.data.allPrices.productPrice)
+            setShippingPrice(orderRes.data.allPrices.shippingPrice)
+            setOrderPrice(orderRes.data.allPrices.orderPrice)
+            setDiscount(orderRes.data.allPrices.discount)
+            setShippingDate(orderRes.data.shippingDate)
+
             setLoading(false)
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
