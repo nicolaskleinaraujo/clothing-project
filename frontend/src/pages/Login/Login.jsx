@@ -31,6 +31,7 @@ const Login = () => {
             setIsAdmin(res.data.user.isAdmin)
 
             toast.success(res.data.msg)
+            // TODO adds redirect context
             navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)

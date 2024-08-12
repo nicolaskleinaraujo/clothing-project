@@ -67,20 +67,6 @@ const Cart = () => {
         }
     }
 
-    const createOrder = async() => {
-        try {
-            const res = await dbFetch.post("/orders", {
-                "coupon": coupon,
-                "userId": userId,
-            })
-
-            toast.success(res.data.msg)
-            navigate(`/order/${res.data.order.id}`)
-        } catch (error) {
-            toast.error(error.response.data.msg)
-        }
-    }
-
     useEffect(() => {
         setLoading(true)
         calculatePrice()
@@ -130,13 +116,13 @@ const Cart = () => {
                             value={coupon}
                             placeholder="Digite o cupom"
                         />
-                        <button onClick={() => calculatePrice()}>Adicionar Cupom</button>
+                        <button onClick={() => calculatePrice()}>Testar Cupom</button>
                     </div>
 
-                    <button onClick={() => createOrder()}>Concluir compra</button>
+                    {/* TODO hotfix the create order stages */}
+                    <button onClick={() => navigate("/create-order")}>Continuar compra</button>
                 </>
             )}
-
         </div>
     )
 }

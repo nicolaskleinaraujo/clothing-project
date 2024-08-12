@@ -43,6 +43,7 @@ const Address = () => {
             let res
 
             if (Object.keys(userAddress).length === 0) {
+                // TODO add redirect context
                 res = await dbFetch.post("/address", {
                     "cep": cep,
                     "city": city,
@@ -82,6 +83,7 @@ const Address = () => {
                     <h1>Atualizar Endereço</h1>
                 )}
 
+                {/* TODO create cep consult */}
                 <label>
                     <p>CEP</p>
                     <input 
@@ -126,6 +128,7 @@ const Address = () => {
                     />
                 </label>
 
+                {/* TODO update button layout */}
                 <label>
                     <p>Número</p>
                     <input 
