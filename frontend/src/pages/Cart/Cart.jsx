@@ -100,7 +100,7 @@ const Cart = () => {
                     { orderPrice != 0 &&
                         <div className={styles.cart_infos}>
                             <p>Subtotal: R${productPrice}</p>
-                            <p>Envio: {shippingPrice != 0 ? `R$${shippingPrice}` : "Não calculado" }</p>
+                            <p>Frete: {shippingPrice != 0 ? `R$${shippingPrice}` : "Não calculado" }</p>
                             { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                             <p>Total: R${orderPrice}</p>
                             { shippingDate != 0 && <p>Prazo de entrega: até {shippingDate} dias</p> }

@@ -31,6 +31,7 @@ const CreateOrder = () => {
                 "id": userId,
                 "userId": userId,
             })
+
             setUserAddress(addressRes.data.address)
 
             const orderRes = await dbFetch.post("/cart/calculate", {
@@ -91,11 +92,11 @@ const CreateOrder = () => {
                     <p>...</p>
 
                     <h2>Resumo da Compra</h2>
-                    <p>Subtotal: </p>
-                    <p>Frete: </p>
-                    <p>Disconto: </p>
-                    <p>Total: </p>
-                    <p>Prazo de entrega: até ... dias</p>
+                    <p>Subtotal: R${productPrice}</p>
+                    <p>Frete: R${shippingPrice}</p>
+                    { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
+                    <p>Total: R${orderPrice}</p>
+                    <p>Prazo de entrega: até {shippingDate} dias</p>
 
                     <button>Finalizar compra</button>
                 </>
