@@ -19,24 +19,25 @@ const CreateOrder = () => {
     const [coupon, setCoupon] = useState("")
 
 
-    const getAddress = async() => {
+    const getOrderInfos = async() => {
         try {
             const res = await dbFetch.post("/address/user", {
                 "id": userId,
                 "userId": userId,
             })
-
             setUserAddress(res.data.address)
             setLoading(false)
         } catch (error) {
-            toast.error("Cadastre seu endereço")
-            navigate("/address")
+            if (error.response.data.msg === "Endereço não encontrado") {
+                toast.error("Cadastre seu endereço")
+                navigate("/address")
+            }
         }
     }
 
     useEffect(() => {
         setLoading(true)
-        getAddress()
+        getOrderInfos()
     }, [])
 
     return (
