@@ -98,10 +98,10 @@ const Cart = () => {
 
                     { orderPrice != 0 &&
                         <div className={styles.cart_infos}>
-                            <p>Produtos: R${productPrice}</p>
+                            <p>Subtotal: R${productPrice}</p>
                             <p>Envio: R${shippingPrice}</p>
                             { discount != undefined && <p>Disconto: R${discount}</p> }
-                            <p>Preço total: R${orderPrice}</p>
+                            <p>Total: R${orderPrice}</p>
                             <p>Prazo de entrega: até {shippingDate} dias</p>
                         </div>
                     }
