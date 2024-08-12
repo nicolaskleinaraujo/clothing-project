@@ -68,8 +68,16 @@ const CreateOrder = () => {
                 <Loading />
             ) : (
                 <>
+                    {/* TODO add change address button and redirect */}
                     <h2>Endereço</h2>
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
+
+                    {/* TODO add option details */}
+                    <h2>Entrega</h2>
+                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
+                        <option value="PAC">PAC</option>
+                        <option value="SEDEX">Sedex</option>
+                    </select>
 
                     <h2>Cupom</h2>
                     <div>
@@ -83,12 +91,6 @@ const CreateOrder = () => {
                         />
                         <button>Adicionar Cupom</button>
                     </div>
-
-                    <h2>Entrega</h2>
-                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
-                        <option value="PAC">PAC</option>
-                        <option value="SEDEX">Sedex</option>
-                    </select>
 
                     <h2>Itens</h2>
                     <div className={styles.create_order_products}>
