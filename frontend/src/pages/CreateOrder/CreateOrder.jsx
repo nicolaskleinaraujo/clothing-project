@@ -29,7 +29,7 @@ const CreateOrder = () => {
             setLoading(false)
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
-                toast.error("Cadastre seu endereço")
+                toast.info("Cadastre seu endereço")
                 navigate("/address")
             }
         }
@@ -55,7 +55,9 @@ const CreateOrder = () => {
                             type="text"
                             name="coupon"
                             id="coupon"
-                            placeholder="Digite o cupom"
+                            placeholder="Digite o cupom" 
+                            value={coupon} 
+                            onChange={(e) => setCoupon(e.target.value)} 
                         />
                         <button>Adicionar Cupom</button>
                     </div>
@@ -66,8 +68,17 @@ const CreateOrder = () => {
                         <option value="">Sedex</option>
                     </select>
 
-                    <h2>Detalhes</h2>
+                    <h2>Itens</h2>
                     <p>...</p>
+
+                    <h2>Resumo da Compra</h2>
+                    <p>Subtotal: </p>
+                    <p>Frete: </p>
+                    <p>Disconto: </p>
+                    <p>Total: </p>
+                    <p>Prazo de entrega: até ... dias</p>
+
+                    <button>Finalizar compra</button>
                 </>
             )}
         </div>
