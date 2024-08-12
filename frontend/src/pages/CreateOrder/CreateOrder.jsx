@@ -85,13 +85,13 @@ const CreateOrder = () => {
                     </div>
 
                     <h2>Entrega</h2>
-                    <select name="delivery" id="delivery" onChange={(e) => setDelivery(e.target.value)}>
+                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
                         <option value="PAC">PAC</option>
                         <option value="SEDEX">Sedex</option>
                     </select>
 
                     <h2>Itens</h2>
-                    <div className={styles.cart_products}>
+                    <div className={styles.create_order_products}>
                         { products &&
                             products.map(product => (
                                 <div key={product.id}>

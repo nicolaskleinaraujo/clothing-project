@@ -1,0 +1,12 @@
+.create_order_delivery {
+    width: 80%;
+    padding: .5em;
+    border-radius: .3em;
+    color: #F5DADF;
+    border: 2px solid #F5DADF;
+    background-color: #00453D;
+    font-size: 1.2em;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
