@@ -89,7 +89,20 @@ const CreateOrder = () => {
                     </select>
 
                     <h2>Itens</h2>
-                    <p>...</p>
+                    <div className={styles.cart_products}>
+                        { products &&
+                            products.map(product => (
+                                <div key={product.id}>
+                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
+                                    <div>
+                                        <p style={{ marginBottom: ".5em" }}>{product.name}</p>
+                                        <p>{product.sizes[0].size} | {product.colors[0]}</p>
+                                    </div>
+                                    <p>R${product.price}</p>
+                                </div>
+                            ))
+                        }
+                    </div>
 
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
