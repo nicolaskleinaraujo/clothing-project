@@ -25,6 +25,8 @@ const CreateOrder = () => {
     const [discount, setDiscount] = useState(0)
     const [shippingDate, setShippingDate] = useState(0)
 
+    const [delivery, setDelivery] = useState("")
+
     const getOrderInfos = async() => {
         try {
             const addressRes = await dbFetch.post("/address/user", {
@@ -83,9 +85,9 @@ const CreateOrder = () => {
                     </div>
 
                     <h2>Entrega</h2>
-                    <select name="delivery" id="delivery">
-                        <option value="">PAC</option>
-                        <option value="">Sedex</option>
+                    <select name="delivery" id="delivery" onChange={(e) => setDelivery(e.target.value)}>
+                        <option value="PAC">PAC</option>
+                        <option value="SEDEX">Sedex</option>
                     </select>
 
                     <h2>Itens</h2>
