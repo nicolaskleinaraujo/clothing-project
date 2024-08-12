@@ -28,6 +28,8 @@ const Cart = () => {
     const [coupon, setCoupon] = useState("")
 
     const calculatePrice = async() => {
+        setLoading(true)
+
         try {
             const res = await dbFetch.post("/cart/calculate", {
                 "coupon": coupon,
@@ -68,7 +70,6 @@ const Cart = () => {
     }
 
     useEffect(() => {
-        setLoading(true)
         calculatePrice()
     }, [])
 
@@ -99,10 +100,10 @@ const Cart = () => {
                     { orderPrice != 0 &&
                         <div className={styles.cart_infos}>
                             <p>Subtotal: R${productPrice}</p>
-                            <p>Envio: R${shippingPrice}</p>
-                            { discount != undefined && <p>Disconto: R${discount}</p> }
+                            <p>Envio: {shippingPrice != 0 ? `R$${shippingPrice}` : "Não calculado" }</p>
+                            { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                             <p>Total: R${orderPrice}</p>
-                            <p>Prazo de entrega: até {shippingDate} dias</p>
+                            { shippingDate != 0 && <p>Prazo de entrega: até {shippingDate} dias</p> }
                         </div>
                     }
 
@@ -119,7 +120,6 @@ const Cart = () => {
                         <button onClick={() => calculatePrice()}>Testar Cupom</button>
                     </div>
 
-                    {/* TODO hotfix the create order stages */}
                     <button onClick={() => navigate("/create-order")}>Continuar compra</button>
                 </>
             )}
