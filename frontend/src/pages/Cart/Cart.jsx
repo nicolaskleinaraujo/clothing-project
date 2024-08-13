@@ -99,26 +99,9 @@ const Cart = () => {
 
                     { orderPrice != 0 &&
                         <div className={styles.cart_infos}>
-                            <p>Subtotal: R${productPrice}</p>
-                            <p>Frete: {shippingPrice != 0 ? `R$${shippingPrice}` : "Não calculado" }</p>
-                            { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                             <p>Total: R${orderPrice}</p>
-                            { shippingDate != 0 && <p>Prazo de entrega: até {shippingDate} dias</p> }
                         </div>
                     }
-
-                    <h2>Você possui algum cupom?</h2>
-                    <div className={styles.cart_coupon}>
-                        <input
-                            type="text"
-                            name="coupon"
-                            id="coupon"
-                            onChange={(e) => setCoupon(e.target.value)}
-                            value={coupon}
-                            placeholder="Digite o cupom"
-                        />
-                        <button onClick={() => calculatePrice()}>Testar Cupom</button>
-                    </div>
 
                     <button onClick={() => navigate("/create-order")}>Continuar compra</button>
                 </>
