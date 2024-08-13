@@ -16,29 +16,23 @@ const CreateOrder = () => {
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [userAddress, setUserAddress] = useState({})
-    const [shippingDetails, setShippingDetails] = useState([])
 
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
     const [orderPrice, setOrderPrice] = useState(0)
     const [discount, setDiscount] = useState(0)
-    const [shippingPrice, setShippingPrice] = useState(0)
+    const [shippingOptions, setShippingOptions] = useState([])
+    const [selectedShipping, setSelectedShipping] = useState(0)
 
     const [delivery, setDelivery] = useState("PAC")
     const [coupon, setCoupon] = useState("")
 
-    const getUserInfos = async() => {
+    const getUserAddress = async() => {
         const addressRes = await dbFetch.post("/address/user", {
             "id": userId,
             "userId": userId,
         })
         setUserAddress(addressRes.data.address)
-
-        const deliveryRes = await dbFetch.post("/cart/delivery", {
-            "id": userId,
-            "userId": userId,
-        })
-        setShippingDetails(deliveryRes.data.shippingDetails)
     }
 
     const getOrderInfos = async() => {
@@ -54,7 +48,8 @@ const CreateOrder = () => {
             setProductPrice(orderRes.data.allPrices.productPrice)
             setOrderPrice(orderRes.data.allPrices.orderPrice)
             setDiscount(orderRes.data.allPrices.discount)
-            setShippingPrice(orderRes.data.shippingDetails.price)
+            setShippingOptions(orderRes.data.shippingOptions)
+            setSelectedShipping(orderRes.data.selectedShipping)
 
             setLoading(false)
         } catch (error) {
@@ -66,9 +61,12 @@ const CreateOrder = () => {
     }
 
     useEffect(() => {
-        getUserInfos()
-        getOrderInfos()
+        getUserAddress()
     }, [])
+
+    useEffect(() => {
+        getOrderInfos()
+    }, [delivery])
 
     return (
         <div>
@@ -82,9 +80,9 @@ const CreateOrder = () => {
 
                     {/* FIXME makes the options call independent */}
                     <h2>Entrega</h2>
-                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => { setDelivery(e.target.value), getOrderInfos()}}>
-                        { shippingDetails &&
-                            shippingDetails.map(service => (
+                    <select name="delivery" id="delivery" value={delivery} className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
+                        { shippingOptions &&
+                            shippingOptions.map(service => (
                                 <option value={service.name}>{service.name} - {service.time} dia(s) - RS{service.price}</option>
                             ))
                         }
@@ -121,7 +119,7 @@ const CreateOrder = () => {
 
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
-                    <p>Frete: R${shippingPrice}</p>
+                    <p>Frete: R${selectedShipping.price}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
