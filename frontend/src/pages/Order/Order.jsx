@@ -72,7 +72,7 @@ const Order = () => {
                 <Loading />
             ) : (
                 <>
-                    { !paid && <p>Você tem até as {hours}:{minutes} de hoje para efetuar o pagamento</p> }
+                    { !paid && <p>Você tem até as {hours}:{minutes} de hoje para efetuar o pagamento abaixo</p> }
                     { !paid && <iframe src={paymentUrl}></iframe> }
 
                     { orderPrice != 0 &&
