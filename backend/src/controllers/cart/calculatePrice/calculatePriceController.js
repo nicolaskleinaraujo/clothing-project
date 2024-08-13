@@ -62,7 +62,7 @@ const calculatePriceController = async(req, res) => {
 
             if (typeof shipping === "object") {
                 shippingDetails = shipping
-                orderPrice = shipping.price
+                orderPrice = parseInt(shipping.price)
             } else if (Array.isArray(shipping)) {
                 shippingDetails = shipping.map(service => ({
                     name: service.name, price: service.price, time: service.delivery_time
@@ -71,7 +71,7 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Calculates the order price
-        orderPrice += productPrice
+        orderPrice += parseInt(productPrice)
 
         // Calculates and aplies discount to order price
         let discount
