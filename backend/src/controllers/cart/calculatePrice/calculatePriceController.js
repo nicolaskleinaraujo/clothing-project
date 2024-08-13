@@ -54,6 +54,7 @@ const calculatePriceController = async(req, res) => {
     try {
         // Gets the user address to calculate the shipping
         let shippingDetails
+        let orderPrice
     
         const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
         if (user.Address.length != 0) {
@@ -61,6 +62,7 @@ const calculatePriceController = async(req, res) => {
 
             if (typeof shipping === "object") {
                 shippingDetails = shipping
+                orderPrice = shipping.price
             } else if (Array.isArray(shipping)) {
                 shippingDetails = shipping.map(service => ({
                     name: service.name, price: service.price, time: service.delivery_time
@@ -69,7 +71,7 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Calculates the order price
-        let orderPrice = productPrice
+        orderPrice += productPrice
 
         // Calculates and aplies discount to order price
         let discount
