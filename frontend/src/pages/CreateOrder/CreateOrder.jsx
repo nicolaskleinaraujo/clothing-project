@@ -124,7 +124,7 @@ const CreateOrder = () => {
                     <p>Total: R${orderPrice}</p>
 
                     {/* TODO create the create order function */}
-                    <button>Finalizar compra</button>
+                    <button className={styles.create_order_finalize}>Finalizar compra</button>
                 </>
             )}
         </div>

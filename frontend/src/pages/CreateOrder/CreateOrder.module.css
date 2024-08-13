@@ -26,7 +26,6 @@
     border-radius: .5em;
     cursor: pointer;
     transition: .2s;
-    margin: .5em 0 1.5em 0;
 }
 
 .create_order button:hover {
@@ -35,18 +34,24 @@
     background-color: #00453D;
 }
 
+.create_order button:first-of-type {
+    margin: .8em 0 1.5em 0;
+}
+
+.create_order > button:last-of-type {
+    margin-top: 2em;
+}
+
 .create_order_delivery {
-    width: 80%;
+    width: 75%;
     padding: .5em;
     border-radius: .3em;
     margin-bottom: 1.5em;
     color: #F5DADF;
     border: 2px solid #F5DADF;
     background-color: #00453D;
-    font-size: 1.2em;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    font-size: 1.1em;
+    text-align: center;
 }
 
 .create_order_coupon input {
@@ -57,14 +62,11 @@
     border-radius: .5em;
     margin-top: .5em;
     font-size: .9em;
+    margin: .5em .5em 0 0;
 }
 
 .create_order_coupon input::placeholder {
     color: #F5DADF;
-}
-
-.create_order_coupon button {
-    margin-left: 1em;
 }
 
 .create_order_products {
