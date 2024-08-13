@@ -69,7 +69,7 @@ const CreateOrder = () => {
     }, [delivery])
 
     return (
-        <div>
+        <div className={styles.create_order}>
             { loading ? (
                 <Loading />
             ) : (
