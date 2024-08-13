@@ -5,7 +5,7 @@ import styles from "./Order.module.css"
 import dbFetch from "../../config/axios"
 import dayjs from "dayjs"
 import utc from 'dayjs/plugin/utc'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
+import timezone from "dayjs/plugin/timezone"
 import { useState, useEffect, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
@@ -13,8 +13,8 @@ import { LoadingContext } from "../../context/LoadingContext"
 import Loading from "../../components/Loading/Loading"
 
 // DayJS Configs
-dayjs.extend(utc);
-dayjs.extend(advancedFormat);
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const Order = () => {
     const { id } = useParams()
@@ -49,7 +49,7 @@ const Order = () => {
             setTrackingCode(res.data.order.tracking_code)
 
             // Calculates and sets payment expiration
-            const expiresIn = dayjs.utc(res.data.order.created_at).add(10, "minute")
+            const expiresIn = dayjs.utc(res.data.order.created_at).add(10, "minute").tz("America/Sao_Paulo")
             setHours(expiresIn.hour())
             setMinutes(expiresIn.minute())
 
