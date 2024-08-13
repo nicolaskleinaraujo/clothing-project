@@ -15,10 +15,24 @@
 .create_order > p {
     text-align: center;
     font-size: 1.1em;
+    margin: 0 .3em;
 }
 
-.create_order > p:first-of-type {
-    margin: .3em .3em 1.5em .3em;
+.create_order button {
+    border: 2px solid #00453D;
+    color: #00453D;
+    background-color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: .2s;
+    margin: .5em 0 1.5em 0;
+}
+
+.create_order button:hover {
+    border: 2px solid #F5DADF;
+    color: #F5DADF;
+    background-color: #00453D;
 }
 
 .create_order_delivery {
@@ -50,20 +64,7 @@
 }
 
 .create_order_coupon button {
-    border: 2px solid #00453D;
-    color: #00453D;
-    background-color: #F5DADF;
-    padding: .3em;
-    border-radius: .5em;
-    margin: 0 1em 1.5em 1em;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.create_order_coupon button:hover {
-    border: 2px solid #F5DADF;
-    color: #F5DADF;
-    background-color: #00453D;
+    margin-left: 1em;
 }
 
 .create_order_products {
@@ -71,6 +72,7 @@
     margin: 0 auto;
     flex-wrap: wrap;
     width: 90%;
+    margin-bottom: 1.5em;
 }
 
 .create_order_products div {
