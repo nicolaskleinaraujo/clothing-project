@@ -26,6 +26,8 @@ const Cart = () => {
 
         try {
             const res = await dbFetch.post("/cart/calculate", {
+                "coupon": "",
+                "delivery": "",
                 "userId": userId,
             })
 
