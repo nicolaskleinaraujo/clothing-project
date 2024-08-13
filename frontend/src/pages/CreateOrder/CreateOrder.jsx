@@ -68,6 +68,21 @@ const CreateOrder = () => {
         }
     }
 
+    const createOrder = async() => {
+        try {
+            const res = await dbFetch.post("/orders", {
+                "coupon": coupon,
+                "delivery": delivery,
+                "userId": userId,
+            })
+
+            toast.success(res.data.msg)
+            navigate(`/order/${res.data.order.id}`)
+        } catch (error) {
+            toast.error(error.response.data.msg)
+        }
+    }
+
     useEffect(() => {
         getUserAddress()
     }, [])
@@ -131,8 +146,7 @@ const CreateOrder = () => {
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount.toFixed(2)}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
-                    {/* TODO create the create order function */}
-                    <button className={styles.create_order_finalize}>Finalizar compra</button>
+                    <button onClick={() => createOrder()}>Finalizar compra</button>
                 </>
             )}
         </div>
