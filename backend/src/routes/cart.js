@@ -8,5 +8,6 @@ const validateToken = require("../middlewares/validateToken")
 router.route("/").post(validateToken, validateUser, (req, res) => cartController.addProductController(req, res))
 router.route("/calculate").post(validateToken, validateUser, (req, res) => cartController.calculatePriceController(req, res))
 router.route("/").delete(validateToken, validateUser, (req, res) => cartController.removeProductController(req, res))
+router.route("/delivery").post(validateToken, validateUser, (req, res) => cartController.deliveryController(req, res))
 
 module.exports = router

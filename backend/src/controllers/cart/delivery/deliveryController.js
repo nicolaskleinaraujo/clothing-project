@@ -1,7 +1,8 @@
 const prisma = require("../../../db/client")
+const calculateShipping = require("../../../config/shipping")
 
 const deliveryController = async(req, res) => {
-    const id = req.params.id
+    const id = req.body.id
 
     if (isNaN(id)) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -9,14 +10,14 @@ const deliveryController = async(req, res) => {
     }
 
     try {
-        const address = await prisma.address.findFirst({ where: { userId: id } })
+        const address = await prisma.address.findFirst({ where: { userId: parseInt(id) } })
 
         if (!address) {
             res.status(404).json({ msg: "Endereço não encontrado" })
             return
         }
 
-        const shipping = await calculateShipping(address.cep, delivery)
+        const shipping = await calculateShipping(address.cep)
 
         const shippingDetails = shipping.map(service => ({
             name: service.name, price: service.price, time: service.delivery_time
