@@ -75,6 +75,7 @@ model Orders {
   payment_reference String   @unique()
   received          Boolean  @default(false)
   shipping_time     Int
+  shipping_type     String
   tracking_code     String?
 
   orderProducts OrderProduct[]
