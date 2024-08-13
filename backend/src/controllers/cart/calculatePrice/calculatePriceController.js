@@ -48,30 +48,31 @@ const calculatePriceController = async(req, res) => {
         orderProducts.push(product)
 
         // Calculates the product price
-        productPrice += product.price
+        productPrice += parseFloat(product.price)
     }
 
     try {
         // Gets the user address to calculate the shipping
-        let shippingDetails
-        let orderPrice
+        let shippingOptions
+        let selectedShipping
+        let orderPrice = 0
     
         const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
         if (user.Address.length != 0) {
-            const shipping = await calculateShipping(user.Address[0].cep, delivery)
+            const shipping = await calculateShipping(user.Address[0].cep)
 
-            if (typeof shipping === "object") {
-                shippingDetails = shipping
-                orderPrice = parseInt(shipping.price)
-            } else if (Array.isArray(shipping)) {
-                shippingDetails = shipping.map(service => ({
-                    name: service.name, price: service.price, time: service.delivery_time
-                }))
+            shippingOptions = shipping.map(service => ({
+                name: service.name, price: service.price, time: service.delivery_time
+            }))
+
+            if (delivery !== "") {
+                selectedShipping = shipping.filter(service => service.name === delivery)[0]
+                orderPrice = parseFloat(selectedShipping.price)
             }
         }
 
         // Calculates the order price
-        orderPrice += parseInt(productPrice)
+        orderPrice += parseFloat(productPrice)
 
         // Calculates and aplies discount to order price
         let discount
@@ -105,12 +106,13 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Payload all prices
-        const allPrices = { productPrice, orderPrice: orderPrice.toFixed(2), discount }        
+        const allPrices = { productPrice, orderPrice: parseFloat(orderPrice.toFixed(2)), discount }        
     
         res.status(200).json({ 
             msg: "Carrinho carregado com sucesso",
             allPrices,
-            shippingDetails,
+            shippingOptions,
+            selectedShipping,
             orderProducts,
         })
     } catch (error) {
