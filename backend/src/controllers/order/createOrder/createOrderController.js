@@ -26,10 +26,12 @@ const createOrderController = async (req, res) => {
     let shippingType = ""
     const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
     if (user.Address.length != 0) {
-        const shipping = await calculateShipping(user.Address[0].cep, delivery)
-        price += parseFloat(shipping.price)
-        shippingDate = parseInt(shipping.delivery_time)
-        shippingType = shipping.name
+        const shipping = await calculateShipping(user.Address[0].cep)
+        const selectedShipping = shipping.filter(service => service.name === delivery)[0]
+
+        price += parseFloat(selectedShipping.price)
+        shippingDate = parseInt(selectedShipping.delivery_time)
+        shippingType = selectedShipping.name
     } else if (user.Address.length == 0) {
         res.status(400).json({ msg: "Cadastre seu endereço primeiramente" })
         return
