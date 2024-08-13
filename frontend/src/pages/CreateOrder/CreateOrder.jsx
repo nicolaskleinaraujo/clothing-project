@@ -20,10 +20,9 @@ const CreateOrder = () => {
 
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
-    const [shippingPrice, setShippingPrice] = useState(0)
     const [orderPrice, setOrderPrice] = useState(0)
     const [discount, setDiscount] = useState(0)
-    const [shippingDate, setShippingDate] = useState(0)
+    const [shippingDetails, setShippingDetails] = useState([])
 
     const [delivery, setDelivery] = useState("")
 
@@ -43,10 +42,9 @@ const CreateOrder = () => {
 
             setProducts(orderRes.data.orderProducts)
             setProductPrice(orderRes.data.allPrices.productPrice)
-            setShippingPrice(orderRes.data.allPrices.shippingPrice)
             setOrderPrice(orderRes.data.allPrices.orderPrice)
             setDiscount(orderRes.data.allPrices.discount)
-            setShippingDate(orderRes.data.shippingDate)
+            setShippingDetails(orderRes.data.shippingDetails)
 
             setLoading(false)
         } catch (error) {
@@ -75,8 +73,11 @@ const CreateOrder = () => {
                     {/* TODO add option details */}
                     <h2>Entrega</h2>
                     <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
-                        <option value="PAC">PAC</option>
-                        <option value="SEDEX">Sedex</option>
+                        { shippingDetails &&
+                            shippingDetails.map(service => (
+                                <option value={service.name}>{service.name} - {service.time} dia(s) - RS{service.price}</option>
+                            ))
+                        }
                     </select>
 
                     <h2>Cupom</h2>
@@ -89,7 +90,7 @@ const CreateOrder = () => {
                             value={coupon} 
                             onChange={(e) => setCoupon(e.target.value)} 
                         />
-                        <button>Adicionar Cupom</button>
+                        <button>Testar Cupom</button>
                     </div>
 
                     <h2>Itens</h2>
@@ -110,11 +111,11 @@ const CreateOrder = () => {
 
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
-                    <p>Frete: R${shippingPrice}</p>
+                    <p>Frete: R${}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
-                    <p>Prazo de entrega: até {shippingDate} dias</p>
 
+                    {/* TODO create the create order function */}
                     <button>Finalizar compra</button>
                 </>
             )}
