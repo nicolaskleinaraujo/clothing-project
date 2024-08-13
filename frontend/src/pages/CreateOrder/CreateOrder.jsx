@@ -16,38 +16,45 @@ const CreateOrder = () => {
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [userAddress, setUserAddress] = useState({})
-    const [coupon, setCoupon] = useState("")
+    const [shippingDetails, setShippingDetails] = useState([])
 
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
     const [orderPrice, setOrderPrice] = useState(0)
     const [discount, setDiscount] = useState(0)
-    const [shippingDetails, setShippingDetails] = useState([])
+    const [shippingPrice, setShippingPrice] = useState(0)
 
-    const [delivery, setDelivery] = useState("")
+    const [delivery, setDelivery] = useState("PAC")
+    const [coupon, setCoupon] = useState("")
+
+    const getUserInfos = async() => {
+        const addressRes = await dbFetch.post("/address/user", {
+            "id": userId,
+            "userId": userId,
+        })
+        setUserAddress(addressRes.data.address)
+
+        const deliveryRes = await dbFetch.post("/cart/delivery", {
+            "id": userId,
+            "userId": userId,
+        })
+        setShippingDetails(deliveryRes.data.shippingDetails)
+    }
 
     const getOrderInfos = async() => {
         setLoading(true)
 
         try {
-            const addressRes = await dbFetch.post("/address/user", {
-                "id": userId,
-                "userId": userId,
-            })
-
-            setUserAddress(addressRes.data.address)
-
             const orderRes = await dbFetch.post("/cart/calculate", {
                 "coupon": coupon,
                 "delivery": delivery,
                 "userId": userId,
             })
-
             setProducts(orderRes.data.orderProducts)
             setProductPrice(orderRes.data.allPrices.productPrice)
             setOrderPrice(orderRes.data.allPrices.orderPrice)
             setDiscount(orderRes.data.allPrices.discount)
-            setShippingDetails(orderRes.data.shippingDetails)
+            setShippingPrice(orderRes.data.shippingDetails.price)
 
             setLoading(false)
         } catch (error) {
@@ -59,6 +66,7 @@ const CreateOrder = () => {
     }
 
     useEffect(() => {
+        getUserInfos()
         getOrderInfos()
     }, [])
 
@@ -113,7 +121,7 @@ const CreateOrder = () => {
 
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
-                    <p>Frete: R${shippingDetails.price}</p>
+                    <p>Frete: R${shippingPrice}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
