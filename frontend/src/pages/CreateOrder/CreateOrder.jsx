@@ -28,11 +28,18 @@ const CreateOrder = () => {
     const [coupon, setCoupon] = useState("")
 
     const getUserAddress = async() => {
-        const addressRes = await dbFetch.post("/address/user", {
-            "id": userId,
-            "userId": userId,
-        })
-        setUserAddress(addressRes.data.address)
+        try {
+            const addressRes = await dbFetch.post("/address/user", {
+                "id": userId,
+                "userId": userId,
+            })
+            setUserAddress(addressRes.data.address)
+        } catch (error) {
+            if (error.response.data.msg === "Endereço não encontrado") {
+                toast.info("Cadastre seu endereço")
+                navigate("/address")
+            }
+        }
     }
 
     const getOrderInfos = async() => {
@@ -53,9 +60,10 @@ const CreateOrder = () => {
 
             setLoading(false)
         } catch (error) {
-            if (error.response.data.msg === "Endereço não encontrado") {
-                toast.info("Cadastre seu endereço")
-                navigate("/address")
+            if (error.response.data.msg === "Codigo de cupom incorreto") {
+                toast.error("Código de cupom incorreto")
+                setCoupon("")
+                setLoading(false)
             }
         }
     }
@@ -98,7 +106,7 @@ const CreateOrder = () => {
                             value={coupon} 
                             onChange={(e) => setCoupon(e.target.value)} 
                         />
-                        <button>Testar Cupom</button>
+                        <button onClick={() => getOrderInfos()}>Testar Cupom</button>
                     </div>
 
                     <h2>Itens</h2>
@@ -120,7 +128,7 @@ const CreateOrder = () => {
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
                     <p>Frete: R${selectedShipping.price}</p>
-                    { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
+                    { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount.toFixed(2)}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
                     {/* TODO create the create order function */}

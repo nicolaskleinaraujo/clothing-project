@@ -15,7 +15,7 @@
 .create_order > p {
     text-align: center;
     font-size: 1.1em;
-    margin: 0 .3em;
+    margin: .3em .3em;
 }
 
 .create_order button {
@@ -35,7 +35,7 @@
 }
 
 .create_order button:first-of-type {
-    margin: .8em 0 1.5em 0;
+    margin: .5em 0 1.5em 0;
 }
 
 .create_order > button:last-of-type {
