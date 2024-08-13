@@ -10,6 +10,7 @@ import { useState, useEffect, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
+import { toast } from "react-toastify"
 import Loading from "../../components/Loading/Loading"
 
 // DayJS Configs
@@ -55,7 +56,8 @@ const Order = () => {
 
             setLoading(false)
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.msg)
+            navigate("/")
         }
     }
 
