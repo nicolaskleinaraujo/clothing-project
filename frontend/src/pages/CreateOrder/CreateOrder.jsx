@@ -27,6 +27,8 @@ const CreateOrder = () => {
     const [delivery, setDelivery] = useState("")
 
     const getOrderInfos = async() => {
+        setLoading(true)
+
         try {
             const addressRes = await dbFetch.post("/address/user", {
                 "id": userId,
@@ -37,6 +39,7 @@ const CreateOrder = () => {
 
             const orderRes = await dbFetch.post("/cart/calculate", {
                 "coupon": coupon,
+                "delivery": delivery,
                 "userId": userId,
             })
 
@@ -56,7 +59,6 @@ const CreateOrder = () => {
     }
 
     useEffect(() => {
-        setLoading(true)
         getOrderInfos()
     }, [])
 
@@ -70,9 +72,9 @@ const CreateOrder = () => {
                     <h2>Endereço</h2>
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
 
-                    {/* TODO add option details */}
+                    {/* FIXME makes the options call independent */}
                     <h2>Entrega</h2>
-                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
+                    <select name="delivery" id="delivery" className={styles.create_order_delivery} onChange={(e) => { setDelivery(e.target.value), getOrderInfos()}}>
                         { shippingDetails &&
                             shippingDetails.map(service => (
                                 <option value={service.name}>{service.name} - {service.time} dia(s) - RS{service.price}</option>
@@ -111,7 +113,7 @@ const CreateOrder = () => {
 
                     <h2>Resumo da Compra</h2>
                     <p>Subtotal: R${productPrice}</p>
-                    <p>Frete: R${}</p>
+                    <p>Frete: R${shippingDetails.price}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
