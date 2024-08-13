@@ -35,7 +35,7 @@ const calculateShipping = async(address, type = undefined) => {
         if (type === undefined) {
             return services.filter(service => service.name === "PAC" || service.name === "SEDEX")
         } else if (type !== undefined) {
-            return services.find(service => service.name === "PAC")
+            return services.find(service => service.name === type)
         }
     } catch (error) {
         return
