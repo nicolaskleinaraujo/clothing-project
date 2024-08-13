@@ -20,28 +20,17 @@ const Cart = () => {
 
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
-    const [shippingPrice, setShippingPrice] = useState(0)
-    const [orderPrice, setOrderPrice] = useState(0)
-    const [discount, setDiscount] = useState(0)
-    const [shippingDate, setShippingDate] = useState(0)
-
-    const [coupon, setCoupon] = useState("")
 
     const calculatePrice = async() => {
         setLoading(true)
 
         try {
             const res = await dbFetch.post("/cart/calculate", {
-                "coupon": coupon,
                 "userId": userId,
             })
 
             setProducts(res.data.orderProducts)
             setProductPrice(res.data.allPrices.productPrice)
-            setShippingPrice(res.data.allPrices.shippingPrice)
-            setOrderPrice(res.data.allPrices.orderPrice)
-            setDiscount(res.data.allPrices.discount)
-            setShippingDate(res.data.shippingDate)
 
             setLoading(false)
         } catch (error) {
@@ -97,9 +86,9 @@ const Cart = () => {
                         }
                     </div>
 
-                    { orderPrice != 0 &&
+                    { productPrice != 0 &&
                         <div className={styles.cart_infos}>
-                            <p>Total: R${orderPrice}</p>
+                            <p>Total: R${productPrice}</p>
                         </div>
                     }
 
