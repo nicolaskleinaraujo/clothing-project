@@ -89,7 +89,7 @@ const CreateOrder = () => {
                     </select>
 
                     <h2>Cupom</h2>
-                    <div>
+                    <div className={styles.create_order_coupon}>
                         <input
                             type="text"
                             name="coupon"

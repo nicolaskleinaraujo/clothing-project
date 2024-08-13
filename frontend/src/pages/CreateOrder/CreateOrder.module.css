@@ -4,12 +4,28 @@
     justify-content: center;
     align-items: center;
     background-color: #F5DADF;
+    padding: 2em 0;
+}
+
+.create_order > h2 {
+    font-size: 1.2em;
+    margin-bottom: .4em;
+}
+
+.create_order > p {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.create_order > p:first-of-type {
+    margin: .3em .3em 1.5em .3em;
 }
 
 .create_order_delivery {
     width: 80%;
     padding: .5em;
     border-radius: .3em;
+    margin-bottom: 1.5em;
     color: #F5DADF;
     border: 2px solid #F5DADF;
     background-color: #00453D;
@@ -17,6 +33,37 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+.create_order_coupon input {
+    border: 2px solid #00453D;
+    color: #F5DADF;
+    background-color: #00453D;
+    padding: .5em;
+    border-radius: .5em;
+    margin-top: .5em;
+    font-size: .9em;
+}
+
+.create_order_coupon input::placeholder {
+    color: #F5DADF;
+}
+
+.create_order_coupon button {
+    border: 2px solid #00453D;
+    color: #00453D;
+    background-color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    margin: 0 1em 1.5em 1em;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.create_order_coupon button:hover {
+    border: 2px solid #F5DADF;
+    color: #F5DADF;
+    background-color: #00453D;
 }
 
 .create_order_products {
