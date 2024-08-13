@@ -11,7 +11,7 @@ const shipping = axios.create({
     },
 })
 
-const calculateShipping = async(address, type = undefined) => {
+const calculateShipping = async(address) => {
     // Sanitize the given address
     const sanitizedAddress = address.replace("-", "")
 
@@ -32,11 +32,7 @@ const calculateShipping = async(address, type = undefined) => {
 
         const services = response.data
 
-        if (type === undefined || type === "") {
-            return services.filter(service => service.name === "PAC" || service.name === "SEDEX")
-        } else if (type !== undefined) {
-            return services.find(service => service.name === type)
-        }
+        return services.filter(service => service.name === "PAC" || service.name === "SEDEX")
     } catch (error) {
         return
     }
