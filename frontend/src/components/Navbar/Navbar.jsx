@@ -27,6 +27,10 @@ const Navbar = () => {
         setSizes(res.data.sizes)
     }
 
+    const removeAuth = async() => {
+        console.log("Saiu")
+    }
+
     useEffect(() => {
         getInfos()
     }, [])
@@ -70,6 +74,7 @@ const Navbar = () => {
                         > 
                             <Link to={`/orders/${userId}`}>Pedidos</Link> 
                             <Link to={"/address"}>Endereço</Link>
+                            <button onClick={removeAuth}>Sair</button>
                         </div>
                     </>
                 )}

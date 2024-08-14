@@ -72,9 +72,16 @@
     color: #00453D;
 }
 
-.navbar_account a {
+.navbar_account a,
+.navbar_account button {
     color: #F5DADF;
     margin: .6em;
+}
+
+.navbar_account button {
+    background-color: transparent;
+    border: none;
+    margin: .6em .6em 1em 16%;
 }
 
 .navbar_account a svg {
