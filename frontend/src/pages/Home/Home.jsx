@@ -7,13 +7,14 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useState, useEffect, useContext } from "react"
 import { MdReadMore } from "react-icons/md"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Loading from "../../components/Loading/Loading"
 import { LoadingContext } from "../../context/LoadingContext"
 
 const Home = () => {
     const { loading, setLoading } = useContext(LoadingContext)
     const [products, setProducts] = useState([])
+    const navigate = useNavigate()
 
     const getProducts = async() => {
         const res = await dbFetch.get("/products")
@@ -39,8 +40,8 @@ const Home = () => {
                                     <div>
                                         <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
                                         <p>{product.name}</p>
-                                        <p>R${product.price}</p>
-                                        <Link to={`/product/${product.slug}`}><MdReadMore /></Link>
+                                        <p>R${product.price.toFixed(2)}</p>
+                                        <button onClick={() => navigate(`/products/${product.slug}`)}><MdReadMore /></button>
                                     </div>
                                 </Link>
                             ))

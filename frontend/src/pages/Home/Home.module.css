@@ -39,20 +39,22 @@
     word-wrap: break-word;
 }
 
-.home_products div a {
-    text-decoration: none;
+.home_products div button {
     color: #F5DADF;
+    background-color: transparent;
+    border: none;
     margin-top: .5em;
     padding: .3em;
     border-radius: .5em;
     transition: .3s;
+    cursor: pointer;
 }
 
-.home_products div a:hover {
+.home_products div button:hover {
     color: #00453D;
     background-color: #F5DADF;
 }
 
-.home_products div a svg {
+.home_products div button svg {
     font-size: 1.5em;
 }
