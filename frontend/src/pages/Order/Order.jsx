@@ -51,8 +51,8 @@ const Order = () => {
 
             // Calculates and sets payment expiration
             const expiresIn = dayjs.utc(res.data.order.created_at).add(10, "minute").tz("America/Sao_Paulo")
-            setHours(expiresIn.hour())
-            setMinutes(expiresIn.minute())
+            setHours(String(expiresIn.hour()).padStart(2, '0'))
+            setMinutes(String(expiresIn.minute()).padStart(2, '0'))
 
             setLoading(false)
         } catch (error) {
