@@ -100,10 +100,9 @@ const CreateOrder = () => {
                 <Loading />
             ) : (
                 <>
-                    {/* TODO add change address button and redirect */}
                     <h2>Endereço</h2>
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
-                    <button>Trocar endereço</button>
+                    <button onClick={() => { setRedirect("/create-order"), navigate("/address") }}>Trocar endereço</button>
 
                     <h2>Entrega</h2>
                     <select name="delivery" id="delivery" value={delivery} className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
