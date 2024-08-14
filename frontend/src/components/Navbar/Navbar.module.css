@@ -83,7 +83,7 @@
 .navbar_account button {
     background-color: transparent;
     border: none;
-    margin: .6em .6em 1em 16%;
+    margin: .6em 0 1.5em 16%;
 }
 
 .navbar_account a svg {
