@@ -10,5 +10,6 @@ router.route("/").put(validateToken, validateUser, (req, res) => userController.
 router.route("/").delete(validateToken, validateUser, (req, res) => userController.deleteUserController(req, res))
 router.route("/login").post((req, res) => userController.createLoginController(req, res))
 router.route("/tryauth").post((req, res) => userController.tryAuthController(req, res))
+router.route("/removeauth").get((req, res) => userController.removeAuthController(req, res))
 
 module.exports = router

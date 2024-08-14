@@ -4,6 +4,7 @@ const deleteUserController = require("./deleteUser/deleteUserController")
 const updateUserController = require("./updateUser/updateUserController")
 const createLoginController = require("./createLogin/createLoginController")
 const tryAuthController = require("./tryAuth/tryAuthController")
+const removeAuthController = require("./removeAuth/removeAuthController")
 
 // Exporting all controllers
 const userController = {
@@ -12,6 +13,7 @@ const userController = {
     deleteUserController,
     createLoginController,
     tryAuthController,
+    removeAuthController,
 }
 
 module.exports = userController
