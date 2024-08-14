@@ -9,11 +9,13 @@ import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
+import { RedirectContext } from "../../context/RedirectContext"
 
 const CreateOrder = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
+    const { setRedirect } = useContext(RedirectContext)
 
     const [userAddress, setUserAddress] = useState({})
 
@@ -36,6 +38,7 @@ const CreateOrder = () => {
             setUserAddress(addressRes.data.address)
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
+                setRedirect("/create-order")
                 toast.info("Cadastre seu endereço")
                 navigate("/address")
             }
