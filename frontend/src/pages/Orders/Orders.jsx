@@ -51,7 +51,9 @@ const Orders = () => {
             ) : (
                 <>
                     <div className={styles.orders_products}>
-                        { orders &&
+                        { orders.length === 0 ? (
+                            <p>Seus pedidos aparecerão aqui</p>
+                        ) : (
                             orders.map(order => (
                                 <Link to={`/order/${order.id}`} key={order.id}>
                                     <div>
@@ -64,7 +66,7 @@ const Orders = () => {
                                     </div>
                                 </Link>
                             ))
-                        }
+                        )}
                     </div>
                 </>
             )}
