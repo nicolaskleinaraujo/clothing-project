@@ -4,11 +4,13 @@ import styles from "./Address.module.css"
 // Modules
 import dbFetch from "../../config/axios"
 import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { toast } from "react-toastify"
 import { RedirectContext } from "../../context/RedirectContext"
 
 const Address = () => {
+    const navigate = useNavigate()
     const { userId } = useContext(UserContext)
 
     const { redirect, setRedirect } = useContext(RedirectContext)
@@ -54,7 +56,6 @@ const Address = () => {
             let res
 
             if (Object.keys(userAddress).length === 0) {
-                // TODO add redirect context
                 res = await dbFetch.post("/address", {
                     "cep": cep,
                     "city": city,
@@ -76,6 +77,7 @@ const Address = () => {
             }
 
             toast.success(res.data.msg)
+            navigate(getRedirect)
         } catch (error) {
             toast.error(error.response.data.msg)
         }
