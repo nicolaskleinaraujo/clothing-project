@@ -77,7 +77,10 @@ const Address = () => {
             }
 
             toast.success(res.data.msg)
-            navigate(getRedirect)
+
+            if (getRedirect !== "") {
+                navigate(getRedirect)
+            }
         } catch (error) {
             toast.error(error.response.data.msg)
         }
