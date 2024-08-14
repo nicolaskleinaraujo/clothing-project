@@ -6,9 +6,13 @@ import dbFetch from "../../config/axios"
 import { useState, useEffect, useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import { toast } from "react-toastify"
+import { RedirectContext } from "../../context/RedirectContext"
 
 const Address = () => {
     const { userId } = useContext(UserContext)
+
+    const { redirect, setRedirect } = useContext(RedirectContext)
+    const [getRedirect, setGetRedirect] = useState("")
 
     const [userAddress, setUserAddress] = useState({})
 
@@ -17,6 +21,13 @@ const Address = () => {
     const [district, setDistrict] = useState("")
     const [street, setStreet] = useState("")
     const [houseNum, setHouseNum] = useState("")
+
+    const saveRedirect = () => {
+        if (redirect !== "") {
+            setGetRedirect(redirect)
+            setRedirect("")
+        }
+    }
 
     const getUserinfos = async() => {
         try {
@@ -32,7 +43,7 @@ const Address = () => {
             setStreet(res.data.address.street)
             setHouseNum(res.data.address.houseNum)
         } catch (error) {
-            
+            console.log(error.response)
         }
     }
 
@@ -71,6 +82,7 @@ const Address = () => {
     }
 
     useEffect(() => {
+        saveRedirect()
         getUserinfos()
     }, [])
 
