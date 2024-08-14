@@ -9,13 +9,24 @@ import { useState, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
+import { RedirectContext } from "../../context/RedirectContext"
 
 const Login = () => {
     const navigate = useNavigate()
     const { setUserId, setIsAdmin } = useContext(UserContext)
 
+    const { redirect, setRedirect } = useContext(RedirectContext)
+    const [getRedirect, setGetRedirect] = useState("")
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const saveRedirect = () => {
+        if (redirect !== "") {
+            setGetRedirect(redirect)
+            setRedirect("")
+        }
+    }
 
     const handleSubmit = async(e) => {
         e.preventDefault()
@@ -37,6 +48,10 @@ const Login = () => {
             toast.error(error.response.data.msg)
         }
     }
+
+    useState(() => {
+        saveRedirect()
+    }, [])
 
     return (
         <div>
