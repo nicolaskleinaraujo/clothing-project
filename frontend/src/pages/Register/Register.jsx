@@ -53,6 +53,12 @@ const Register = () => {
             setUserId(res.data.user.id)
 
             toast.success(res.data.msg)
+
+            if (getRedirect !== "") {
+                navigate(getRedirect)
+                return
+            }
+
             navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)
