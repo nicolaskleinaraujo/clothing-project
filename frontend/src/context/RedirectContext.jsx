@@ -6,10 +6,10 @@ export const RedirectContext = createContext()
 
 // Provider
 export const RedirectProvider = ({ children }) => {
-    const [Redirect, setRedirect] = useState("")
+    const [redirect, setRedirect] = useState("")
 
     return (
-        <RedirectContext.Provider value={{ Redirect, setRedirect }}>
+        <RedirectContext.Provider value={{ redirect, setRedirect }}>
             {children}
         </RedirectContext.Provider>
     )
