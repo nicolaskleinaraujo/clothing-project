@@ -4,12 +4,15 @@
     justify-content: center;
     align-items: center;
     background-color: #F5DADF;
-    padding: 2em 0;
 }
 
 .create_order > h2 {
     font-size: 1.2em;
     margin-bottom: .4em;
+}
+
+.create_order > h2:first-of-type {
+    margin-top: 1.2em;
 }
 
 .create_order > p {
@@ -39,7 +42,7 @@
 }
 
 .create_order > button:last-of-type {
-    margin-top: 2em;
+    margin: 2em 0;
 }
 
 .create_order_delivery {
