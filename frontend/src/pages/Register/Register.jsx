@@ -101,7 +101,7 @@ const Register = () => {
 
                 <input type="submit" value="Criar" />
 
-                <p>Já tem uma conta? <Link to="/login">Entrar</Link></p>
+                <p>Já tem uma conta? <Link to="/login" onClick={() => setRedirect(getRedirect)}>Entrar</Link></p>
             </form>
         </div>
     )

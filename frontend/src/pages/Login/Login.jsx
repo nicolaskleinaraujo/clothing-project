@@ -75,7 +75,7 @@ const Login = () => {
 
                 <input type="submit" value="Login" />
 
-                <p>Não tem uma conta? <Link to="/register">Criar</Link></p>
+                <p>Não tem uma conta? <Link to="/register" onClick={() => setRedirect(getRedirect)}>Criar</Link></p>
             </form>
         </div>
     )
