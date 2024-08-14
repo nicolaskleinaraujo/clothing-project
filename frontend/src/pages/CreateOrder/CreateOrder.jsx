@@ -108,8 +108,8 @@ const CreateOrder = () => {
                     <h2>Entrega</h2>
                     <select name="delivery" id="delivery" value={delivery} className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
                         { shippingOptions &&
-                            shippingOptions.map(service => (
-                                <option value={service.name}>{service.name} - {service.time} dia(s) - RS{service.price}</option>
+                            shippingOptions.map((service, index) => (
+                                <option key={index} value={service.name}>{service.name} - {service.time} dia(s) - RS{service.price}</option>
                             ))
                         }
                     </select>
