@@ -19,7 +19,10 @@ const UserRoute = () => {
         }
     
         if (authUserId === 0) {
-            setRedirect(location.pathname)
+            if (location.pathname === "/cart") {
+                setRedirect(location.pathname)
+            }
+
             return <Navigate to="/login" replace />
         } else if (authUserId !== 0) {
             return
