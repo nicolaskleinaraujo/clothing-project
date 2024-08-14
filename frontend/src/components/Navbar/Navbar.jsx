@@ -12,7 +12,7 @@ import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
-    const { userId } = useContext(UserContext)
+    const { userId, setUserId, setIsAdmin } = useContext(UserContext)
 
     const [categoriesOpen, setCategoriesOpen] = useState(false)
     const [sizesOpen, setSizesOpen] = useState(false)
@@ -28,7 +28,14 @@ const Navbar = () => {
     }
 
     const removeAuth = async() => {
-        console.log("Saiu")
+        try {
+            await dbFetch.get("/users/removeauth")
+
+            setUserId(0)
+            setIsAdmin(false)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
