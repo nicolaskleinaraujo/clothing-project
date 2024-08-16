@@ -3,6 +3,7 @@ import styles from "./Address.module.css"
 
 // Modules
 import dbFetch from "../../config/axios"
+import viaCep from "../../config/viaCep"
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
@@ -49,19 +50,21 @@ const Address = () => {
         }
     }
 
-    const handleChange = (e, type) => {
+    const handleChange = async(e, type) => {
         let input = e.target.value.replace(/\D/g, "")
 
         if (type === "CEP") {
             if (input.length > 5) {
                 input = `${input.slice(0, 5)}-${input.slice(5,8)}`
+                setCep(input)
             }
     
             if (input.length === 9) {
-                console.log("finalizou")
+                const rawCep = input.replace(/\D/g, "")
+                const res = await viaCep.get(`/${rawCep}/json/`)
+                console.log(res.data)
             }
-    
-            setCep(input)
+
             return
         }
 

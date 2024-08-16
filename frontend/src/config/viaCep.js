@@ -1,8 +1,8 @@
 import axios from "axios"
 
-axios.defaults.withCredentials = true
-const dbFetch = axios.create({
-    baseURL: "viacep.com.br/ws",
+axios.defaults.withCredentials = false
+const viaCep = axios.create({
+    baseURL: "https://viacep.com.br/ws",
 })
 
-export default dbFetch
+export default viaCep
