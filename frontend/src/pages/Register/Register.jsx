@@ -31,6 +31,20 @@ const Register = () => {
         }
     }
 
+    const handleChange = (e) => {
+        let input = e.target.value.replace(/[\s()\-]/g, "")
+    
+        if (input.length <= 2) {
+            input = `(${input}`
+        } else if (input.length <= 7) {
+            input = `(${input.slice(0, 2)}) ${input.slice(2)}`
+        } else if (input.length > 7) {
+            input = `(${input.slice(0, 2)}) ${input.slice(2, 7)}-${input.slice(7, 11)}`
+        }
+
+        setNumber(input)
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault()
 
@@ -91,7 +105,7 @@ const Register = () => {
 
                 <label>
                     <p>Número de Celular</p>
-                    <input type="text" onChange={(e) => setNumber(e.target.value)} value={number} />
+                    <input type="text" onChange={(e) => handleChange(e)} value={number} />
                 </label>
 
                 <label>
