@@ -49,6 +49,20 @@ const Address = () => {
         }
     }
 
+    const handleChange = (e) => {
+        let input = e.target.value.replace(/\D/g, "")
+
+        if (input.length > 5) {
+            input = `${input.slice(0, 5)}-${input.slice(5,8)}`
+        }
+
+        if (input.length === 9) {
+            console.log("finalizou")
+        }
+
+        setCep(input)
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault()
 
@@ -108,7 +122,8 @@ const Address = () => {
                         name="cep" 
                         id="cep" 
                         value={cep} 
-                        onChange={(e) => setCep(e.target.value)} 
+                        required
+                        onChange={(e) => handleChange(e)} 
                     />
                 </label>
 
