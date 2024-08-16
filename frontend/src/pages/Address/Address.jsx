@@ -61,7 +61,6 @@ const Address = () => {
         if (type === "CEP") {
             if (input.length > 5) {
                 input = `${input.slice(0, 5)}-${input.slice(5,8)}`
-                setCep(input)
             }
     
             if (input.length === 9) {
@@ -77,6 +76,7 @@ const Address = () => {
                 setLoading(false)
             }
 
+            setCep(input)
             return
         }
 
@@ -142,7 +142,6 @@ const Address = () => {
                         <h1>Atualizar Endereço</h1>
                     )}
 
-                    {/* TODO create cep consult */}
                     <label>
                         <p>CEP</p>
                         <input 
@@ -188,7 +187,6 @@ const Address = () => {
                         />
                     </label>
 
-                    {/* TODO update button layout */}
                     <label>
                         <p>Número</p>
                         <input 
