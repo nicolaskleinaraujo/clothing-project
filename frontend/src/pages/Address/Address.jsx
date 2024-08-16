@@ -49,18 +49,23 @@ const Address = () => {
         }
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e, type) => {
         let input = e.target.value.replace(/\D/g, "")
 
-        if (input.length > 5) {
-            input = `${input.slice(0, 5)}-${input.slice(5,8)}`
+        if (type === "CEP") {
+            if (input.length > 5) {
+                input = `${input.slice(0, 5)}-${input.slice(5,8)}`
+            }
+    
+            if (input.length === 9) {
+                console.log("finalizou")
+            }
+    
+            setCep(input)
+            return
         }
 
-        if (input.length === 9) {
-            console.log("finalizou")
-        }
-
-        setCep(input)
+        setHouseNum(input)
     }
 
     const handleSubmit = async(e) => {
@@ -123,7 +128,7 @@ const Address = () => {
                         id="cep" 
                         value={cep} 
                         required
-                        onChange={(e) => handleChange(e)} 
+                        onChange={(e) => handleChange(e, "CEP")} 
                     />
                 </label>
 
@@ -168,7 +173,7 @@ const Address = () => {
                         name="housenum" 
                         id="housenum" 
                         value={houseNum} 
-                        onChange={(e) => setHouseNum(e.target.value)}
+                        onChange={(e) => handleChange(e)}
                     />
                 </label>
 
