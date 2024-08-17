@@ -51,7 +51,7 @@ const Navbar = () => {
                 <div className={categoriesOpen ? styles.navbar_category_open_content : styles.navbar_category_content}>
                     {
                         categories && categories.map(category => (
-                            <a href="#" key={category.id}>{category.name}</a>
+                            <Link to={`/sort-products/category=${category.id}`} key={category.id}>{category.name}</Link>
                         ))
                     }
                 </div>
@@ -62,7 +62,7 @@ const Navbar = () => {
                 <div className={sizesOpen ? styles.navbar_size_open_content : styles.navbar_size_content}>
                     {
                         sizes && sizes.map(size => (
-                            <a href="#" key={size.id}>{size.size}</a>
+                            <Link to={`/sort-products/sizes=${size.size}`} key={size.id}>{size.size}</Link>
                         ))
                     }
                 </div>
