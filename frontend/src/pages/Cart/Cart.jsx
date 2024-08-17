@@ -12,14 +12,25 @@ import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { MdOutlineRemoveShoppingCart } from "react-icons/md"
 import Loading from "../../components/Loading/Loading"
+import { RedirectContext } from "../../context/RedirectContext"
 
 const Cart = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
 
+    const { redirect, setRedirect } = useContext(RedirectContext)
+    const [getRedirect, setGetRedirect] = useState("")
+
     const [products, setProducts] = useState([])
     const [productPrice, setProductPrice] = useState(0)
+
+    const saveRedirect = () => {
+        if (redirect !== "") {
+            setGetRedirect(redirect)
+            setRedirect("")
+        }
+    }
 
     const calculatePrice = async() => {
         setLoading(true)
@@ -36,17 +47,27 @@ const Cart = () => {
 
             setLoading(false)
         } catch (error) {
-            // TODO add redirect context
             if (error.response.data.msg === "Informações insuficientes") {
                 toast.info("Adicione produtos no seu carrinho")
+
+                if (getRedirect !== "") {
+                    navigate(getRedirect)
+                    return
+                }
+
                 navigate("/")
                 return
             }
+
+            toast.error(error.response.data.msg)
+            navigate("/")
         }
     }
 
     const removeItem = async(id) => {
         try {
+            setLoading(true)
+
             await dbFetch.delete("/cart", {
                 data: {
                     "id": id,
@@ -54,14 +75,15 @@ const Cart = () => {
                 }
             })
 
-            setLoading(true)
             calculatePrice()
         } catch (error) {
             toast.error(error.response.data.msg)
+            setLoading(false)
         }
     }
 
     useEffect(() => {
+        saveRedirect()
         calculatePrice()
     }, [])
 
