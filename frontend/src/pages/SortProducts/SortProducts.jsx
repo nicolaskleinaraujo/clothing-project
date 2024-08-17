@@ -3,8 +3,9 @@ import styles from "./SortProducts.module.css"
 
 // Modules
 import dbFetch from "../../config/axios"
-import { useParams } from "react-router-dom"
-import { useEffect, useContext } from "react"
+import { MdReadMore } from "react-icons/md"
+import { useParams, Link } from "react-router-dom"
+import { useEffect, useContext, useState } from "react"
 import { LoadingContext } from "../../context/LoadingContext"
 import Loading from "../../components/Loading/Loading"
 
@@ -12,11 +13,13 @@ const SortProducts = () => {
     const { filter } = useParams()
     const { loading, setLoading } = useContext(LoadingContext)
 
+    const [products, setProducts] = useState([])
+
     const filterProducts = async() => {
         setLoading(true)
 
         const res = await dbFetch.get(`/products?${filter}`)
-        console.log(res.data)
+        setProducts(res.data.products)
 
         setLoading(false)
     }
