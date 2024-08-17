@@ -15,6 +15,7 @@ import Order from "../pages/Order/Order"
 import Orders from "../pages/Orders/Orders"
 import Address from "../pages/Address/Address"
 import CreateOrder from "../pages/CreateOrder/CreateOrder"
+import SortProducts from "../pages/SortProducts/SortProducts"
 
 const Router = () => {
     return (
@@ -26,6 +27,7 @@ const Router = () => {
                     <Route path="/register" element={ <Register /> } />
                     <Route path="/" element={ <Home /> } />
                     <Route path="/product/:slug" element={ <Product /> } />
+                    <Route path="/sort-products/:filter" element={ <SortProducts /> } />
 
                     <Route element={ <UserRoute /> }>
                         <Route path="/cart" element={ <Cart /> } />
