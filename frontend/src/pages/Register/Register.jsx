@@ -61,7 +61,7 @@ const Register = () => {
                 firstName,
                 lastName,
                 email,
-                number,
+                number: number.replace(/[\s()\-]/g, ""),
                 password, 
             })
             setUserId(res.data.user.id)
@@ -115,6 +115,7 @@ const Register = () => {
 
                 <input type="submit" value="Criar" />
 
+                {/* TODO add login with google button */}
                 <p>Já tem uma conta? <Link to="/login" onClick={() => setRedirect(getRedirect)}>Entrar</Link></p>
             </form>
         </div>
