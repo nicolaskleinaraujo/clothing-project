@@ -56,7 +56,7 @@ const Address = () => {
     }
 
     const handleChange = async(e, type) => {
-        let input = e.target.value.replace(/\D/g, "")
+        let input = e.target.value.replace(/[\s()\-]/g, "")
 
         if (type === "CEP") {
             if (input.length > 5) {
@@ -66,7 +66,7 @@ const Address = () => {
             if (input.length === 9) {
                 setLoading(true)
 
-                const rawCep = input.replace(/\D/g, "")
+                const rawCep = input.replace(/[\s()\-]/g, "")
                 const res = await viaCep.get(`/${rawCep}/json/`)
 
                 setCity(res.data.localidade)
@@ -92,17 +92,17 @@ const Address = () => {
 
             if (Object.keys(userAddress).length === 0) {
                 res = await dbFetch.post("/address", {
-                    "cep": cep,
+                    "cep": cep.replace(/[\s()\-]/g, ""),
                     "city": city,
                     "district": district,
                     "street": street,
                     "houseNum": houseNum,
                     "userId": userId,
-                })                
+                })
             } else {
                 res = await dbFetch.put("/address", {
                     "id": userAddress.id,
-                    "cep": cep,
+                    "cep": cep.replace(/[\s()\-]/g, ""),
                     "city": city,
                     "district": district,
                     "street": street,
