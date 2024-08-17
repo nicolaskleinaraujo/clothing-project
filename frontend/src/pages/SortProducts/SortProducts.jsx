@@ -4,14 +4,21 @@ import styles from "./SortProducts.module.css"
 // Modules
 import dbFetch from "../../config/axios"
 import { useParams } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
+import { LoadingContext } from "../../context/LoadingContext"
+import Loading from "../../components/Loading/Loading"
 
 const SortProducts = () => {
     const { filter } = useParams()
+    const { loading, setLoading } = useContext(LoadingContext)
 
     const filterProducts = async() => {
+        setLoading(true)
+
         const res = await dbFetch.get(`/products?${filter}`)
         console.log(res.data)
+
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -19,7 +26,28 @@ const SortProducts = () => {
     }, [])
 
     return (
-        <div>SortProducts</div>
+        <div className={styles.sort_products}>
+            { loading ? (
+                <Loading />
+            ) : (
+                <>
+                    <div className={styles.sort_products_products}>
+                        {
+                            products && products.map(product => (
+                                <Link to={`/product/${product.slug}`} key={product.id}>
+                                    <div>
+                                        <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                                        <p>{product.name}</p>
+                                        <p>R${product.price.toFixed(2)}</p>
+                                        <button onClick={() => navigate(`/products/${product.slug}`)}><MdReadMore /></button>
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div>
+                </>
+            )}
+    </div>
     )
 }
 
