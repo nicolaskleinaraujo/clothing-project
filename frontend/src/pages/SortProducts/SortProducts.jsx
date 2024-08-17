@@ -29,12 +29,12 @@ const SortProducts = () => {
     }, [])
 
     return (
-        <div className={styles.sort_products}>
+        <div>
             { loading ? (
                 <Loading />
             ) : (
                 <>
-                    <div className={styles.sort_products_products}>
+                    <div className={styles.sort_products}>
                         {
                             products && products.map(product => (
                                 <Link to={`/product/${product.slug}`} key={product.id}>

@@ -1,0 +1,60 @@
+.sort_products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: .8em;
+}
+
+.sort_products > a {
+    text-decoration: none;
+}
+
+.sort_products div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #F5DADF;
+    background-color: #00453D;
+    width: 11em;
+    height: 18em;
+    padding: .3em;
+    margin: .3em;
+    border-radius: .3em;
+}
+
+.sort_products img {
+    padding-top: .3em;
+    width: 100px;
+    height: 120px;
+    margin-bottom: .8em;
+    border-radius: .5em;
+}
+
+.sort_products p {
+    font-size: 1em;
+    text-align: center;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.sort_products div button {
+    color: #F5DADF;
+    background-color: transparent;
+    border: none;
+    margin-top: .5em;
+    padding: .3em;
+    border-radius: .5em;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.sort_products div button:hover {
+    color: #00453D;
+    background-color: #F5DADF;
+}
+
+.sort_products div button svg {
+    font-size: 1.5em;
+}
