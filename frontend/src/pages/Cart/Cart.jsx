@@ -36,6 +36,7 @@ const Cart = () => {
 
             setLoading(false)
         } catch (error) {
+            // TODO add redirect context
             if (error.response.data.msg === "Informações insuficientes") {
                 toast.info("Adicione produtos no seu carrinho")
                 navigate("/")

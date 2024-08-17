@@ -26,7 +26,7 @@ const SortProducts = () => {
 
     useEffect(() => {
         filterProducts()
-    }, [])
+    }, [filter])
 
     return (
         <div>
