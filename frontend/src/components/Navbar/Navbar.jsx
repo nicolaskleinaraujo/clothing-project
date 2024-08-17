@@ -46,7 +46,12 @@ const Navbar = () => {
         <div className={styles.navbar}>
             <Link to="/"><img src="/project-logo.png" alt="Logo do Projeto" /></Link>
 
-            <div className={styles.navbar_category} onMouseEnter={() => setCategoriesOpen(true)} onMouseLeave={() => setCategoriesOpen(false)}>
+            <div 
+                className={styles.navbar_category} 
+                onMouseEnter={() => setCategoriesOpen(true)} 
+                onMouseLeave={() => setCategoriesOpen(false)} 
+                onClick={() => setCategoriesOpen(!categoriesOpen)} 
+            >
                 <button>Categorias <IoIosArrowDown /></button>
                 <div className={categoriesOpen ? styles.navbar_category_open_content : styles.navbar_category_content}>
                     {
@@ -57,7 +62,12 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div className={styles.navbar_size} onMouseEnter={() => setSizesOpen(true)} onMouseLeave={() => setSizesOpen(false)}>
+            <div 
+                className={styles.navbar_size} 
+                onMouseEnter={() => setSizesOpen(true)} 
+                onMouseLeave={() => setSizesOpen(false)} 
+                onClick={() => setSizesOpen(!sizesOpen)} 
+            >
                 <button>Tamanhos <IoIosArrowDown /></button>
                 <div className={sizesOpen ? styles.navbar_size_open_content : styles.navbar_size_content}>
                     {
