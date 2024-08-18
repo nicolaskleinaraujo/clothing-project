@@ -11,6 +11,7 @@ import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { RedirectContext } from "../../context/RedirectContext"
 import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from "jwt-decode"
 
 const Register = () => {
     const navigate = useNavigate()
@@ -44,6 +45,11 @@ const Register = () => {
         }
 
         setNumber(input)
+    }
+
+    const handleGoogleLogin = async(credentialResponse) => {
+        const decoded = jwtDecode(credentialResponse.credential) 
+        console.log(decoded)
     }
 
     const handleSubmit = async(e) => {
@@ -115,7 +121,7 @@ const Register = () => {
                 </label>
 
                 <GoogleLogin
-                    onSuccess={credentialResponse => { console.log(credentialResponse) }}
+                    onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
                     onError={() => { toast.error("Erro, tente novamente") }}
                 />
 
