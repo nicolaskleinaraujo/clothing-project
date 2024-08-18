@@ -56,3 +56,14 @@
     color: #00453D;
     text-decoration: underline;
 }
+
+.register_with {
+    margin: 1.2em;
+}
+
+.register_with p {
+    color: #00453D;
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: .5em;
+}

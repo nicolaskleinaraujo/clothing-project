@@ -120,12 +120,16 @@ const Register = () => {
                     <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
                 </label>
 
-                <GoogleLogin
-                    onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
-                    onError={() => { toast.error("Erro, tente novamente") }}
-                />
-
                 <input type="submit" value="Criar" />
+
+                <div className={styles.register_with}>
+                    <p>Ou faça login com</p>
+
+                    <GoogleLogin
+                        onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
+                        onError={() => { toast.error("Erro, tente novamente") }}
+                    />
+                </div>
 
                 <p>Já tem uma conta? <Link to="/login" onClick={() => setRedirect(getRedirect)}>Entrar</Link></p>
             </form>
