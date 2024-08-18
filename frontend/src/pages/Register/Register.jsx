@@ -10,6 +10,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { RedirectContext } from "../../context/RedirectContext"
+import { GoogleLogin } from '@react-oauth/google'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -113,9 +114,13 @@ const Register = () => {
                     <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
                 </label>
 
+                <GoogleLogin
+                    onSuccess={credentialResponse => { console.log(credentialResponse) }}
+                    onError={() => { toast.error("Erro, tente novamente") }}
+                />
+
                 <input type="submit" value="Criar" />
 
-                {/* TODO add login with google button */}
                 <p>Já tem uma conta? <Link to="/login" onClick={() => setRedirect(getRedirect)}>Entrar</Link></p>
             </form>
         </div>
