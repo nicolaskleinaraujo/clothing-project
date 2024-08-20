@@ -11,6 +11,7 @@ import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { RedirectContext } from "../../context/RedirectContext"
 import { GoogleLogin } from "@react-oauth/google"
+import { jwtDecode } from "jwt-decode"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -21,11 +22,30 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isGoogle, setIsGoogle] = useState(false)
 
     const saveRedirect = () => {
         if (redirect !== "") {
             setGetRedirect(redirect)
             setRedirect("")
+        }
+    }
+
+    const handleGoogleLogin = async(credentialResponse) => {
+        setEmail("")
+        setPassword("")
+
+        const decoded = jwtDecode(credentialResponse.credential)
+
+        setEmail(decoded.email)
+        setIsGoogle(true)
+
+        try {
+            const res = await dbFetch.post("/users/login", {email, password, isGoogle})
+
+            console.log(res.data)
+        } catch (error) {
+            toast.error(error.response.data.msg)
         }
     }
 
@@ -38,7 +58,7 @@ const Login = () => {
         }
 
         try {
-            const res = await dbFetch.post("/users/login", { email, password })
+            const res = await dbFetch.post("/users/login", { email, password, isGoogle })
             setUserId(res.data.user.id)
             setIsAdmin(res.data.user.isAdmin)
 
