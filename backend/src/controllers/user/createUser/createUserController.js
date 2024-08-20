@@ -9,6 +9,7 @@ const createUserController = async (req, res) => {
         email,
         number,
         password,
+        isGoogle,
     } = req.body
 
     if (
@@ -16,7 +17,8 @@ const createUserController = async (req, res) => {
         lastName === "" ||
         email === "" ||
         number === "" ||
-        password === ""
+        password === "" ||
+        isGoogle === ""
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -43,6 +45,7 @@ const createUserController = async (req, res) => {
                 email,
                 number,
                 password: hash,
+                isGoogle,
             },
         })
 
