@@ -3,9 +3,9 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const createLoginController = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, isGoogle } = req.body
 
-    if (email === "" || password === "") {
+    if (email === "" || (!isGoogle && password === "")) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
@@ -18,10 +18,17 @@ const createLoginController = async (req, res) => {
     }
 
     // Checks if the provided password is correct
-    const testPassword = bcrypt.compareSync(password, user.password)
-    if (!testPassword) {
-        res.status(400).json({ msg: "Email ou senha incorretos" })
-        return
+    if (!isGoogle) {
+        const testPassword = bcrypt.compareSync(password, user.password)
+        if (!testPassword) {
+            res.status(400).json({ msg: "Email ou senha incorretos" })
+            return
+        }
+    } else if (isGoogle) {
+        if (!user.isGoogle) {
+            res.status(400).json({ msg: "Login incorreto, tente novamente" })
+            return
+        }
     }
 
     // Removes password from user to send for the client
