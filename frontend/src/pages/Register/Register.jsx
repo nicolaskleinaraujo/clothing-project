@@ -27,6 +27,7 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [number, setNumber] = useState("")
     const [password, setPassword] = useState("")
+    const [isGoogle, setIsGoogle] = useState(false)
 
     const saveRedirect = () => {
         if (redirect !== "") {
@@ -56,6 +57,7 @@ const Register = () => {
         setFirstName(decoded.given_name)
         setLastName(decoded.family_name)
         setEmail(decoded.email)
+        setIsGoogle(true)
     }
 
     const handleSubmit = async(e) => {
@@ -75,7 +77,8 @@ const Register = () => {
                 lastName,
                 email,
                 number: number.replace(/[\s()\-]/g, ""),
-                password, 
+                password,
+                isGoogle,
             })
             setUserId(res.data.user.id)
 
