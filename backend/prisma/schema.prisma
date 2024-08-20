@@ -15,6 +15,7 @@ model User {
   number    String  @unique
   password  String
   isAdmin   Boolean @default(false)
+  isGoogle  Boolean @default(false)
 
   Address Address[]
   Orders  Orders[]
