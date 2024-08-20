@@ -10,6 +10,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { RedirectContext } from "../../context/RedirectContext"
+import { GoogleLogin } from "@react-oauth/google"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -75,7 +76,15 @@ const Login = () => {
 
                 <input type="submit" value="Login" />
 
-                {/* TODO add login with google button */}
+                <div className={styles.login_with}>
+                    <p>Ou faça login com</p>
+
+                    <GoogleLogin
+                        onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
+                        onError={() => { toast.error("Erro, tente novamente") }}
+                    />
+                </div>
+
                 <p>Não tem uma conta? <Link to="/register" onClick={() => setRedirect(getRedirect)}>Criar</Link></p>
             </form>
         </div>
