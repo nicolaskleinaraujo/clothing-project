@@ -52,7 +52,10 @@ const Register = () => {
     const handleGoogleLogin = async(credentialResponse) => {
         const decoded = jwtDecode(credentialResponse.credential)
         setGoogleLogin(true)
-        console.log(decoded)
+
+        setFirstName(decoded.given_name)
+        setLastName(decoded.family_name)
+        setEmail(decoded.email)
     }
 
     const handleSubmit = async(e) => {
@@ -139,14 +142,14 @@ const Register = () => {
                         <p>Já tem uma conta? <Link to="/login" onClick={() => setRedirect(getRedirect)}>Entrar</Link></p>
                     </>
                 ) : (
-                    <>
+                    <div className={styles.register_google_login}>
                         <h1>Termine o cadastro</h1>
 
                         <label>
                             <p>Número de Celular</p>
                             <input type="text" onChange={(e) => handleChange(e)} value={number} />
                         </label>
-                    </>
+                    </div>
                 )}
             </form>
         </div>
