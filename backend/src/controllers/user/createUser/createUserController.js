@@ -17,8 +17,7 @@ const createUserController = async (req, res) => {
         lastName === "" ||
         email === "" ||
         number === "" ||
-        password === "" ||
-        isGoogle === ""
+        (!isGoogle && password === "")
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
@@ -33,21 +32,34 @@ const createUserController = async (req, res) => {
         return
     }
 
-    // Hashing the password
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(password, salt)
-
     try {
-        const user = await prisma.user.create({
-            data: {
-                firstName,
-                lastName,
-                email,
-                number,
-                password: hash,
-                isGoogle,
-            },
-        })
+        let user
+        if (!isGoogle) {
+            // Hashing the password
+            const salt = bcrypt.genSaltSync(10)
+            const hash = bcrypt.hashSync(password, salt)
+
+            user = await prisma.user.create({
+                data: {
+                    firstName,
+                    lastName,
+                    email,
+                    number,
+                    password: hash,
+                    isGoogle,
+                },
+            })
+        } else if (isGoogle) {
+            user = await prisma.user.create({
+                data: {
+                    firstName,
+                    lastName,
+                    email,
+                    number,
+                    isGoogle,
+                }
+            })
+        }
 
         // Creating the access and refresh JWT Token
         const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
