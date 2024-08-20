@@ -67,3 +67,30 @@
     text-align: center;
     margin-bottom: .5em;
 }
+
+.register_google_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.register_google_login h1 {
+    margin-bottom: .8em;
+}
+
+.register_google_login label input {
+    margin-bottom: 1.5em;
+}
+
+.register_google_login > input {
+    border-radius: .5em;
+    width: 18em;
+    height: 3em;
+    cursor: pointer;
+    border: none;
+    background-color: #00453D;
+    color: white;
+    padding: 1em;
+}

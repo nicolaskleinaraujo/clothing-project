@@ -66,7 +66,7 @@ const Register = () => {
             lastName === "" ||
             email === "" ||
             number === "" ||
-            password === ""
+            (!googleLogin && password === "")
         ) { return toast.info("Informe suas credenciais") }
 
         try {
@@ -149,6 +149,8 @@ const Register = () => {
                             <p>Número de Celular</p>
                             <input type="text" onChange={(e) => handleChange(e)} value={number} />
                         </label>
+
+                        <input type="submit" value="Criar" />
                     </div>
                 )}
             </form>
