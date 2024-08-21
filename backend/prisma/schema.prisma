@@ -29,7 +29,7 @@ model Address {
   district   String
   street     String
   houseNum   Int
-  complement String
+  complement String?
   name       String
   number     String
   userId     Int
