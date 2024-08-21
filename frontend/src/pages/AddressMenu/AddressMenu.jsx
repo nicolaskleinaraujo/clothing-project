@@ -3,7 +3,7 @@ import styles from "./AddressMenu.module.css"
 
 // Modules
 import dbFetch from "../../config/axios"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
@@ -15,6 +15,8 @@ const AddressMenu = () => {
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
 
+    const [addresses, setAddresses] = useState([])
+
     const getAddresses = async() => {
         setLoading(true)
 
@@ -24,7 +26,7 @@ const AddressMenu = () => {
                 "userId": userId,
             })
 
-            console.log(res.data)
+            setAddresses(res.data.address)
 
             setLoading(false)
         } catch (error) {

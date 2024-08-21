@@ -27,6 +27,7 @@ const Address = () => {
     const [district, setDistrict] = useState("")
     const [street, setStreet] = useState("")
     const [houseNum, setHouseNum] = useState("")
+    const [number, setNumber] = useState("")
 
     const saveRedirect = () => {
         if (redirect !== "") {
@@ -56,7 +57,7 @@ const Address = () => {
     }
 
     const handleChange = async(e, type) => {
-        let input = e.target.value.replace(/[\s()\-]/g, "")
+        let input = e.target.value.replace(/[\s()\-]/g, "").replace(/\D/g, "")
 
         if (type === "CEP") {
             if (input.length > 5) {
@@ -64,19 +65,37 @@ const Address = () => {
             }
     
             if (input.length === 9) {
-                setLoading(true)
-
-                const rawCep = input.replace(/[\s()\-]/g, "")
-                const res = await viaCep.get(`/${rawCep}/json/`)
-
-                setCity(res.data.localidade)
-                setDistrict(res.data.bairro)
-                setStreet(res.data.logradouro)
-
-                setLoading(false)
+                try {
+                    setLoading(true)
+    
+                    const rawCep = input.replace(/[\s()\-]/g, "")
+                    const res = await viaCep.get(`/${rawCep}/json/`)
+    
+                    setCity(res.data.localidade)
+                    setDistrict(res.data.bairro)
+                    setStreet(res.data.logradouro)
+    
+                    setLoading(false)
+                } catch (error) {
+                    setCep("")
+                    setLoading(false)
+                }
             }
 
             setCep(input)
+            return
+        }
+
+        if (type === "PHONE") {
+            if (input.length <= 2) {
+                input = `(${input}`
+            } else if (input.length <= 7) {
+                input = `(${input.slice(0, 2)}) ${input.slice(2)}`
+            } else if (input.length > 7) {
+                input = `(${input.slice(0, 2)}) ${input.slice(2, 7)}-${input.slice(7, 11)}`
+            }
+    
+            setNumber(input)
             return
         }
 
@@ -137,7 +156,7 @@ const Address = () => {
             ) : (
                 <form onSubmit={handleSubmit} className={styles.address}>
                     { Object.keys(userAddress).length === 0 ? (
-                        <h1>Criar Endereço</h1>
+                        <h1>Novo Endereço</h1>
                     ) : (
                         <h1>Atualizar Endereço</h1>
                     )}
@@ -195,6 +214,17 @@ const Address = () => {
                             id="housenum" 
                             value={houseNum} 
                             onChange={(e) => handleChange(e)}
+                        />
+                    </label>
+
+                    <label>
+                        <p>Número de Celular</p>
+                        <input 
+                            type="text" 
+                            name="phonenum" 
+                            id="phonenum" 
+                            onChange={(e) => handleChange(e, "PHONE")} 
+                            value={number} 
                         />
                     </label>
 
