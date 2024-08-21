@@ -49,7 +49,18 @@ const AddressMenu = () => {
         <div>
             { loading && <Loading /> }
 
-            { !loading && <p>AddressMenu</p> }
+            { !loading &&
+                <div>
+                    { 
+                        addresses.map(address => (
+                            <div key={address.id}>
+                                <p>{address.city}, {address.district}, {address.street}, {address.houseNum}</p>
+                                <p></p>
+                            </div>
+                        ))
+                    }
+                </div>
+            }
         </div>
     )
 }
