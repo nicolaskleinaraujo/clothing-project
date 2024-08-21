@@ -12,7 +12,6 @@ model User {
   firstName String
   lastName  String
   email     String  @unique
-  number    String  @unique
   password  String?
   isAdmin   Boolean @default(false)
   isGoogle  Boolean @default(false)
@@ -29,6 +28,7 @@ model Address {
   district String
   street   String
   houseNum Int
+  number   String
   userId   Int
 
   user User @relation(fields: [userId], references: [id])
