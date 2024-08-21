@@ -46,12 +46,15 @@ const Address = () => {
 
             const address = res.data.address.find(address => address.id == id)
 
-            setCep(address.cep)
+            const formatedCep = `${address.cep.slice(0, 5)}-${address.cep.slice(5,8)}`
+            const formatedNumber = `(${address.number.slice(0, 2)}) ${address.number.slice(2, 7)}-${address.number.slice(7, 11)}`
+
+            setCep(formatedCep)
             setCity(address.city)
             setDistrict(address.district)
             setStreet(address.street)
             setHouseNum(address.houseNum)
-            setNumber(address.number)
+            setNumber(formatedNumber)
 
             setLoading(false)
         }
@@ -108,32 +111,32 @@ const Address = () => {
         setLoading(true)
 
         try {
-            let res
-
             if (id === undefined) {
-                res = await dbFetch.post("/address", {
-                    "cep": cep.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
+                const res = await dbFetch.post("/address", {
+                    "cep": cep.replace(/[\s()\-]/g, ""),
                     "city": city,
                     "district": district,
                     "street": street,
-                    "houseNum": houseNum.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
-                    "number": number.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
+                    "houseNum": houseNum,
+                    "number": number.replace(/[\s()\-]/g, ""),
                     "userId": userId,
                 })
-            } else {
-                res = await dbFetch.put("/address", {
-                    "id": userAddress.id,
-                    "cep": cep.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
-                    "city": city,
-                    "district": district,
-                    "street": street,
-                    "houseNum": houseNum.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
-                    "number": number.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
-                    "userId": userId,
-                })
-            }
 
-            toast.success(res.data.msg)
+                toast.success(res.data.msg)
+            } else if (id) {
+                const res = await dbFetch.put("/address", {
+                    "id": id,
+                    "cep": cep.replace(/[\s()\-]/g, ""),
+                    "city": city,
+                    "district": district,
+                    "street": street,
+                    "houseNum": houseNum,
+                    "number": number.replace(/[\s()\-]/g, ""),
+                    "userId": userId,
+                })
+
+                toast.success(res.data.msg)
+            }
 
             if (getRedirect !== "") {
                 navigate(getRedirect)
