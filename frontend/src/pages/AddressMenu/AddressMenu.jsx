@@ -34,6 +34,7 @@ const AddressMenu = () => {
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
                 toast.info("Adicione o seu endereço")
+                setLoading(false)
                 navigate("/address")
                 return
             }
@@ -43,8 +44,17 @@ const AddressMenu = () => {
         }
     }
 
-    const deleteAddress = async() => {
-        console.log("Deleted!")
+    const deleteAddress = async(id) => {
+        try {
+            const res = await dbFetch.delete("/address", {
+                data: { id, userId }
+            })
+            toast.success(res.data.msg)
+
+            getAddresses()
+        } catch (error) {
+            toast.error(error.response.data.msg)
+        }
     }
 
     useEffect(() => {
@@ -66,7 +76,7 @@ const AddressMenu = () => {
                                 <p>{address.city}, {address.state} {address.cep}</p>
                                 <div>
                                     <Link to={`/address/${address.id}`}><FiEdit /></Link>
-                                    <button onClick={deleteAddress}><AiOutlineDelete /></button>
+                                    <button onClick={() => deleteAddress(address.id)}><AiOutlineDelete /></button>
                                 </div>
                             </div>
                         ))
