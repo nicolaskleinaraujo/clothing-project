@@ -7,7 +7,6 @@ const updateUserController = async (req, res) => {
         firstName,
         lastName,
         email,
-        number,
         password,
         oldPassword,
     } = req.body
@@ -19,7 +18,6 @@ const updateUserController = async (req, res) => {
         firstName === "" ||
         lastName === "" ||
         email === "" ||
-        number === "" ||
         password === "" ||
         oldPassword === ""
     ) {
@@ -30,16 +28,10 @@ const updateUserController = async (req, res) => {
     // Getting user info
     const user = await prisma.user.findUnique({ where: { id: userId } })
 
-    // Checking if email or number belongs to other user
+    // Checking if email belongs to other user
     const emailExists = await prisma.user.findUnique({ where: { email } })
-    const numberExists = await prisma.user.findUnique({ where: { number } })
 
     if (emailExists && emailExists.id !== user.id) {
-        res.status(400).json({ msg: "Email ou numero de telefone já cadastrado" })
-        return
-    }
-
-    if (numberExists && numberExists.id !== user.id) {
         res.status(400).json({ msg: "Email ou numero de telefone já cadastrado" })
         return
     }
@@ -62,7 +54,6 @@ const updateUserController = async (req, res) => {
                 firstName,
                 lastName,
                 email,
-                number,
                 password: hash,
             },
         })
