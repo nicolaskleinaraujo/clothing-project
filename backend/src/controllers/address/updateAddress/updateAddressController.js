@@ -8,6 +8,7 @@ const updateAddressController = async (req, res) => {
         district,
         street,
         houseNum,
+        number,
         userId,
     } = req.body
 
@@ -18,6 +19,7 @@ const updateAddressController = async (req, res) => {
         district === "" ||
         street === "" ||
         isNaN(houseNum) ||
+        number === "" ||
         isNaN(userId)
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -45,6 +47,7 @@ const updateAddressController = async (req, res) => {
                 district,
                 street,
                 houseNum: parseInt(houseNum),
+                number,
             },
         })
 
