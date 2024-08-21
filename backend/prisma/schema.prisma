@@ -22,14 +22,17 @@ model User {
 }
 
 model Address {
-  id       Int    @id @default(autoincrement())
-  cep      String
-  city     String
-  district String
-  street   String
-  houseNum Int
-  number   String
-  userId   Int
+  id         Int    @id @default(autoincrement())
+  cep        String
+  state      String
+  city       String
+  district   String
+  street     String
+  houseNum   Int
+  complement String
+  name       String
+  number     String
+  userId     Int
 
   user User @relation(fields: [userId], references: [id])
 }
