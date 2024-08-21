@@ -1,18 +1,26 @@
-.address {
+.address_menu {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #F5DADF;
 }
 
-.address_addresses {
+.address_menu > a {
+    font-size: 1.3em;
+    color: #00453D;
+    text-decoration: underline;
+    margin: 2em;
+}
+
+.address_menu_addresses {
     align-self: flex-start;
     margin: 0 auto;
     flex-wrap: wrap;
     width: 90%;
 }
 
-.address_addresses div {
+.address_menu_addresses div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,18 +30,18 @@
     padding: .8em;
 }
 
-.address_addresses div p {
+.address_menu_addresses div p {
     font-size: 1.2em;
     color: #F5DADF;
     margin-bottom: .2em;
 }
 
-.address_addresses div div {
+.address_menu_addresses div div {
     flex-direction: row;
 }
 
-.address_addresses div div a,
-.address_addresses div div button {
+.address_menu_addresses div div a,
+.address_menu_addresses div div button {
     text-decoration: none;
     color: #F5DADF;
     border: 2px solid #F5DADF;
@@ -42,19 +50,19 @@
     transition: .2s;
 }
 
-.address_addresses div div a:hover,
-.address_addresses div div button:hover {
+.address_menu_addresses div div a:hover,
+.address_menu_addresses div div button:hover {
     background-color: #F5DADF;
     color: #00453D;
     border: 2px solid #00453D;
 }
 
-.address_addresses div div button {
+.address_menu_addresses div div button {
     background-color: transparent;
     margin-left: 2em;
     cursor: pointer;
 }
 
-.address_addresses div div svg {
+.address_menu_addresses div div svg {
     font-size: 1.5em;
 }

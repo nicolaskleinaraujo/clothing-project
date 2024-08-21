@@ -62,26 +62,30 @@ const AddressMenu = () => {
     } ,[])
 
     return (
-        <div className={styles.address}>
+        <div className={styles.address_menu}>
             { loading && <Loading /> }
 
             { !loading &&
-                <div className={styles.address_addresses}>
-                    { 
-                        addresses.map(address => (
-                            <div key={address.id}>
-                                <p>{address.name}</p>
-                                <p>{address.city}, {address.houseNum}</p>
-                                <p>{address.complement} {address.district}</p>
-                                <p>{address.city}, {address.state} {address.cep}</p>
-                                <div>
-                                    <Link to={`/address/${address.id}`}><FiEdit /></Link>
-                                    <button onClick={() => deleteAddress(address.id)}><AiOutlineDelete /></button>
+                <>
+                    <div className={styles.address_menu_addresses}>
+                        { 
+                            addresses.map(address => (
+                                <div key={address.id}>
+                                    <p>{address.name}</p>
+                                    <p>{address.city}, {address.houseNum}</p>
+                                    <p>{address.complement} {address.district}</p>
+                                    <p>{address.city}, {address.state} {address.cep}</p>
+                                    <div>
+                                        <Link to={`/address/${address.id}`}><FiEdit /></Link>
+                                        <button onClick={() => deleteAddress(address.id)}><AiOutlineDelete /></button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+
+                    <Link to={"/address"}>Novo endereço</Link>
+                </>
             }
         </div>
     )
