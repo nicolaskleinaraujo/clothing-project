@@ -42,6 +42,8 @@ const Login = () => {
             const decoded = jwtDecode(credentialResponse.credential)
 
             const res = await dbFetch.post("/users/login", {email: decoded.email, password, isGoogle: true})
+            setUserId(res.data.user.id)
+            setIsAdmin(res.data.user.isAdmin)
 
             toast.success(res.data.msg)
 
