@@ -5,7 +5,7 @@ import styles from "./Address.module.css"
 import dbFetch from "../../config/axios"
 import viaCep from "../../config/viaCep"
 import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
@@ -16,11 +16,10 @@ const Address = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
+    const { id } = useParams()
 
     const { redirect, setRedirect } = useContext(RedirectContext)
     const [getRedirect, setGetRedirect] = useState("")
-
-    const [userAddress, setUserAddress] = useState({})
 
     const [cep, setCep] = useState("")
     const [city, setCity] = useState("")
@@ -37,21 +36,23 @@ const Address = () => {
     }
 
     const getUserinfos = async() => {
-        try {
+        if (id) {
+            setLoading(true)
+
             const res = await dbFetch.post("/address/user", {
                 "id": userId,
                 "userId": userId,
             })
-    
-            setUserAddress(res.data.address)
-            setCep(res.data.address.cep)
-            setCity(res.data.address.city)
-            setDistrict(res.data.address.district)
-            setStreet(res.data.address.street)
-            setHouseNum(res.data.address.houseNum)
 
-            setLoading(false)
-        } catch (error) {
+            const address = res.data.address.find(address => address.id == id)
+
+            setCep(address.cep)
+            setCity(address.city)
+            setDistrict(address.district)
+            setStreet(address.street)
+            setHouseNum(address.houseNum)
+            setNumber(address.number)
+
             setLoading(false)
         }
     }
@@ -109,23 +110,25 @@ const Address = () => {
         try {
             let res
 
-            if (Object.keys(userAddress).length === 0) {
+            if (id === undefined) {
                 res = await dbFetch.post("/address", {
-                    "cep": cep.replace(/[\s()\-]/g, ""),
+                    "cep": cep.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
                     "city": city,
                     "district": district,
                     "street": street,
-                    "houseNum": houseNum,
+                    "houseNum": houseNum.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
+                    "number": number.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
                     "userId": userId,
                 })
             } else {
                 res = await dbFetch.put("/address", {
                     "id": userAddress.id,
-                    "cep": cep.replace(/[\s()\-]/g, ""),
+                    "cep": cep.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
                     "city": city,
                     "district": district,
                     "street": street,
-                    "houseNum": houseNum,
+                    "houseNum": houseNum.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
+                    "number": number.replace(/[\s()\-]/g, "").replace(/\D/g, ""),
                     "userId": userId,
                 })
             }
@@ -144,7 +147,6 @@ const Address = () => {
     }
 
     useEffect(() => {
-        setLoading(true)
         saveRedirect()
         getUserinfos()
     }, [])
@@ -155,7 +157,7 @@ const Address = () => {
                 <Loading />
             ) : (
                 <form onSubmit={handleSubmit} className={styles.address}>
-                    { Object.keys(userAddress).length === 0 ? (
+                    { id === undefined ? (
                         <h1>Novo Endereço</h1>
                     ) : (
                         <h1>Atualizar Endereço</h1>
@@ -228,11 +230,7 @@ const Address = () => {
                         />
                     </label>
 
-                    { Object.keys(userAddress).length === 0 ? (
-                        <input type="submit" value="Cadastrar" />
-                    ) : (
-                        <input type="submit" value="Atualizar" />
-                    )}
+                    <input type="submit" value={id === undefined ? "Cadastrar" : "Atualizar"} />
                 </form>
             )}
         </div>
