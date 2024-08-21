@@ -3,20 +3,26 @@ const prisma = require("../../../db/client")
 const createAddressController = async(req, res) => {
     const {
         cep,
+        state,
         city,
         district,
         street,
         houseNum,
+        complement,
+        name,
         number,
         userId,
     } = req.body
 
     if (
         cep === "" ||
+        state === "" ||
         city === "" ||
         district === "" ||
         street === "" ||
         houseNum === undefined ||
+        complement === "" ||
+        name === "" ||
         number === "" ||
         userId === undefined
     ) {
@@ -35,10 +41,13 @@ const createAddressController = async(req, res) => {
         const newAddress = await prisma.address.create({
             data: {
                 cep,
+                state,
                 city,
                 district,
                 street,
                 houseNum: parseInt(houseNum),
+                complement,
+                name,
                 number,
                 userId: parseInt(userId),
             },
