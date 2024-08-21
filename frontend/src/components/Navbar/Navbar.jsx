@@ -12,11 +12,10 @@ import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
-    const { userId, setUserId, setIsAdmin } = useContext(UserContext)
+    const { userId } = useContext(UserContext)
 
     const [categoriesOpen, setCategoriesOpen] = useState(false)
     const [sizesOpen, setSizesOpen] = useState(false)
-    const [userOpen, setUserOpen] = useState(false)
 
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
@@ -25,17 +24,6 @@ const Navbar = () => {
         const res = await dbFetch.get("/categories")
         setCategories(res.data.categories)
         setSizes(res.data.sizes)
-    }
-
-    const removeAuth = async() => {
-        try {
-            await dbFetch.get("/users/removeauth")
-
-            setUserId(0)
-            setIsAdmin(false)
-        } catch (error) {
-            console.log(error)
-        }
     }
 
     useEffect(() => {
@@ -79,29 +67,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar_account}>
-                { userId === 0 ? (
-                    <Link to="/login"><FiUser /></Link>
-                ) : (
-                    <>
-                        <a 
-                            onMouseEnter={() => setUserOpen(true)} 
-                            onMouseLeave={() => setUserOpen(false)} 
-                            onClick={() => setUserOpen(!userOpen)}
-                        ><FiUser /></a>
-
-                        <div 
-                            onMouseEnter={() => setUserOpen(true)} 
-                            onMouseLeave={() => setUserOpen(false)} 
-                            onClick={() => setUserOpen(!userOpen)}
-                            className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}
-                        > 
-                            <Link to={`/orders/${userId}`}>Pedidos</Link> 
-                            <Link to={"/address"}>Endereço</Link>
-                            <button onClick={removeAuth}>Sair</button>
-                        </div>
-                    </>
-                )}
-
+                <Link to={userId === 0 ? "/login" : "/menu"}><FiUser /></Link>
                 <Link to="/cart"><FiShoppingBag /></Link>
             </div>
         </div>
