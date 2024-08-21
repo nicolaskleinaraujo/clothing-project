@@ -11,7 +11,7 @@ const getByUserController = async(req, res) => {
     try {
         const address = await prisma.address.findMany({ where: { userId: id } })
 
-        if (!address) {
+        if (!address || address.length === 0) {
             res.status(404).json({ msg: "Endereço não encontrado" })
             return
         }
