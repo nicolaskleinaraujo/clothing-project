@@ -83,10 +83,16 @@ const Navbar = () => {
                     <Link to="/login"><FiUser /></Link>
                 ) : (
                     <>
-                        <a onMouseEnter={() => setUserOpen(true)} onMouseLeave={() => setUserOpen(false)}><FiUser /></a>
+                        <a 
+                            onMouseEnter={() => setUserOpen(true)} 
+                            onMouseLeave={() => setUserOpen(false)} 
+                            onClick={() => setUserOpen(!userOpen)}
+                        ><FiUser /></a>
+
                         <div 
                             onMouseEnter={() => setUserOpen(true)} 
                             onMouseLeave={() => setUserOpen(false)} 
+                            onClick={() => setUserOpen(!userOpen)}
                             className={userOpen ? styles.navbar_user_open_content : styles.navbar_user_content}
                         > 
                             <Link to={`/orders/${userId}`}>Pedidos</Link> 
