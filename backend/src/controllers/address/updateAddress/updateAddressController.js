@@ -4,10 +4,13 @@ const updateAddressController = async (req, res) => {
     const {
         id,
         cep,
+        state,
         city,
         district,
         street,
         houseNum,
+        complement,
+        name,
         number,
         userId,
     } = req.body
@@ -15,10 +18,13 @@ const updateAddressController = async (req, res) => {
     if (
         isNaN(id) ||
         cep === "" ||
+        state === "" ||
         city === "" ||
         district === "" ||
         street === "" ||
         isNaN(houseNum) ||
+        complement === "" ||
+        name === "" ||
         number === "" ||
         isNaN(userId)
     ) {
@@ -43,10 +49,13 @@ const updateAddressController = async (req, res) => {
             where: { id: parseInt(id) },
             data: {
                 cep,
+                state,
                 city,
                 district,
                 street,
                 houseNum: parseInt(houseNum),
+                complement,
+                name,
                 number,
             },
         })
