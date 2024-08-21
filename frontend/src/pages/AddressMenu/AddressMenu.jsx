@@ -5,14 +5,19 @@ import styles from "./AddressMenu.module.css"
 import dbFetch from "../../config/axios"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
+import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import Loading from "../../components/Loading/Loading"
 
 const AddressMenu = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
+    const { loading, setLoading } = useContext(LoadingContext)
 
     const getAddresses = async() => {
+        setLoading(true)
+
         try {
             const res = await dbFetch.post("/address/user", {
                 "id": userId,
@@ -20,6 +25,8 @@ const AddressMenu = () => {
             })
 
             console.log(res.data)
+
+            setLoading(false)
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
                 toast.info("Adicione o seu endereço")
@@ -28,6 +35,7 @@ const AddressMenu = () => {
             }
 
             toast.error(error.response.data.msg)
+            setLoading(false)
         }
     }
 
@@ -36,7 +44,11 @@ const AddressMenu = () => {
     } ,[])
 
     return (
-        <div>AddressMenu</div>
+        <div>
+            { loading && <Loading /> }
+
+            { !loading && <p>AddressMenu</p> }
+        </div>
     )
 }
 
