@@ -16,6 +16,7 @@ import Orders from "../pages/Orders/Orders"
 import Address from "../pages/Address/Address"
 import CreateOrder from "../pages/CreateOrder/CreateOrder"
 import SortProducts from "../pages/SortProducts/SortProducts"
+import UserMenu from "../pages/UserMenu/UserMenu"
 
 const Router = () => {
     return (
@@ -35,6 +36,7 @@ const Router = () => {
                         <Route path="/orders/:id" element={ <Orders /> } />
                         <Route path="/address" element={ <Address /> } />
                         <Route path="/create-order" element={ <CreateOrder /> } />
+                        <Route path="/menu" element={ <UserMenu /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
