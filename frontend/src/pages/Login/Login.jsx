@@ -43,9 +43,14 @@ const Login = () => {
 
             const res = await dbFetch.post("/users/login", {email: decoded.email, password, isGoogle: true})
 
-            console.log(res.data)
+            toast.success(res.data.msg)
 
-            setLoading(false)
+            if (getRedirect !== "") {
+                navigate(getRedirect)
+                return
+            }
+
+            navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)
             setLoading(false)
