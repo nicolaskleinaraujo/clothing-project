@@ -21,7 +21,6 @@ const createAddressController = async(req, res) => {
         district === "" ||
         street === "" ||
         houseNum === undefined ||
-        complement === "" ||
         name === "" ||
         number === "" ||
         userId === undefined

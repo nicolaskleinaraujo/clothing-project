@@ -254,7 +254,6 @@ const Address = () => {
                             name="complement" 
                             id="complement" 
                             value={complement} 
-                            required
                             onChange={(e) => setComplement(e.target.value)} 
                         />
                     </label>

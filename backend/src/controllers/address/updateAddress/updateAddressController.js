@@ -23,7 +23,6 @@ const updateAddressController = async (req, res) => {
         district === "" ||
         street === "" ||
         isNaN(houseNum) ||
-        complement === "" ||
         name === "" ||
         number === "" ||
         isNaN(userId)
