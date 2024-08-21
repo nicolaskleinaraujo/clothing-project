@@ -10,12 +10,15 @@ import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { RedirectContext } from "../../context/RedirectContext"
+import { LoadingContext } from "../../context/LoadingContext"
+import Loading from "../../components/Loading/Loading"
 import { GoogleLogin } from "@react-oauth/google"
 import { jwtDecode } from "jwt-decode"
 
 const Login = () => {
     const navigate = useNavigate()
     const { setUserId, setIsAdmin } = useContext(UserContext)
+    const { loading, setLoading } = useContext(LoadingContext)
 
     const { redirect, setRedirect } = useContext(RedirectContext)
     const [getRedirect, setGetRedirect] = useState("")
@@ -81,32 +84,36 @@ const Login = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className={styles.login}>
-                <h1>Login</h1>
+            { loading && <Loading /> }
 
-                <label>
-                    <p>Email</p>
-                    <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-                </label>
+            { !loading && 
+                <form onSubmit={handleSubmit} className={styles.login}>
+                    <h1>Login</h1>
 
-                <label>
-                    <p>Senha</p>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
-                </label>
+                    <label>
+                        <p>Email</p>
+                        <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+                    </label>
 
-                <input type="submit" value="Login" />
+                    <label>
+                        <p>Senha</p>
+                        <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
+                    </label>
 
-                <div className={styles.login_with}>
-                    <p>Ou faça login com</p>
+                    <input type="submit" value="Login" />
 
-                    <GoogleLogin
-                        onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
-                        onError={() => { toast.error("Erro, tente novamente") }}
-                    />
-                </div>
+                    <div className={styles.login_with}>
+                        <p>Ou faça login com</p>
 
-                <p>Não tem uma conta? <Link to="/register" onClick={() => setRedirect(getRedirect)}>Criar</Link></p>
-            </form>
+                        <GoogleLogin
+                            onSuccess={credentialResponse => { handleGoogleLogin(credentialResponse) }}
+                            onError={() => { toast.error("Erro, tente novamente") }}
+                        />
+                    </div>
+
+                    <p>Não tem uma conta? <Link to="/register" onClick={() => setRedirect(getRedirect)}>Criar</Link></p>
+                </form>
+            }   
         </div>
     )
 }
