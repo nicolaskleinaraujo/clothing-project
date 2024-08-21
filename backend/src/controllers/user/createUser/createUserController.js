@@ -7,7 +7,6 @@ const createUserController = async (req, res) => {
         firstName,
         lastName,
         email,
-        number,
         password,
         isGoogle,
     } = req.body
@@ -16,18 +15,15 @@ const createUserController = async (req, res) => {
         firstName === "" ||
         lastName === "" ||
         email === "" ||
-        number === "" ||
         (!isGoogle && password === "")
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
 
-    // Checking if email or number is already cadastered
+    // Checking if email is already cadastered
     const emailExists = await prisma.user.findUnique({ where: { email } })
-    const numberExists = await prisma.user.findUnique({ where: { number } })
-
-    if (emailExists || numberExists) {
+    if (emailExists) {
         res.status(400).json({ msg: "Email ou numero de telefone já cadastrado" })
         return
     }
@@ -44,7 +40,6 @@ const createUserController = async (req, res) => {
                     firstName,
                     lastName,
                     email,
-                    number,
                     password: hash,
                     isGoogle,
                 },
@@ -55,7 +50,6 @@ const createUserController = async (req, res) => {
                     firstName,
                     lastName,
                     email,
-                    number,
                     isGoogle,
                 }
             })
