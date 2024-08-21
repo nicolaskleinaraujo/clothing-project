@@ -25,7 +25,6 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [isGoogle, setIsGoogle] = useState(false)
 
     const saveRedirect = () => {
         if (redirect !== "") {
@@ -35,25 +34,27 @@ const Login = () => {
     }
 
     const handleGoogleLogin = async(credentialResponse) => {
+        setLoading(true)
         setEmail("")
         setPassword("")
 
-        const decoded = jwtDecode(credentialResponse.credential)
-
-        setEmail(decoded.email)
-        setIsGoogle(true)
-
         try {
-            const res = await dbFetch.post("/users/login", {email, password, isGoogle})
+            const decoded = jwtDecode(credentialResponse.credential)
+
+            const res = await dbFetch.post("/users/login", {email: decoded.email, password, isGoogle: true})
 
             console.log(res.data)
+
+            setLoading(false)
         } catch (error) {
             toast.error(error.response.data.msg)
+            setLoading(false)
         }
     }
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+        setLoading(true)
 
         if (email === "" || password === "") {
             toast.info("Informe seu email e senha")
@@ -61,7 +62,7 @@ const Login = () => {
         }
 
         try {
-            const res = await dbFetch.post("/users/login", { email, password, isGoogle })
+            const res = await dbFetch.post("/users/login", { email, password, isGoogle: false })
             setUserId(res.data.user.id)
             setIsAdmin(res.data.user.isAdmin)
 
@@ -75,6 +76,7 @@ const Login = () => {
             navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)
+            setLoading(false)
         }
     }
 
