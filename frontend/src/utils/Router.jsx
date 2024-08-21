@@ -17,6 +17,7 @@ import Address from "../pages/Address/Address"
 import CreateOrder from "../pages/CreateOrder/CreateOrder"
 import SortProducts from "../pages/SortProducts/SortProducts"
 import UserMenu from "../pages/UserMenu/UserMenu"
+import AddressMenu from "../pages/AddressMenu/AddressMenu"
 
 const Router = () => {
     return (
@@ -37,6 +38,7 @@ const Router = () => {
                         <Route path="/address" element={ <Address /> } />
                         <Route path="/create-order" element={ <CreateOrder /> } />
                         <Route path="/menu" element={ <UserMenu /> } />
+                        <Route path="/address-menu" element={ <AddressMenu /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>

@@ -27,7 +27,7 @@ const UserMenu = () => {
     return (
         <div>
             <Link>Minha conta</Link>
-            <Link>Endereços</Link>
+            <Link to={"/address-menu"}>Endereços</Link>
             <Link to={`/orders/${userId}`}>Meus pedidos</Link>
             <button onClick={removeAuth}>Sair</button>
         </div>
