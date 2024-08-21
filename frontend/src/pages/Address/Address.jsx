@@ -22,10 +22,13 @@ const Address = () => {
     const [getRedirect, setGetRedirect] = useState("")
 
     const [cep, setCep] = useState("")
+    const [state, setState] = useState("")
     const [city, setCity] = useState("")
     const [district, setDistrict] = useState("")
     const [street, setStreet] = useState("")
     const [houseNum, setHouseNum] = useState("")
+    const [complement, setComplement] = useState("")
+    const [name, setName] = useState("")
     const [number, setNumber] = useState("")
 
     const saveRedirect = () => {
@@ -50,10 +53,13 @@ const Address = () => {
             const formatedNumber = `(${address.number.slice(0, 2)}) ${address.number.slice(2, 7)}-${address.number.slice(7, 11)}`
 
             setCep(formatedCep)
+            setState(address.state)
             setCity(address.city)
             setDistrict(address.district)
             setStreet(address.street)
             setHouseNum(address.houseNum)
+            setComplement(address.complement)
+            setName(address.name)
             setNumber(formatedNumber)
 
             setLoading(false)
@@ -75,6 +81,7 @@ const Address = () => {
                     const rawCep = input.replace(/[\s()\-]/g, "")
                     const res = await viaCep.get(`/${rawCep}/json/`)
     
+                    setState(res.data.uf)
                     setCity(res.data.localidade)
                     setDistrict(res.data.bairro)
                     setStreet(res.data.logradouro)
@@ -114,10 +121,13 @@ const Address = () => {
             if (id === undefined) {
                 const res = await dbFetch.post("/address", {
                     "cep": cep.replace(/[\s()\-]/g, ""),
+                    "state": state,
                     "city": city,
                     "district": district,
                     "street": street,
                     "houseNum": houseNum,
+                    "complement": complement,
+                    "name": name,
                     "number": number.replace(/[\s()\-]/g, ""),
                     "userId": userId,
                 })
@@ -127,10 +137,13 @@ const Address = () => {
                 const res = await dbFetch.put("/address", {
                     "id": id,
                     "cep": cep.replace(/[\s()\-]/g, ""),
+                    "state": state,
                     "city": city,
                     "district": district,
                     "street": street,
                     "houseNum": houseNum,
+                    "complement": complement,
+                    "name": name,
                     "number": number.replace(/[\s()\-]/g, ""),
                     "userId": userId,
                 })
@@ -179,6 +192,18 @@ const Address = () => {
                     </label>
 
                     <label>
+                        <p>Estado</p>
+                        <input 
+                            type="text" 
+                            name="state" 
+                            id="state" 
+                            value={state} 
+                            required
+                            onChange={(e) => setState(e.target.value)} 
+                        />
+                    </label>
+
+                    <label>
                         <p>Cidade</p>
                         <input 
                             type="text" 
@@ -212,7 +237,7 @@ const Address = () => {
                     </label>
 
                     <label>
-                        <p>Número</p>
+                        <p>Número da residência</p>
                         <input 
                             type="text" 
                             name="housenum" 
@@ -223,7 +248,31 @@ const Address = () => {
                     </label>
 
                     <label>
-                        <p>Número de Celular</p>
+                        <p>Complemento (opcional)</p>
+                        <input 
+                            type="text" 
+                            name="complement" 
+                            id="complement" 
+                            value={complement} 
+                            required
+                            onChange={(e) => setComplement(e.target.value)} 
+                        />
+                    </label>
+
+                    <label>
+                        <p>Nome completo</p>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            value={name} 
+                            required
+                            onChange={(e) => setName(e.target.value)} 
+                        />
+                    </label>
+
+                    <label>
+                        <p>Número de celular</p>
                         <input 
                             type="text" 
                             name="phonenum" 
