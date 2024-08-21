@@ -8,6 +8,8 @@ import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
 import { useNavigate, Link } from "react-router-dom"
+import { FiEdit } from "react-icons/fi"
+import { AiOutlineDelete } from "react-icons/ai"
 import Loading from "../../components/Loading/Loading"
 
 const AddressMenu = () => {
@@ -61,9 +63,11 @@ const AddressMenu = () => {
                                 <p>{address.name}</p>
                                 <p>{address.city}, {address.houseNum}</p>
                                 <p>{address.complement} {address.district}</p>
-                                <p>{address.city}, {address.cep}</p>
-                                <Link to={`/address/${address.id}`}>EDITAR</Link>
-                                <button onClick={deleteAddress}>DELETAR</button>
+                                <p>{address.city}, {address.state} {address.cep}</p>
+                                <div>
+                                    <Link to={`/address/${address.id}`}><FiEdit /></Link>
+                                    <button onClick={deleteAddress}><AiOutlineDelete /></button>
+                                </div>
                             </div>
                         ))
                     }
