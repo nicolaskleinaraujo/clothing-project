@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Loading from "../../components/Loading/Loading"
 
 const AddressMenu = () => {
@@ -41,21 +41,29 @@ const AddressMenu = () => {
         }
     }
 
+    const deleteAddress = async() => {
+        console.log("Deleted!")
+    }
+
     useEffect(() => {
         getAddresses()
     } ,[])
 
     return (
-        <div>
+        <div className={styles.address}>
             { loading && <Loading /> }
 
             { !loading &&
-                <div>
+                <div className={styles.address_addresses}>
                     { 
                         addresses.map(address => (
                             <div key={address.id}>
-                                <p>{address.city}, {address.district}, {address.street}, {address.houseNum}</p>
-                                <p></p>
+                                <p>{address.name}</p>
+                                <p>{address.city}, {address.houseNum}</p>
+                                <p>{address.complement} {address.district}</p>
+                                <p>{address.city}, {address.cep}</p>
+                                <Link to={`/address/${address.id}`}>EDITAR</Link>
+                                <button onClick={deleteAddress}>DELETAR</button>
                             </div>
                         ))
                     }

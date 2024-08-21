@@ -1,0 +1,28 @@
+.address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5DADF;
+}
+
+.address_addresses {
+    align-self: flex-start;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.address_addresses div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #00453D;
+    border-radius: .5em;
+    margin-bottom: .8em;
+    padding: .8em;
+}
+
+.address_addresses div p {
+    font-size: 1.2em;
+    color: #F5DADF;
+}
