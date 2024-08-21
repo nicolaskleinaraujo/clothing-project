@@ -36,17 +36,22 @@ const Register = () => {
         try {
             const decoded = jwtDecode(credentialResponse.credential)
 
-            setFirstName(decoded.given_name)
-            setLastName(decoded.family_name)
-            setEmail(decoded.email)
-
             const res = await dbFetch.post("/users", {
-                firstName,
-                lastName,
-                email,
+                firstName: decoded.given_name,
+                lastName: decoded.family_name,
+                email: decoded.email,
                 isGoogle: true,
             })
             setUserId(res.data.user.id)
+
+            toast.success(res.data.msg)
+
+            if (getRedirect !== "") {
+                navigate(getRedirect)
+                return
+            }
+
+            navigate("/")
         } catch (error) {
             toast.error(error.response.data.msg)
         }
