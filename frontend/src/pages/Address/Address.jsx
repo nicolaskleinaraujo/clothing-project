@@ -156,6 +156,7 @@ const Address = () => {
             }
 
             setLoading(false)
+            navigate("/address-menu")
         } catch (error) {
             toast.error(error.response.data.msg)
             setLoading(false)
