@@ -55,8 +55,9 @@ const AddressMenu = () => {
         }
     }
 
-    const handleSelectAddress = () => {
-        console.log("teste")
+    const handleSelectAddress = (addressIndex) => {
+        toast.success("Endereço selecionado")
+        navigate(getRedirect, { state: { addressIndex } })
     }
 
     const deleteAddress = async(id) => {
