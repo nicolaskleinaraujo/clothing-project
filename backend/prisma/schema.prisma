@@ -22,7 +22,7 @@ model User {
 }
 
 model Address {
-  id         Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   cep        String
   state      String
   city       String
@@ -34,7 +34,8 @@ model Address {
   number     String
   userId     Int
 
-  user User @relation(fields: [userId], references: [id])
+  user   User     @relation(fields: [userId], references: [id])
+  Orders Orders[]
 }
 
 model Products {
@@ -73,6 +74,7 @@ model Orders {
   id                Int      @id @default(autoincrement())
   created_at        DateTime @default(now())
   userId            Int
+  addressId         Int
   price             Float
   paid              Boolean  @default(false)
   payment           String
@@ -84,6 +86,7 @@ model Orders {
 
   orderProducts OrderProduct[]
   user          User           @relation(fields: [userId], references: [id])
+  address       Address        @relation(fields: [addressId], references: [id])
 }
 
 model OrderProduct {
