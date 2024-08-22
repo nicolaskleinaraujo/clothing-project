@@ -8,16 +8,27 @@ import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
 import { useNavigate, Link } from "react-router-dom"
-import { FiEdit } from "react-icons/fi"
+import { FiEdit, FiCheckCircle } from "react-icons/fi"
 import { AiOutlineDelete } from "react-icons/ai"
 import Loading from "../../components/Loading/Loading"
+import { RedirectContext } from "../../context/RedirectContext"
 
 const AddressMenu = () => {
     const navigate = useNavigate()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
 
+    const { redirect, setRedirect } = useContext(RedirectContext)
+    const [getRedirect, setGetRedirect] = useState("")
+
     const [addresses, setAddresses] = useState([])
+
+    const saveRedirect = () => {
+        if (redirect !== "") {
+            setGetRedirect(redirect)
+            setRedirect("")
+        }
+    }
 
     const getAddresses = async() => {
         setLoading(true)
@@ -44,6 +55,10 @@ const AddressMenu = () => {
         }
     }
 
+    const handleSelectAddress = () => {
+        console.log("teste")
+    }
+
     const deleteAddress = async(id) => {
         try {
             const res = await dbFetch.delete("/address", {
@@ -58,6 +73,7 @@ const AddressMenu = () => {
     }
 
     useEffect(() => {
+        saveRedirect()
         getAddresses()
     } ,[])
 
@@ -69,15 +85,27 @@ const AddressMenu = () => {
                 <>
                     <div className={styles.address_menu_addresses}>
                         { 
-                            addresses.map(address => (
+                            addresses.map((address, index) => (
                                 <div key={address.id}>
                                     <p>{address.name}</p>
                                     <p>{address.city}, {address.houseNum}</p>
                                     <p>{address.complement} {address.district}</p>
                                     <p>{address.city}, {address.state} {address.cep}</p>
                                     <div>
-                                        <Link to={`/address/${address.id}`}><FiEdit /></Link>
-                                        <button onClick={() => deleteAddress(address.id)}><AiOutlineDelete /></button>
+                                        <button 
+                                            onClick={() => handleSelectAddress(index)} 
+                                            style={getRedirect === "/create-order" ? { display: "block", margin: 0 } : { display: "none" }}
+                                        ><FiCheckCircle /></button>
+
+                                        <Link 
+                                            to={`/address/${address.id}`} 
+                                            style={getRedirect === "/create-order" ? { display: "none" } : { display: "block" }}
+                                        ><FiEdit /></Link>
+
+                                        <button 
+                                            onClick={() => deleteAddress(address.id)} 
+                                            style={getRedirect === "/create-order" ? { display: "none" } : { display: "block" }}
+                                        ><AiOutlineDelete /></button>
                                     </div>
                                 </div>
                             ))
