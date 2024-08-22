@@ -31,7 +31,8 @@ const CreateOrder = () => {
     const [coupon, setCoupon] = useState("")
 
     const getUserAddress = async() => {
-        const selectedAddress = location.state
+        const { addressIndex } = location.state
+        location.state = null
 
         try {
             const addressRes = await dbFetch.post("/address/user", {
@@ -39,8 +40,8 @@ const CreateOrder = () => {
                 "userId": userId,
             })
 
-            if (!isNaN(selectedAddress) && selectedAddress <= 2 && selectedAddress !== null) {
-                setUserAddress(addressRes.data.address[selectedAddress])
+            if (!isNaN(addressIndex) && addressIndex <= 2 && addressIndex !== null) {
+                setUserAddress(addressRes.data.address[addressIndex])
                 return
             }
 
@@ -110,7 +111,6 @@ const CreateOrder = () => {
             ) : (
                 <>
                     <h2>Endereço</h2>
-                    {/* FIXME fix the address consuption */}
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
                     <button onClick={() => { setRedirect("/create-order"), navigate("/address-menu") }}>Trocar endereço</button>
 
