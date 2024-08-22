@@ -13,11 +13,12 @@ import { RedirectContext } from "../../context/RedirectContext"
 
 const CreateOrder = () => {
     const navigate = useNavigate()
-    const location = useLocation()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
     const { setRedirect } = useContext(RedirectContext)
 
+    const location = useLocation()
+    const { addressIndex = 0 } = location.state || {}
     const [userAddress, setUserAddress] = useState({})
 
     const [products, setProducts] = useState([])
@@ -31,8 +32,7 @@ const CreateOrder = () => {
     const [coupon, setCoupon] = useState("")
 
     const getUserAddress = async() => {
-        const { addressIndex } = location.state
-        location.state = null
+        setLoading(true)
 
         try {
             const addressRes = await dbFetch.post("/address/user", {
@@ -56,11 +56,12 @@ const CreateOrder = () => {
     }
 
     const getOrderInfos = async() => {
-        setLoading(true)
+        if (!loading) { setLoading(true) }
 
         try {
             const orderRes = await dbFetch.post("/cart/calculate", {
                 "coupon": coupon,
+                "addressIndex": addressIndex,
                 "delivery": delivery,
                 "userId": userId,
             })
@@ -83,6 +84,7 @@ const CreateOrder = () => {
 
     const createOrder = async() => {
         try {
+            // FIXME fix the create order controller
             const res = await dbFetch.post("/orders", {
                 "coupon": coupon,
                 "delivery": delivery,
@@ -111,6 +113,7 @@ const CreateOrder = () => {
             ) : (
                 <>
                     <h2>Endereço</h2>
+                    {/* FIXME fix the address rendering */}
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
                     <button onClick={() => { setRedirect("/create-order"), navigate("/address-menu") }}>Trocar endereço</button>
 
