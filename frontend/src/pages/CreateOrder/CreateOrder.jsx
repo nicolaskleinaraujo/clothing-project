@@ -65,6 +65,7 @@ const CreateOrder = () => {
                 "delivery": delivery,
                 "userId": userId,
             })
+
             setProducts(orderRes.data.orderProducts)
             setProductPrice(orderRes.data.allPrices.productPrice)
             setOrderPrice(orderRes.data.allPrices.orderPrice)
@@ -83,10 +84,12 @@ const CreateOrder = () => {
     }
 
     const createOrder = async() => {
+        setLoading(true)
+
         try {
-            // FIXME fix the create order controller
             const res = await dbFetch.post("/orders", {
                 "coupon": coupon,
+                "addressIndex": addressIndex,
                 "delivery": delivery,
                 "userId": userId,
             })
