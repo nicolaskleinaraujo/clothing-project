@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 
 const createOrderController = async (req, res) => {
     const cart = req.signedCookies.cart
-    const { userId, coupon, delivery } = req.body
+    const { userId, coupon, addressIndex, delivery } = req.body
 
     if (!cart || delivery === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -26,7 +26,7 @@ const createOrderController = async (req, res) => {
     let shippingType = ""
     const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
     if (user.Address.length != 0) {
-        const shipping = await calculateShipping(user.Address[0].cep)
+        const shipping = await calculateShipping(user.Address[addressIndex].cep)
         const selectedShipping = shipping.filter(service => service.name === delivery)[0]
 
         price += parseFloat(selectedShipping.price)
