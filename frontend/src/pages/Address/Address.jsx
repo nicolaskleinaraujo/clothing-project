@@ -153,10 +153,12 @@ const Address = () => {
 
             if (getRedirect !== "") {
                 navigate(getRedirect)
+                setLoading(false)
+                return
             }
 
-            setLoading(false)
             navigate("/address-menu")
+            setLoading(false)
         } catch (error) {
             if (error.response.data.msg === "Numero máximo de endereços atingido") {
                 toast.info("Número máximo atingido")
