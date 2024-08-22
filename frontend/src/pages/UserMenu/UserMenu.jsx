@@ -25,7 +25,7 @@ const UserMenu = () => {
     }
 
     return (
-        <div>
+        <div className={styles.user_menu}>
             <Link>Minha conta</Link>
             <Link to={"/address-menu"}>Endereços</Link>
             <Link to={`/orders/${userId}`}>Meus pedidos</Link>
