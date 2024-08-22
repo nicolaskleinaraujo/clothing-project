@@ -158,6 +158,13 @@ const Address = () => {
             setLoading(false)
             navigate("/address-menu")
         } catch (error) {
+            if (error.response.data.msg === "Numero máximo de endereços atingido") {
+                toast.info("Número máximo atingido")
+                setLoading(false)
+                navigate("/address-menu")
+                return
+            }
+
             toast.error(error.response.data.msg)
             setLoading(false)
         }
