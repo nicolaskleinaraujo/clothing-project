@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import { toast } from "react-toastify"
+import { FiUser, FiBook, FiUserX } from "react-icons/fi"
+import { CiDeliveryTruck } from "react-icons/ci"
 
 const UserMenu = () => {
     const navigate = useNavigate()
@@ -26,10 +28,10 @@ const UserMenu = () => {
 
     return (
         <div className={styles.user_menu}>
-            <Link>Minha conta</Link>
-            <Link to={"/address-menu"}>Endereços</Link>
-            <Link to={`/orders/${userId}`}>Meus pedidos</Link>
-            <button onClick={removeAuth}>Sair</button>
+            <Link>Minha conta <FiUser /></Link>
+            <Link to={"/address-menu"}>Endereços <CiDeliveryTruck /></Link>
+            <Link to={`/orders/${userId}`}>Meus pedidos <FiBook /></Link>
+            <button onClick={removeAuth}>Sair <FiUserX /></button>
         </div>
     )
 }

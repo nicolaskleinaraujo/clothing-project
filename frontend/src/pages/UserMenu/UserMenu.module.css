@@ -7,6 +7,12 @@
     height: 75vh;
 }
 
+.user_menu svg {
+    font-size: 1.1em;
+    vertical-align: middle;
+    margin-left: .2em;
+}
+
 .user_menu a,
 .user_menu button {
     color: #00453D;
