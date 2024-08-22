@@ -6,13 +6,14 @@ import dbFetch from "../../config/axios"
 import Loading from "../../components/Loading/Loading"
 import { toast } from "react-toastify"
 import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { RedirectContext } from "../../context/RedirectContext"
 
 const CreateOrder = () => {
     const navigate = useNavigate()
+    const location = useLocation()
     const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
     const { setRedirect } = useContext(RedirectContext)
@@ -30,12 +31,20 @@ const CreateOrder = () => {
     const [coupon, setCoupon] = useState("")
 
     const getUserAddress = async() => {
+        const selectedAddress = location.state
+
         try {
             const addressRes = await dbFetch.post("/address/user", {
                 "id": userId,
                 "userId": userId,
             })
-            setUserAddress(addressRes.data.address)
+
+            if (!isNaN(selectedAddress) && selectedAddress <= 2 && selectedAddress !== null) {
+                setUserAddress(addressRes.data.address[selectedAddress])
+                return
+            }
+
+            setUserAddress(addressRes.data.address[0])
         } catch (error) {
             if (error.response.data.msg === "Endereço não encontrado") {
                 setRedirect("/create-order")
@@ -101,8 +110,9 @@ const CreateOrder = () => {
             ) : (
                 <>
                     <h2>Endereço</h2>
+                    {/* FIXME fix the address consuption */}
                     <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
-                    <button onClick={() => { setRedirect("/create-order"), navigate("/address") }}>Trocar endereço</button>
+                    <button onClick={() => { setRedirect("/create-order"), navigate("/address-menu") }}>Trocar endereço</button>
 
                     <h2>Entrega</h2>
                     <select name="delivery" id="delivery" value={delivery} className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
