@@ -3,7 +3,7 @@ const calculateShipping = require("../../../config/shipping")
 
 const calculatePriceController = async(req, res) => {
     const cart = req.signedCookies.cart
-    const { userId, coupon, delivery } = req.body
+    const { userId, coupon, addressIndex, delivery } = req.body
 
     if (!cart || cart.length === 0) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -59,7 +59,7 @@ const calculatePriceController = async(req, res) => {
     
         const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { Address: true } })
         if (user.Address.length != 0) {
-            const shipping = await calculateShipping(user.Address[0].cep)
+            const shipping = await calculateShipping(user.Address[addressIndex].cep)
 
             shippingOptions = shipping.map(service => ({
                 name: service.name, price: service.price, time: service.delivery_time
