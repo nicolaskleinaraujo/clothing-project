@@ -117,8 +117,13 @@ const CreateOrder = () => {
                 <>
                     <h2>Endereço</h2>
                     {/* FIXME fix the address rendering */}
-                    <p>{userAddress.city}, {userAddress.district}, {userAddress.street}, {userAddress.houseNum}</p>
-                    <button onClick={() => { setRedirect("/create-order"), navigate("/address-menu") }}>Trocar endereço</button>
+                    <div className={styles.create_order.address}>
+                        <p>{userAddress.name}</p>
+                        <p>{userAddress.city}, {userAddress.houseNum}</p>
+                        <p>{userAddress.complement} {userAddress.district}</p>
+                        <p>{userAddress.city}, {userAddress.state} {userAddress.cep}</p>
+                        <button onClick={() => { setRedirect("/create-order"), navigate("/address-menu") }}>Trocar endereço</button>
+                    </div>
 
                     <h2>Entrega</h2>
                     <select name="delivery" id="delivery" value={delivery} className={styles.create_order_delivery} onChange={(e) => setDelivery(e.target.value)}>
