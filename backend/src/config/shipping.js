@@ -32,7 +32,7 @@ const calculateShipping = async(address) => {
 
         const services = response.data
 
-        return services.filter(service => service.name === "PAC" || service.name === "SEDEX")
+        return services.filter(service => (service.name === "PAC" && !isNaN(service.price)) || (service.name === "SEDEX" && !isNaN(service.price)))
     } catch (error) {
         return
     }
