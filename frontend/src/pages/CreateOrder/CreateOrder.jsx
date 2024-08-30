@@ -28,6 +28,7 @@ const CreateOrder = () => {
     const [shippingOptions, setShippingOptions] = useState([])
     const [selectedShipping, setSelectedShipping] = useState(0)
 
+    // FIXME fix the default delivery set
     const [delivery, setDelivery] = useState("PAC")
     const [coupon, setCoupon] = useState("")
 
@@ -117,7 +118,7 @@ const CreateOrder = () => {
                 <>
                     <h2>Endereço</h2>
                     {/* FIXME fix the address rendering */}
-                    <div className={styles.create_order.address}>
+                    <div className={styles.create_order_address}>
                         <p>{userAddress.name}</p>
                         <p>{userAddress.city}, {userAddress.houseNum}</p>
                         <p>{userAddress.complement} {userAddress.district}</p>

@@ -15,10 +15,25 @@
     margin-top: 1.2em;
 }
 
-.create_order > p {
+.create_order_address {
+    flex-direction: column;
+    align-items: center;
+    background-color: #00453D;
+    border-radius: .5em;
+    padding: .5em;
+    margin-bottom: 1.2em;
+}
+
+.create_order_address p {
     text-align: center;
     font-size: 1.1em;
     margin: .3em .3em;
+    color: #F5DADF;
+}
+
+.create_order_address button {
+    margin: .8em auto;
+    display: block;
 }
 
 .create_order button {
@@ -37,11 +52,7 @@
     background-color: #00453D;
 }
 
-.create_order button:first-of-type {
-    margin: .5em 0 1.5em 0;
-}
-
-.create_order > button:last-of-type {
+.create_order > button {
     margin: 2em 0;
 }
 
@@ -55,6 +66,10 @@
     background-color: #00453D;
     font-size: 1.1em;
     text-align: center;
+}
+
+.create_order_coupon {
+    margin-bottom: 1.2em;
 }
 
 .create_order_coupon input {
