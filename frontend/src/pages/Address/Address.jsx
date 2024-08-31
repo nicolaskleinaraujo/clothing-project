@@ -151,7 +151,11 @@ const Address = () => {
                 toast.success(res.data.msg)
             }
 
-            if (getRedirect !== "") {
+            if (getRedirect === "/create-order") {
+                setRedirect(getRedirect)
+                navigate("/address-menu")
+                return
+            } else if (getRedirect !== "") {
                 navigate(getRedirect)
                 setLoading(false)
                 return
