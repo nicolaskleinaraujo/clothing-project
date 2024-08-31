@@ -38,6 +38,44 @@ const Account = () => {
         setLoading(false)
     }
 
+    const updateInfos = async() => {
+        const password = prompt("Senha atual")
+
+        if (password !== null) {
+            let data
+
+            if (newPassword === "") {
+                data = {
+                    "userId": userId,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password,
+                    "oldPassword": password,
+                }
+            } else if (newPassword !== "") {
+                data = {
+                    "userId": userId,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": newPassword,
+                    "oldPassword": password,
+                }
+            }
+
+            try {
+                await dbFetch.put("/users", data)
+
+                setNewPassword("")
+
+                toast.success("Informações atualizadas")
+            } catch (error) {
+                toast.error("Erro ao atualizar informações")
+            }
+        }
+    }
+
     const deleteAccount = async() => {
         const password = prompt("Deletar sua conta implica no deletamento de todos os seus dados, incluindo pedidos\nDigite sua senha para deletar!")
 
@@ -93,7 +131,7 @@ const Account = () => {
                         <input type="text" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
                     </label>
 
-                    <button>Atualizar Informações</button>
+                    <button onClick={updateInfos}>Atualizar Informações</button>
 
                     <button onClick={deleteAccount}>Deletar Conta</button>
                 </>
