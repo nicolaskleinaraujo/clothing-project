@@ -1,0 +1,29 @@
+.account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F5DADF;
+    padding: 5em;
+}
+
+.account label {
+    margin: 1em;
+    color: #00453D;
+}
+
+.account label p {
+    color: #00453D;
+    font-size: 1.1em;
+    text-indent: .2em;
+}
+
+.account label input {
+    border-radius: .5em;
+    text-indent: .2em;
+    border: 2px solid #00453D;
+    font-size: 1.2em;
+    color: white;
+    width: 18em;
+    height: 2em;
+    background-color: #00453D;
+}

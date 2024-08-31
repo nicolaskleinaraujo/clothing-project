@@ -104,7 +104,7 @@ const Account = () => {
     }, [])
 
     return (
-        <div>
+        <div className={styles.account}>
             { loading ? (
                 <Loading />
             ) : (
