@@ -5,9 +5,12 @@ import styles from "./Account.module.css"
 import dbFetch from "../../config/axios"
 import { UserContext } from "../../context/UserContext"
 import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import Loading from "../../components/Loading/Loading"
 
 const Account = () => {
+    const navigate = useNavigate()
     const { userId, setUserId, setIsAdmin } = useContext(UserContext)
 
     const [loading, setLoading] = useState(true)
@@ -33,6 +36,29 @@ const Account = () => {
         setIsGoogle(res.data.user.isGoogle)
 
         setLoading(false)
+    }
+
+    const deleteAccount = async() => {
+        const password = prompt("Deletar sua conta implica no deletamento de todos os seus dados, incluindo pedidos\nDigite sua senha para deletar!")
+
+        if (password !== null) {
+            try {
+                await dbFetch.delete("/users", {
+                    data: {
+                        "userId": userId,
+                        "password": password,
+                    }
+                })
+
+                setUserId(0)
+                setIsAdmin(false)
+
+                toast.success("Conta deletada com sucesso")
+                navigate("/")
+            } catch (error) {
+                toast.error("Falha ao deletar conta")
+            }
+        }
     }
 
     useEffect(() => {
@@ -69,7 +95,7 @@ const Account = () => {
 
                     <button>Atualizar Informações</button>
 
-                    <button>Deletar Conta</button>
+                    <button onClick={deleteAccount}>Deletar Conta</button>
                 </>
             )}
         </div>
