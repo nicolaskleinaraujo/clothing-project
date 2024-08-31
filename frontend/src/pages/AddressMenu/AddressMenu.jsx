@@ -113,7 +113,6 @@ const AddressMenu = () => {
                         }
                     </div>
 
-                    {/* TODO add redirect if getRedirect exists */}
                     <Link onClick={getRedirect === "/create-order" ? () => setRedirect(getRedirect) : () => null} to={"/address"}>Novo endereço</Link>
                 </>
             }
