@@ -3,7 +3,11 @@
     flex-direction: column;
     align-items: center;
     background-color: #F5DADF;
-    padding: 5em;
+    padding: 1.5em 0;
+}
+
+.account h1 {
+    font-size: 2em;
 }
 
 .account label {
@@ -25,5 +29,22 @@
     color: white;
     width: 18em;
     height: 2em;
+    background-color: #00453D;
+}
+
+.account button {
+    border: 2px solid #00453D;
+    color: #00453D;
+    background-color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: .2s;
+    margin: 1em;
+}
+
+.account button:hover {
+    border: 2px solid #F5DADF;
+    color: #F5DADF;
     background-color: #00453D;
 }

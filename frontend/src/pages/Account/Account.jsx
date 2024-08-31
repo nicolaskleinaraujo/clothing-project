@@ -109,6 +109,8 @@ const Account = () => {
                 <Loading />
             ) : (
                 <>
+                    <h1>Sua conta</h1>
+
                     <label>
                         <p>Nome</p>
                         <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
