@@ -18,6 +18,7 @@ import CreateOrder from "../pages/CreateOrder/CreateOrder"
 import SortProducts from "../pages/SortProducts/SortProducts"
 import UserMenu from "../pages/UserMenu/UserMenu"
 import AddressMenu from "../pages/AddressMenu/AddressMenu"
+import Account from "../pages/Account/Account"
 
 const Router = () => {
     return (
@@ -39,6 +40,7 @@ const Router = () => {
                         <Route path="/create-order" element={ <CreateOrder /> } />
                         <Route path="/menu" element={ <UserMenu /> } />
                         <Route path="/address-menu" element={ <AddressMenu /> } />
+                        <Route path="/account" element={ <Account /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>

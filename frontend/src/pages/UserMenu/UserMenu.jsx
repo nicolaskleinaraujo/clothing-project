@@ -28,7 +28,7 @@ const UserMenu = () => {
 
     return (
         <div className={styles.user_menu}>
-            <Link>Minha conta <FiUser /></Link>
+            <Link to={"/account"}>Minha conta <FiUser /></Link>
             <Link to={"/address-menu"}>Endereços <CiDeliveryTruck /></Link>
             <Link to={`/orders/${userId}`}>Meus pedidos <FiBook /></Link>
             <button onClick={removeAuth}>Sair <FiUserX /></button>
