@@ -146,6 +146,8 @@ const createOrderController = async (req, res) => {
             }
         })
 
+        // TODO remove cart cookie values
+
         res.status(201).json({ msg: "Pedido feito com sucesso", order })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
