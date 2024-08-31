@@ -106,7 +106,7 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Payload all prices
-        const allPrices = { productPrice, orderPrice: parseFloat(orderPrice.toFixed(2)), discount }        
+        const allPrices = { productPrice, orderPrice: parseFloat(orderPrice.toFixed(2)), discount }
     
         res.status(200).json({ 
             msg: "Carrinho carregado com sucesso",

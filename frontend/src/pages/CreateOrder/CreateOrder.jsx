@@ -28,8 +28,7 @@ const CreateOrder = () => {
     const [shippingOptions, setShippingOptions] = useState([])
     const [selectedShipping, setSelectedShipping] = useState(0)
 
-    // FIXME fix the default delivery set
-    const [delivery, setDelivery] = useState("PAC")
+    const [delivery, setDelivery] = useState("")
     const [coupon, setCoupon] = useState("")
 
     const getUserAddress = async() => {
@@ -72,7 +71,12 @@ const CreateOrder = () => {
             setOrderPrice(orderRes.data.allPrices.orderPrice)
             setDiscount(orderRes.data.allPrices.discount)
             setShippingOptions(orderRes.data.shippingOptions)
-            setSelectedShipping(orderRes.data.selectedShipping)
+
+            if (delivery !== "") {
+                setSelectedShipping(orderRes.data.selectedShipping)
+            } else if (delivery === "") {
+                setDelivery(orderRes.data.shippingOptions[0].name)
+            }
 
             setLoading(false)
         } catch (error) {
@@ -117,7 +121,6 @@ const CreateOrder = () => {
             ) : (
                 <>
                     <h2>Endereço</h2>
-                    {/* FIXME fix the address rendering */}
                     <div className={styles.create_order_address}>
                         <p>{userAddress.name}</p>
                         <p>{userAddress.city}, {userAddress.houseNum}</p>
