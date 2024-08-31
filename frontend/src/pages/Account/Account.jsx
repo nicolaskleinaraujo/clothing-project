@@ -15,6 +15,8 @@ const Account = () => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
+    const [isGoogle, setIsGoogle] = useState(false)
+
     const [newPassword, setNewPassword] = useState("")
 
     const getUserInfos = async() => {
@@ -28,6 +30,7 @@ const Account = () => {
         setFirstName(res.data.user.firstName)
         setLastName(res.data.user.lastName)
         setEmail(res.data.user.email)
+        setIsGoogle(res.data.user.isGoogle)
 
         setLoading(false)
     }
@@ -52,10 +55,12 @@ const Account = () => {
                         <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
                     </label>
 
-                    <label>
-                        <p>Email</p>
-                        <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} />
-                    </label>
+                    { !isGoogle &&
+                        <label>
+                            <p>Email</p>
+                            <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} />
+                        </label>
+                    }
 
                     <label>
                         <p>Nova senha</p>
