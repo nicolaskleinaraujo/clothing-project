@@ -38,6 +38,8 @@ const deleteUserController = async (req, res) => {
     }
 
     try {
+        await prisma.orders.deleteMany({ where: { userId } })
+        await prisma.address.deleteMany({ where: { userId } })
         await prisma.user.delete({ where: { id: userId } })
 
         res.clearCookie("access")
