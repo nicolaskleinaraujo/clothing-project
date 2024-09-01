@@ -10,6 +10,7 @@ import { useEffect, useState, useContext } from "react"
 import { toast } from "react-toastify"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
 import Loading from "../../components/Loading/Loading"
 
 const Product = () => {
@@ -73,7 +74,15 @@ const Product = () => {
                 <Loading />
             ) : (
                 <div>
-                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                    <div className={styles.product_carousel}>
+                        <FiArrowLeft />
+
+                        <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                        {/* <img src="https://via.assets.so/img.jpg?w=400&h=700&tc=blue&bg=#cecece" alt="" />
+                        <img src="https://via.assets.so/img.jpg?w=400&h=700&tc=blue&bg=#cecece" alt="" /> */}
+
+                        <FiArrowRight />
+                    </div>
 
                     <p style={{ fontFamily: "Yeseva one, sans-serif" }}>{product.name}</p>
                     <p style={{ color: "#70012b" }}>R${product.price}</p>
