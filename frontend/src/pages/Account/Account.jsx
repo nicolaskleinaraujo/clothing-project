@@ -77,14 +77,22 @@ const Account = () => {
     }
 
     const deleteAccount = async() => {
-        const password = prompt("Deletar sua conta implica no deletamento de todos os seus dados, incluindo pedidos\nDigite sua senha para deletar!")
+        let googleDelete
+        let password
 
-        if (password !== null) {
+        if (isGoogle) {
+            googleDelete = confirm("Deletar sua conta implica no deletamento de todos os seus dados, incluindo pedidos\nConfirme para continuar ou cancele")
+        } else {
+            password = prompt("Deletar sua conta implica no deletamento de todos os seus dados, incluindo pedidos\nDigite sua senha para deletar!")
+        }
+
+        if ((password !== null && password !== undefined) || googleDelete === true) {
             try {
                 await dbFetch.delete("/users", {
                     data: {
                         "userId": userId,
                         "password": password,
+                        "isGoogle": isGoogle,
                     }
                 })
 
