@@ -28,6 +28,17 @@ const updateUserController = async (req, res) => {
     // Getting user info
     const user = await prisma.user.findUnique({ where: { id: userId } })
 
+    if (!user) {
+        res.status(404).json({ msg: "Usuario não encontrado" })
+        return
+    }
+
+    // Blocks user action if is logged with google
+    if (user.isGoogle) {
+        res.status(401).json({ msg: "Usuario não pode alterar informações" })
+        return
+    }
+
     // Checking if email belongs to other user
     const emailExists = await prisma.user.findUnique({ where: { email } })
 
