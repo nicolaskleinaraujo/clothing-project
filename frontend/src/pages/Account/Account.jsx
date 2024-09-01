@@ -113,25 +113,25 @@ const Account = () => {
 
                     <label>
                         <p>Nome</p>
-                        <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
+                        <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} readOnly={isGoogle ? true : false} />
                     </label>
 
                     <label>
                         <p>Sobrenome</p>
-                        <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
+                        <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} readOnly={isGoogle ? true : false} />
+                    </label>
+
+                    <label>
+                        <p>Email</p>
+                        <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} readOnly={isGoogle ? true : false} />
                     </label>
 
                     { !isGoogle &&
                         <label>
-                            <p>Email</p>
-                            <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} />
+                            <p>Nova senha</p>
+                            <input type="text" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
                         </label>
                     }
-
-                    <label>
-                        <p>Nova senha</p>
-                        <input type="text" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
-                    </label>
 
                     <button onClick={updateInfos}>Atualizar Informações</button>
 
