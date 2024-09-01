@@ -123,17 +123,19 @@ const Account = () => {
 
                     <label>
                         <p>Email</p>
-                        <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} readOnly={isGoogle ? true : false} />
+                        <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} readOnly={isGoogle ? true : false} />
                     </label>
 
                     { !isGoogle &&
-                        <label>
-                            <p>Nova senha</p>
-                            <input type="text" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
-                        </label>
-                    }
+                        <>
+                            <label>
+                                <p>Nova senha</p>
+                                <input type="password" onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
+                            </label>
 
-                    <button onClick={updateInfos}>Atualizar Informações</button>
+                            <button onClick={updateInfos}>Atualizar Informações</button>
+                        </>
+                    }
 
                     <button onClick={deleteAccount}>Deletar Conta</button>
                 </>
