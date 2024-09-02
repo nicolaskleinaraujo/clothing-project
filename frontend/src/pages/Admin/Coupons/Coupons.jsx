@@ -5,6 +5,7 @@ import styles from "./Coupons.module.css"
 import dbFetch from "../../../config/axios"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../../context/UserContext"
+import Loading from "../../../components/Loading/Loading"
 
 const Coupons = () => {
     const { userId } = useContext(UserContext)
@@ -13,7 +14,7 @@ const Coupons = () => {
     const [coupons, setCoupons] = useState([])
 
     const getCoupons = async() => {
-        if (!loading) { setLoading(true) }
+        setLoading(true)
 
         const res = await dbFetch.post("/coupons/get", { userId })
         setCoupons(res.data.coupons)
@@ -23,11 +24,19 @@ const Coupons = () => {
 
     useEffect(() => {
         getCoupons()
-    }, [loading])
+    }, [])
 
     return (
         <div>
-            Coupons
+            { loading ? (
+                <Loading />
+            ) : (
+                <>
+                    {coupons.map(coupon => (
+                        <div>{coupon.code}</div>
+                    ))}
+                </>
+            )}
         </div>
     )
 }
