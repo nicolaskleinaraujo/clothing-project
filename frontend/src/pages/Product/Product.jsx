@@ -36,9 +36,10 @@ const Product = () => {
         setColors(res.data.product.colors.split(", "))
         setSizes(res.data.product.sizes)
 
-        setImages([
-            `${import.meta.env.VITE_API_URL}/images/${res.data.product.image}`,
-        ])
+        const imagesArray = res.data.product.image.split(", ")
+        setImages(imagesArray.map(image => (
+            `${import.meta.env.VITE_API_URL}/images/${image}`
+        )))
 
         setLoading(false)
     }
