@@ -11,8 +11,8 @@ import { LoadingContext } from "../../../context/LoadingContext"
 import Loading from "../../../components/Loading/Loading"
 
 const Coupons = () => {
-    const { userId } = useContext(UserContext)
     const navigate = useNavigate()
+    const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [coupons, setCoupons] = useState([])
@@ -26,6 +26,19 @@ const Coupons = () => {
         } catch (error) {
             toast.error("Erro, tente novamente")
             navigate("/")
+        }
+
+        setLoading(false)
+    }
+
+    const changeValid = async(id) => {
+        setLoading(true)
+
+        try {
+            await dbFetch.patch("/coupons", { id, userId })
+            getCoupons()
+        } catch (error) {
+            toast.error("Erro, tente novamente")
         }
 
         setLoading(false)
@@ -52,7 +65,7 @@ const Coupons = () => {
 
                                     <div>
                                         <button 
-                                            onClick={() => console.log("testeee")}
+                                            onClick={() => changeValid(coupon.id)}
                                         >Mudar Validade</button>
 
                                         <button 
