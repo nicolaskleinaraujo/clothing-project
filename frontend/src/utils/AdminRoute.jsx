@@ -1,18 +1,14 @@
 // Modules
-import { Outlet, Navigate, useLocation } from "react-router-dom"
+import { Outlet, Navigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../context/UserContext"
-import { RedirectContext } from "../context/RedirectContext"
 import { toast } from "react-toastify"
 import useAuth from "../hooks/useAuth"
 
 const AdminRoute = () => {
-    const location = useLocation()
+    const { userId, isAdmin } = useContext(UserContext)
 
-    const { userId, userIsAdmin } = useContext(UserContext)
-    const { setRedirect } = useContext(RedirectContext)
-
-    if (!userIsAdmin && userId !== 0) {
+    if (!isAdmin && userId !== 0) {
         toast.error("Usuario não autorizado")
         return <Navigate to="/" replace />
     }
