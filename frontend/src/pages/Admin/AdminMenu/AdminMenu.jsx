@@ -2,33 +2,19 @@
 import styles from "./AdminMenu.module.css"
 
 // Modules
-import { useState } from "react"
-import { IoIosArrowDown } from "react-icons/io"
 import { Link } from "react-router-dom"
+import { FiBook } from "react-icons/fi"
+import { RiCoupon3Line } from "react-icons/ri"
+import { TbCategory } from "react-icons/tb"
+import { LuPencil } from "react-icons/lu"
 
 const AdminMenu = () => {
-    const [productsOpen, setProductsOpen] = useState(false)
-    const [categoriesOpen, setCategoriesOpen] = useState(false)
-    const [ordersOpen, setOrdersOpen] = useState(false)
-    const [couponsOpen, setCouponsOpen] = useState(false)
-
     return (
         <div>
-            <div 
-                onMouseEnter={() => setProductsOpen(true)} 
-                onMouseLeave={() => setProductsOpen(false)} 
-                onClick={() => setProductsOpen(!productsOpen)} 
-            >
-                <button>Produtos <IoIosArrowDown /></button>
-                <div>
-                    <Link to={"/"}>Criar Produto</Link>
-                    <Link to={"/"}>Atualizar Produto</Link>
-                </div>
-            </div>
-
-            <Link to={"/"}>Categorias</Link>
-            <Link to={"/"}>Pedidos</Link>
-            <Link to={"/"}>Cupons</Link>
+            <Link to={"/"}>Produtos <LuPencil /></Link>
+            <Link to={"/"}>Categorias <TbCategory /></Link>
+            <Link to={"/"}>Pedidos <FiBook /></Link>
+            <Link to={"/"}>Cupons <RiCoupon3Line /></Link>
         </div>
     )
 }
