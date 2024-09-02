@@ -1,0 +1,51 @@
+.coupons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    width: 90vw;
+    text-align: center;
+}
+
+.coupons div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #00453D;
+    border-radius: .5em;
+    margin-top: .8em;
+    padding: .8em;
+}
+
+.coupons div p {
+    font-size: 1.2em;
+    color: #F5DADF;
+    margin-bottom: .2em;
+}
+
+.coupons div div {
+    flex-direction: row;
+}
+
+.coupons div div button {
+    text-decoration: none;
+    color: #F5DADF;
+    border: 2px solid #F5DADF;
+    padding: .2em;
+    border-radius: .5em;
+    transition: .2s;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.coupons div div button:last-of-type {
+    margin-left: .8em;
+}
+
+.coupons div div button:hover {
+    background-color: #F5DADF;
+    color: #00453D;
+    border: 2px solid #00453D;
+}
+
