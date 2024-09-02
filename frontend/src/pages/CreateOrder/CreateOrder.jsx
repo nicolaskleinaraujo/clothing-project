@@ -156,7 +156,7 @@ const CreateOrder = () => {
                         { products &&
                             products.map(product => (
                                 <div key={product.id}>
-                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto do Produto" />
+                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image.split(", ")[0]}`} alt="Foto do Produto" />
                                     <div>
                                         <p style={{ marginBottom: ".5em" }}>{product.name}</p>
                                         <p>{product.sizes[0].size} | {product.colors[0]}</p>
