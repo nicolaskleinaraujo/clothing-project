@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     border-bottom: 5px solid #F5DADF;
+    margin-bottom: .5em;
 }
 
 .product_carousel svg {
@@ -34,11 +35,18 @@
     height: 300px;
 }
 
+.product > div > h1 {
+    font-family: "Yeseva one, sans-serif";
+    font-size: 2em;
+    margin-left: .4em;
+    text-align: left;
+}
+
 .product > div > p {
     text-align: left;
     font-size: 2em;
     font-family: "Platypi", sans-serif;
-    margin-left: .5em;
+    margin-left: .4em;
 }
 
 .product h2 {
@@ -62,7 +70,7 @@
     color: #F5DADF;
     border: 2px solid #F5DADF;
     padding: .3em .5em;
-    font-size: 2em;
+    font-size: 1.7em;
     border-radius: .5em;
     background-color: #00453D;
     cursor: pointer;
@@ -86,8 +94,8 @@
     text-align: center;
     background-color: #00453D;
     color: #F5DADF;
-    margin: 1.5em auto;
-    font-size: 1.5em;
+    margin: 2em auto;
+    font-size: 1.4em;
     padding: .5em;
     border-radius: .3em;
     border: 2px solid #F5DADF;

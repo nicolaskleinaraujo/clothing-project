@@ -104,7 +104,7 @@ const Product = () => {
                         <FiArrowRight onClick={() => changeImage("NEXT")} />
                     </div>
 
-                    <p style={{ fontFamily: "Yeseva one, sans-serif" }}>{product.name}</p>
+                    <h1>{product.name}</h1>
                     <p style={{ color: "#70012b" }}>R${product.price}</p>
                     <p style={{ fontSize: "1.5em", color: "#70012b", fontWeight: "bolder", marginLeft: ".7em" }}>Parcelamos até 5x no cartão</p>
 
