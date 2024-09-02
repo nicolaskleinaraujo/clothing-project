@@ -1,0 +1,20 @@
+.admin_menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5DADF;
+    height: 75vh;
+}
+
+.admin_menu svg {
+    font-size: 1.1em;
+    vertical-align: middle;
+    margin-left: .2em;
+}
+
+.admin_menu a {
+    color: #00453D;
+    margin: .8em 0;
+    font-size: 1.5em;
+}

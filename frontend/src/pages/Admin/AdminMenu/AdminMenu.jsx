@@ -10,7 +10,7 @@ import { LuPencil } from "react-icons/lu"
 
 const AdminMenu = () => {
     return (
-        <div>
+        <div className={styles.admin_menu}>
             <Link to={"/"}>Produtos <LuPencil /></Link>
             <Link to={"/"}>Categorias <TbCategory /></Link>
             <Link to={"/"}>Pedidos <FiBook /></Link>
