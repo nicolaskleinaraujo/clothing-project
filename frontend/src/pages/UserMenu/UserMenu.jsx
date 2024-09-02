@@ -12,7 +12,7 @@ import { CiDeliveryTruck } from "react-icons/ci"
 
 const UserMenu = () => {
     const navigate = useNavigate()
-    const { userId, setUserId } = useContext(UserContext)
+    const { userId, setUserId, isAdmin } = useContext(UserContext)
 
     const removeAuth = async() => {
         try {
@@ -31,6 +31,7 @@ const UserMenu = () => {
             <Link to={"/account"}>Minha conta <FiUser /></Link>
             <Link to={"/address-menu"}>Endereços <CiDeliveryTruck /></Link>
             <Link to={`/orders/${userId}`}>Meus pedidos <FiBook /></Link>
+            { isAdmin && <Link to={"/admin"}>Admin Menu</Link> }
             <button onClick={removeAuth}>Sair <FiUserX /></button>
         </div>
     )
