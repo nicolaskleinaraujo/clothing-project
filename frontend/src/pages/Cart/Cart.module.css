@@ -31,6 +31,7 @@
 .cart_products div img {
     width: 80px;
     border-radius: .5em 0 0 .5em;
+    max-height: 8em;
 }
 
 .cart_products > div > div {
