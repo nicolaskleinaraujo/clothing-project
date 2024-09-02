@@ -9,7 +9,7 @@ const getBySlugController = async(req, res) => {
     }
 
     try {
-        const product = await prisma.products.findFirst({ where: { slug }, include: { sizes: true } })
+        const product = await prisma.products.findUnique({ where: { slug }, include: { sizes: { orderBy: { id: "asc" } } } })
 
         res.status(200).json({ msg: "Produto achado com sucesso", product })
     } catch (error) {
