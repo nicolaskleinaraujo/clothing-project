@@ -7,8 +7,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import { toast } from "react-toastify"
-import { FiUser, FiBook, FiUserX } from "react-icons/fi"
-import { CiDeliveryTruck } from "react-icons/ci"
+import { FiUser, FiBook, FiUserX, FiTruck } from "react-icons/fi"
+import { RiAdminLine } from "react-icons/ri"
 
 const UserMenu = () => {
     const navigate = useNavigate()
@@ -29,9 +29,9 @@ const UserMenu = () => {
     return (
         <div className={styles.user_menu}>
             <Link to={"/account"}>Minha conta <FiUser /></Link>
-            <Link to={"/address-menu"}>Endereços <CiDeliveryTruck /></Link>
+            <Link to={"/address-menu"}>Endereços <FiTruck /></Link>
             <Link to={`/orders/${userId}`}>Meus pedidos <FiBook /></Link>
-            { isAdmin && <Link to={"/admin"}>Admin Menu</Link> }
+            { isAdmin && <Link to={"/admin"}>Admin Menu <RiAdminLine /></Link> }
             <button onClick={removeAuth}>Sair <FiUserX /></button>
         </div>
     )
