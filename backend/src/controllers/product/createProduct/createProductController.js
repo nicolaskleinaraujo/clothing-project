@@ -12,7 +12,8 @@ const createProductController = async (req, res) => {
         categoryId,
     } = req.body
 
-    const imageName = req.file.filename
+    const imagesNames = req.files.map(file => file.filename)
+    const imagesString = imagesNames.join(", ")
 
     if (
         name === "" ||
@@ -44,7 +45,7 @@ const createProductController = async (req, res) => {
             data: {
                 name,
                 description,
-                image: imageName,
+                image: imagesString,
                 price: parseFloat(price),
                 sizes: { connectOrCreate },
                 colors,
