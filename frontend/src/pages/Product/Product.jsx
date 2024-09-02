@@ -22,6 +22,9 @@ const Product = () => {
     const [colors, setColors] = useState([])
     const [sizes, setSizes] = useState([])
 
+    const [images, setImages] = useState([])
+    const [imageIndex, setImageIndex] = useState(0)
+
     const [selectedColor, setSelectedColor] = useState("")
     const [selectedSize, setSelectedSize] = useState(0)
     const { userId } = useContext(UserContext)
@@ -32,6 +35,10 @@ const Product = () => {
         setProduct(res.data.product)
         setColors(res.data.product.colors.split(", "))
         setSizes(res.data.product.sizes)
+
+        setImages([
+            `${import.meta.env.VITE_API_URL}/images/${res.data.product.image}`,
+        ])
 
         setLoading(false)
     }
@@ -63,6 +70,22 @@ const Product = () => {
         }
     }
 
+    const changeImage = (direction) => {
+        if (direction === "NEXT") {
+            if (imageIndex + 1 === images.length) {
+                setImageIndex(0)
+            } else if (imageIndex < images.length) {
+                setImageIndex(imageIndex + 1)
+            }
+        } else if (direction === "PREV") {
+            if (imageIndex - 1 < 0) {
+                setImageIndex(images.length - 1)
+            } else if (imageIndex < images.length) {
+                setImageIndex(imageIndex - 1)
+            }
+        }
+    }
+
     useEffect(() => {
         setLoading(true)
         getProduct()
@@ -75,13 +98,9 @@ const Product = () => {
             ) : (
                 <div>
                     <div className={styles.product_carousel}>
-                        <FiArrowLeft />
-
-                        <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
-                        {/* <img src="https://via.assets.so/img.jpg?w=400&h=700&tc=blue&bg=#cecece" alt="" />
-                        <img src="https://via.assets.so/img.jpg?w=400&h=700&tc=blue&bg=#cecece" alt="" /> */}
-
-                        <FiArrowRight />
+                        <FiArrowLeft onClick={() => changeImage("PREV")} />
+                        <img src={images[imageIndex]} alt="Foto Produto" />
+                        <FiArrowRight onClick={() => changeImage("NEXT")} />
                     </div>
 
                     <p style={{ fontFamily: "Yeseva one, sans-serif" }}>{product.name}</p>
