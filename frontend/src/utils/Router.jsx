@@ -21,6 +21,7 @@ import UserMenu from "../pages/UserMenu/UserMenu"
 import AddressMenu from "../pages/AddressMenu/AddressMenu"
 import Account from "../pages/Account/Account"
 import AdminMenu from "../pages/Admin/AdminMenu/AdminMenu"
+import Coupons from "../pages/Admin/Coupons/Coupons"
 
 const Router = () => {
     return (
@@ -47,6 +48,7 @@ const Router = () => {
 
                     <Route element={ <AdminRoute /> }>
                         <Route path="/admin" element={ <AdminMenu /> } />
+                        <Route path="/admin/coupons" element={ <Coupons /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>

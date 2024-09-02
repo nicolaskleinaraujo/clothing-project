@@ -14,7 +14,7 @@ const AdminMenu = () => {
             <Link to={"/"}>Produtos <LuPencil /></Link>
             <Link to={"/"}>Categorias <TbCategory /></Link>
             <Link to={"/"}>Pedidos <FiBook /></Link>
-            <Link to={"/"}>Cupons <RiCoupon3Line /></Link>
+            <Link to={"/admin/coupons"}>Cupons <RiCoupon3Line /></Link>
         </div>
     )
 }
