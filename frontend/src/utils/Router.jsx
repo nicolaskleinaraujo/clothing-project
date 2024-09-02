@@ -1,6 +1,7 @@
 // Modules
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import UserRoute from "./UserRoute"
+import AdminRoute from "./AdminRoute"
 
 // Components
 import Navbar from "../components/Navbar/Navbar"
@@ -19,6 +20,7 @@ import SortProducts from "../pages/SortProducts/SortProducts"
 import UserMenu from "../pages/UserMenu/UserMenu"
 import AddressMenu from "../pages/AddressMenu/AddressMenu"
 import Account from "../pages/Account/Account"
+import AdminMenu from "../pages/Admin/AdminMenu/AdminMenu"
 
 const Router = () => {
     return (
@@ -41,6 +43,10 @@ const Router = () => {
                         <Route path="/menu" element={ <UserMenu /> } />
                         <Route path="/address-menu" element={ <AddressMenu /> } />
                         <Route path="/account" element={ <Account /> } />
+                    </Route>
+
+                    <Route element={ <AdminRoute /> }>
+                        <Route path="/admin" element={ <AdminMenu /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
