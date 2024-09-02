@@ -39,9 +39,22 @@ const Coupons = () => {
             getCoupons()
         } catch (error) {
             toast.error("Erro, tente novamente")
+            setLoading(false)
         }
+    }
 
-        setLoading(false)
+    const deleteCoupon = async(id) => {
+        setLoading(true)
+
+        try {
+            await dbFetch.delete("/coupons", {
+                data: { id, userId }
+            })
+            getCoupons()
+        } catch (error) {
+            toast.error("Erro, tente novamente")
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
@@ -60,7 +73,7 @@ const Coupons = () => {
                                 <div key={coupon.id}>
                                     <p>Codigo: {coupon.code}</p>
                                     <p>Desconto: {coupon.percentage ? `${coupon.quantity}%` : `R$${coupon.quantity.toFixed(2)}`}</p>
-                                    <p>Minimo: {coupon.minimum}</p>
+                                    <p>Minimo: R${coupon.minimum.toFixed(2)}</p>
                                     <p>{coupon.valid ? "Valido" : "Invalido"}</p>
 
                                     <div>
@@ -69,7 +82,7 @@ const Coupons = () => {
                                         >Mudar Validade</button>
 
                                         <button 
-                                            onClick={() => console.log("testeee")}
+                                            onClick={() => deleteCoupon(coupon.id)}
                                         >Excluir</button>
                                     </div>
                                 </div>

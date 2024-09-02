@@ -21,7 +21,7 @@
 .coupons div p {
     font-size: 1.2em;
     color: #F5DADF;
-    margin-bottom: .2em;
+    margin-bottom: .5em;
 }
 
 .coupons div div {
@@ -37,6 +37,7 @@
     transition: .2s;
     background-color: transparent;
     cursor: pointer;
+    margin-bottom: .5em;
 }
 
 .coupons div div button:last-of-type {
