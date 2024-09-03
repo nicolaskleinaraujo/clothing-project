@@ -1,0 +1,91 @@
+.create_coupon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5DADF;
+}
+
+.create_coupon h1 {
+    font-size: 1.8em;
+    margin-top: 1em;
+}
+
+.create_coupon label {
+    margin: 1em;
+    color: #00453D;
+}
+
+.create_coupon label p {
+    color: #00453D;
+    font-size: 1.1em;
+}
+
+.create_coupon > label input {
+    text-indent: .3em;
+    appearance: none;
+}
+
+.create_coupon label input {
+    border-radius: .5em;
+    border: 2px solid #00453D;
+    font-size: 1.2em;
+    color: white;
+    width: 18em;
+    height: 2em;
+    background-color: #00453D;
+}
+
+.create_coupon div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.create_coupon div label input {
+    display: none;
+}
+
+.create_coupon div p {
+    color: #F5DADF;
+    border: 2px solid #F5DADF;
+    padding: .5em;
+    font-size: 1.7em;
+    border-radius: .5em;
+    background-color: #00453D;
+    cursor: pointer;
+}
+
+.create_coupon div p:hover {
+    color: #00453D;
+    background-color: #F5DADF;
+    border: 2px solid #00453D;
+}
+
+.create_coupon div label input:checked + p {
+    color: #00453D;
+    background-color: #F5DADF;
+    border: 2px solid #00453D;
+}
+
+.create_coupon > input {
+    display: block;
+    text-align: center;
+    background-color: #00453D;
+    color: #F5DADF;
+    margin: 2em auto;
+    font-size: 1.4em;
+    padding: .5em;
+    border-radius: .3em;
+    border: 2px solid #F5DADF;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.create_coupon > input:hover {
+    background-color: #F5DADF;
+    color: #00453D;
+    border: 2px solid #00453D;
+}

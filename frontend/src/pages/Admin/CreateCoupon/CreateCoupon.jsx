@@ -18,7 +18,7 @@ const CreateCoupon = () => {
     const [code, setCode] = useState("")
     const [percentage, setPercentage] = useState(true)
     const [quantity, setQuantity] = useState(0)
-    const [minimum, setMinimum] = useState(0)
+    const [minimum, setMinimum] = useState("R$ 0,00")
 
     const createCoupon = async(e) => {
         e.preventDefault()
@@ -35,9 +35,25 @@ const CreateCoupon = () => {
 
             navigate("/admin/coupons")
         } catch (error) {
-            toast.error("Erro, tente novamente")
+            toast.error(error.response.data.msg)
             setLoading(false)
         }
+    }
+
+    const handleQuantityChange = (e) => {
+        console.log("handled")
+    }
+
+    const handleMinimumChange = (e) => {
+        const input = e.target.value.replace(/\D/g, "")
+
+        const value = parseFloat(input) / 100
+        const formatedValue = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            "currency": "BRL"
+        }).format(value)
+
+        setMinimum(formatedValue)
     }
 
     return (
@@ -45,7 +61,7 @@ const CreateCoupon = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <form onSubmit={createCoupon}>
+                <form onSubmit={createCoupon} className={styles.create_coupon}>
                     <h1>Criar cupom</h1>
 
                     <label>
@@ -61,6 +77,7 @@ const CreateCoupon = () => {
                                 id="percentage"
                                 value={true}
                                 onChange={(e) => setPercentage(e.target.value)}
+                                defaultChecked
                             />
 
                             <p>{"%"}</p>
@@ -81,12 +98,12 @@ const CreateCoupon = () => {
 
                     <label>
                         <p>Quantidade {percentage ? "%" : "R$"}</p>
-                        <input type="number" min={0} onChange={(e) => setQuantity(e.target.value)} value={quantity} />
+                        <input type="text" min={0} onChange={(e) => handleQuantityChange(e)} value={quantity} />
                     </label>
 
                     <label>
                         <p>Pedido Minimo R$</p>
-                        <input type="number" min={0} onChange={(e) => setMinimum(e.target.value)} value={minimum} />
+                        <input type="text" min={0} onChange={(e) => handleMinimumChange(e)} value={minimum} />
                     </label>
 
                     <input type="submit" value="Criar" />
