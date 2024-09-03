@@ -24,15 +24,25 @@ const CreateCoupon = () => {
         e.preventDefault()
         setLoading(true)
 
+        const formatedQuantity = quantity.replace(/[^\d,-]/g, '').replace(',', '.')
+        const formatedMinimum = minimum.replace(/[^\d,-]/g, '').replace(',', '.')
+
+        if (code === "" || quantity === "") {
+            toast.error("Informe todos os dados")
+            setLoading(false)
+            return
+        }
+
         try {
             await dbFetch.post("/coupons", {
                 code,
                 percentage,
-                quantity: quantity,
-                minimum: parseFloat(minimum),
+                quantity: percentage ? formatedQuantity : parseFloat(formatedQuantity),
+                minimum: parseFloat(formatedMinimum),
                 userId,
             })
 
+            toast.success("Cupom criado com suceso")
             navigate("/admin/coupons")
         } catch (error) {
             toast.error(error.response.data.msg)
@@ -65,7 +75,7 @@ const CreateCoupon = () => {
                 "currency": "BRL"
             }).format(value)
     
-            setQuantity(parseFloat(formatedValue))
+            setQuantity(formatedValue)
         }
     }
 
