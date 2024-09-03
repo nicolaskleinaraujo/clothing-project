@@ -79,6 +79,8 @@ const Categories = () => {
                             </div>
                         ))
                     }
+
+                    {/* TODO create a "create category" link */}
                 </div>
             )}
         </div>
