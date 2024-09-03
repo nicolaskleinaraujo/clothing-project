@@ -23,6 +23,7 @@ import Account from "../pages/Account/Account"
 import AdminMenu from "../pages/Admin/AdminMenu/AdminMenu"
 import Coupons from "../pages/Admin/Coupons/Coupons"
 import Categories from "../pages/Admin/Categories/Categories"
+import CreateCoupon from "../pages/Admin/CreateCoupon/CreateCoupon"
 
 const Router = () => {
     return (
@@ -50,6 +51,7 @@ const Router = () => {
                     <Route element={ <AdminRoute /> }>
                         <Route path="/admin" element={ <AdminMenu /> } />
                         <Route path="/admin/coupons" element={ <Coupons /> } />
+                        <Route path="/admin/coupons/new" element={ <CreateCoupon /> } />
                         <Route path="/admin/categories" element={ <Categories /> } />
                     </Route>
                 </Routes>

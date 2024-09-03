@@ -90,7 +90,7 @@ const Coupons = () => {
                         ))
                     }
 
-                    <Link to={"/"}>Novo Cupom</Link>
+                    <Link to={"/admin/coupons/new"}>Novo Cupom</Link>
                 </div>
             )}
         </div>
