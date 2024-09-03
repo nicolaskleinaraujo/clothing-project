@@ -20,7 +20,7 @@
     background-color: #00453D;
     border-radius: .5em;
     margin-bottom: .8em;
-    padding: .8em;
+    padding: 2em .8em .8em .8em;
 }
 
 .coupons div p {
@@ -55,3 +55,9 @@
     border: 2px solid #00453D;
 }
 
+.coupons > a {
+    font-size: 1.3em;
+    color: #00453D;
+    text-decoration: underline;
+    margin: 1.2em;
+}

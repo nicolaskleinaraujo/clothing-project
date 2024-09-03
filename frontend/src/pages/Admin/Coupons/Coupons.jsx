@@ -4,7 +4,7 @@ import styles from "./Coupons.module.css"
 // Modules
 import dbFetch from "../../../config/axios"
 import { useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { UserContext } from "../../../context/UserContext"
 import { LoadingContext } from "../../../context/LoadingContext"
@@ -89,6 +89,8 @@ const Coupons = () => {
                             </div>
                         ))
                     }
+
+                    <Link to={"/"}>Novo Cupom</Link>
                 </div>
             )}
         </div>
