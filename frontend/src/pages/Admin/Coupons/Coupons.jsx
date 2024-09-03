@@ -66,30 +66,30 @@ const Coupons = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <>
-                    <div className={styles.coupons}>
-                        { 
-                            coupons.map(coupon => (
-                                <div key={coupon.id}>
-                                    <p>Codigo: {coupon.code}</p>
-                                    <p>Desconto: {coupon.percentage ? `${coupon.quantity}%` : `R$${coupon.quantity.toFixed(2)}`}</p>
-                                    <p>Minimo: R${coupon.minimum.toFixed(2)}</p>
-                                    <p>{coupon.valid ? "Valido" : "Invalido"}</p>
+                <div className={styles.coupons}>
+                    <h1>Cupons</h1>
 
-                                    <div>
-                                        <button 
-                                            onClick={() => changeValid(coupon.id)}
-                                        >Mudar Validade</button>
+                    { 
+                        coupons.map(coupon => (
+                            <div key={coupon.id}>
+                                <p>Codigo: {coupon.code}</p>
+                                <p>Desconto: {coupon.percentage ? `${coupon.quantity}%` : `R$${coupon.quantity.toFixed(2)}`}</p>
+                                <p>Minimo: R${coupon.minimum.toFixed(2)}</p>
+                                <p>{coupon.valid ? "Valido" : "Invalido"}</p>
 
-                                        <button 
-                                            onClick={() => deleteCoupon(coupon.id)}
-                                        >Excluir</button>
-                                    </div>
+                                <div>
+                                    <button 
+                                        onClick={() => changeValid(coupon.id)}
+                                    >Mudar Validade</button>
+
+                                    <button 
+                                        onClick={() => deleteCoupon(coupon.id)}
+                                    >Excluir</button>
                                 </div>
-                            ))
-                        }
-                    </div>
-                </>
+                            </div>
+                        ))
+                    }
+                </div>
             )}
         </div>
     )

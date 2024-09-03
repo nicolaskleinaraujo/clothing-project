@@ -59,27 +59,27 @@ const Categories = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <>
-                    <div className={styles.categories}>
-                        { 
-                            categories.map(category => (
-                                <div key={category.id}>
-                                    <p>{category.name}</p>
+                <div className={styles.categories}>
+                    <h1>Categorias</h1>
 
-                                    <div>
-                                        <button 
-                                            onClick={() => updateCategory(category.id)}
-                                        >Atualizar</button>
+                    { 
+                        categories.map(category => (
+                            <div key={category.id}>
+                                <p>{category.name}</p>
 
-                                        <button 
-                                            onClick={() => console.log("deleted")}
-                                        >Excluir</button>
-                                    </div>
+                                <div>
+                                    <button 
+                                        onClick={() => updateCategory(category.id)}
+                                    >Atualizar</button>
+
+                                    <button 
+                                        onClick={() => console.log("deleted")}
+                                    >Excluir</button>
                                 </div>
-                            ))
-                        }
-                    </div>
-                </>
+                            </div>
+                        ))
+                    }
+                </div>
             )}
         </div>
     )
