@@ -22,6 +22,7 @@ import AddressMenu from "../pages/AddressMenu/AddressMenu"
 import Account from "../pages/Account/Account"
 import AdminMenu from "../pages/Admin/AdminMenu/AdminMenu"
 import Coupons from "../pages/Admin/Coupons/Coupons"
+import Categories from "../pages/Admin/Categories/Categories"
 
 const Router = () => {
     return (
@@ -49,6 +50,7 @@ const Router = () => {
                     <Route element={ <AdminRoute /> }>
                         <Route path="/admin" element={ <AdminMenu /> } />
                         <Route path="/admin/coupons" element={ <Coupons /> } />
+                        <Route path="/admin/categories" element={ <Categories /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
