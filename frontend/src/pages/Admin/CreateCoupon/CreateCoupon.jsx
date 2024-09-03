@@ -37,7 +37,7 @@ const CreateCoupon = () => {
             await dbFetch.post("/coupons", {
                 code,
                 percentage,
-                quantity: percentage ? formatedQuantity : parseFloat(formatedQuantity),
+                quantity: percentage ? parseInt(formatedQuantity) : parseFloat(formatedQuantity),
                 minimum: parseFloat(formatedMinimum),
                 userId,
             })
@@ -57,16 +57,16 @@ const CreateCoupon = () => {
             const formatedInput = input.replace(/^0+/, "")
 
             if (formatedInput === "") {
-                setQuantity(0)
+                setQuantity("0")
                 return
             }
 
             if (parseInt(formatedInput) > 100) {
-                setQuantity(100)
+                setQuantity("100")
                 return
             }
 
-            setQuantity(parseInt(formatedInput))
+            setQuantity(formatedInput)
         } else if (!percentage) {
             const value = parseFloat(input) / 100
 
@@ -112,7 +112,10 @@ const CreateCoupon = () => {
                                 name="percentage"
                                 id="percentage"
                                 value={true}
-                                onChange={(e) => setPercentage(JSON.parse(e.target.value))}
+                                onChange={(e) => {
+                                    setPercentage(JSON.parse(e.target.value))
+                                    setQuantity("0")
+                                }}
                                 defaultChecked={percentage ? true : false}
                             />
 
@@ -125,7 +128,10 @@ const CreateCoupon = () => {
                                 name="percentage"
                                 id="percentage"
                                 value={false}
-                                onChange={(e) => setPercentage(JSON.parse(e.target.value))}
+                                onChange={(e) => {
+                                    setPercentage(JSON.parse(e.target.value))
+                                    setQuantity("R$ 0,00")
+                                }}
                                 defaultChecked={percentage ? false : true}
                             />
 
