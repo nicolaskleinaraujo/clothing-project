@@ -28,7 +28,7 @@ const CreateCoupon = () => {
             await dbFetch.post("/coupons", {
                 code,
                 percentage,
-                quantity: parseFloat(quantity),
+                quantity: quantity,
                 minimum: parseFloat(minimum),
                 userId,
             })
@@ -41,13 +41,39 @@ const CreateCoupon = () => {
     }
 
     const handleQuantityChange = (e) => {
-        const input = e.target.value.replace(/\D/g, "")
+        let input = e.target.value.replace(/\D/g, "")
+
+        if (percentage) {
+            const formatedInput = input.replace(/^0+/, "")
+
+            if (formatedInput === "") {
+                setQuantity(0)
+                return
+            }
+
+            if (parseInt(formatedInput) > 100) {
+                setQuantity(100)
+                return
+            }
+
+            setQuantity(parseInt(formatedInput))
+        } else if (!percentage) {
+            const value = parseFloat(input) / 100
+
+            const formatedValue = new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                "currency": "BRL"
+            }).format(value)
+    
+            setQuantity(parseFloat(formatedValue))
+        }
     }
 
     const handleMinimumChange = (e) => {
         const input = e.target.value.replace(/\D/g, "")
 
         const value = parseFloat(input) / 100
+
         const formatedValue = new Intl.NumberFormat("pt-BR", {
             style: "currency",
             "currency": "BRL"
@@ -99,12 +125,12 @@ const CreateCoupon = () => {
 
                     <label>
                         <p>Quantidade {percentage ? "%" : "R$"}</p>
-                        <input type="text" min={0} onChange={(e) => handleQuantityChange(e)} value={quantity} />
+                        <input type="text" onChange={(e) => handleQuantityChange(e)} value={quantity} />
                     </label>
 
                     <label>
                         <p>Pedido Minimo R$</p>
-                        <input type="text" min={0} onChange={(e) => handleMinimumChange(e)} value={minimum} />
+                        <input type="text" onChange={(e) => handleMinimumChange(e)} value={minimum} />
                     </label>
 
                     <input type="submit" value="Criar" />
