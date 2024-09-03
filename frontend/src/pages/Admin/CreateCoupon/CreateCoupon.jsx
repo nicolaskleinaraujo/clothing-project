@@ -41,7 +41,7 @@ const CreateCoupon = () => {
     }
 
     const handleQuantityChange = (e) => {
-        console.log("handled")
+        const input = e.target.value.replace(/\D/g, "")
     }
 
     const handleMinimumChange = (e) => {
@@ -76,8 +76,8 @@ const CreateCoupon = () => {
                                 name="percentage"
                                 id="percentage"
                                 value={true}
-                                onChange={(e) => setPercentage(e.target.value)}
-                                defaultChecked
+                                onChange={(e) => setPercentage(JSON.parse(e.target.value))}
+                                defaultChecked={percentage ? true : false}
                             />
 
                             <p>{"%"}</p>
@@ -89,7 +89,8 @@ const CreateCoupon = () => {
                                 name="percentage"
                                 id="percentage"
                                 value={false}
-                                onChange={(e) => setPercentage(e.target.value)}
+                                onChange={(e) => setPercentage(JSON.parse(e.target.value))}
+                                defaultChecked={percentage ? false : true}
                             />
 
                             <p>{"R$"}</p>
