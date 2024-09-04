@@ -37,8 +37,31 @@ const Categories = () => {
         try {
             const newCategory = prompt("Informe o novo nome desejado")
 
-            if (newCategory !== null) {
-                await dbFetch.put("/categories", { id, name: newCategory, userId })
+            if (newCategory !== null && newCategory !== "") {
+                const res = await dbFetch.put("/categories", { id, name: newCategory, userId })
+
+                toast.success(res.data.msg)
+
+                return getCategories()
+            }
+
+            setLoading(false)
+        } catch (error) {
+            toast.error("Erro, tente novamente")
+            setLoading(false)
+        }
+    }
+
+    const createCategory = async() => {
+        setLoading(true)
+
+        try {
+            const newCategory = prompt("Nome da nova categoria")
+        
+            if (newCategory !== null && newCategory !== "") {
+                const res = await dbFetch.post("/categories", { name: newCategory })
+
+                toast.success(res.data.msg)
 
                 return getCategories()
             }
@@ -80,7 +103,7 @@ const Categories = () => {
                         ))
                     }
 
-                    {/* TODO create a "create category" link */}
+                    <button onClick={createCategory}>Nova Categoria</button>
                 </div>
             )}
         </div>
