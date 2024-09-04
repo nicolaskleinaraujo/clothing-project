@@ -17,6 +17,8 @@ const CreateOrder = () => {
     const { loading, setLoading } = useContext(LoadingContext)
     const { setRedirect } = useContext(RedirectContext)
 
+    const [aux, setAux] = useState(false)
+
     const location = useLocation()
     const { addressIndex = 0 } = location.state || {}
     const [userAddress, setUserAddress] = useState({})
@@ -83,7 +85,7 @@ const CreateOrder = () => {
             if (error.response.data.msg === "Codigo de cupom incorreto") {
                 toast.error("Código de cupom incorreto")
                 setCoupon("")
-                setLoading(false)
+                setAux(!aux)
             }
         }
     }
@@ -103,6 +105,7 @@ const CreateOrder = () => {
             navigate(`/order/${res.data.order.id}`)
         } catch (error) {
             toast.error(error.response.data.msg)
+            setLoading(false)
         }
     }
 
@@ -112,7 +115,7 @@ const CreateOrder = () => {
 
     useEffect(() => {
         getOrderInfos()
-    }, [delivery])
+    }, [delivery, aux])
 
     return (
         <div className={styles.create_order}>
