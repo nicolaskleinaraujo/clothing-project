@@ -52,6 +52,27 @@ const Categories = () => {
         }
     }
 
+    const deleteCategory = async(id) => {
+        setLoading(true)
+
+        try {
+            if (confirm("Deletar essa categoria implica na deleção de todos os produtos e pedidos ligados a ela, tem certeza disso?")) {
+                const res = await dbFetch.delete("/categories", {
+                    data: { id, userId }
+                })
+
+                toast.success(res.data.msg)
+
+                return getCategories()
+            }
+
+            setLoading(false)
+        } catch (error) {
+            toast.error("Erro, tente novamente")
+            setLoading(false)
+        }
+    }
+
     const createCategory = async() => {
         setLoading(true)
 
@@ -96,7 +117,7 @@ const Categories = () => {
                                     >Atualizar</button>
 
                                     <button 
-                                        onClick={() => console.log("deleted")}
+                                        onClick={() => deleteCategory(category.id)}
                                     >Excluir</button>
                                 </div>
                             </div>
