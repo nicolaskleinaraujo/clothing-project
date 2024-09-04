@@ -16,7 +16,7 @@ const AllOrders = () => {
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [paid, setPaid] = useState(false)
-    const [received, setReceived] = useState(false)
+    const [received, setReceived] = useState(true)
 
     const [orders, setOrders] = useState([])
 
@@ -35,6 +35,14 @@ const AllOrders = () => {
         }
     }
 
+    const updateTrackingCode = async() => {
+        console.log("updated")
+    }
+
+    const updateDelivered = async() => {
+        console.log("updated")
+    }
+
     useEffect(() => {
         getAllOrders()
     }, [])
@@ -44,13 +52,29 @@ const AllOrders = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <>
-                    {orders.map(order => (
-                        <div>
-                            {order.price}
+                <div>
+                    { orders.map(order => (
+                        <div key={order.id}>
+                            <p>{order.user.Address[0].name}</p>
+                            <p>{order.user.Address[0].street}, {order.user.Address[0].houseNum}</p>
+                            <p>{order.user.Address[0].complement} {order.user.Address[0].district}</p>
+                            <p>{order.user.Address[0].city}, {order.user.Address[0].state} {order.user.Address[0].cep}</p>
+
+                            { order.orderProducts.map(product => (
+                                <div key={product.id}>
+                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.product.image.split(", ")[0]}`} alt="Foto Produto" />
+                                    <p>{product.product.name}</p>
+                                    <p>{product.color} | {product.size.size}</p>
+                                </div>
+                            ))}
+
+                            <div>
+                                <button onClick={updateTrackingCode}>Adicionar Rastreio</button>
+                                <button onClick={updateDelivered}>Mudar Recebido</button>
+                            </div>
                         </div>
                     ))}
-                </>
+                </div>
             )}
         </div>
     )

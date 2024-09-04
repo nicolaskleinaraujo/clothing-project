@@ -89,7 +89,7 @@ const AddressMenu = () => {
                             addresses.map((address, index) => (
                                 <div key={address.id}>
                                     <p>{address.name}</p>
-                                    <p>{address.city}, {address.houseNum}</p>
+                                    <p>{address.street}, {address.houseNum}</p>
                                     <p>{address.complement} {address.district}</p>
                                     <p>{address.city}, {address.state} {address.cep}</p>
                                     <div>
