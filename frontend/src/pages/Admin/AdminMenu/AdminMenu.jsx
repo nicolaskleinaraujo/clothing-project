@@ -13,7 +13,7 @@ const AdminMenu = () => {
         <div className={styles.admin_menu}>
             <Link to={"/"}>Produtos <LuPencil /></Link>
             <Link to={"/admin/categories"}>Categorias <TbCategory /></Link>
-            <Link to={"/"}>Pedidos <FiBook /></Link>
+            <Link to={"/admin/orders"}>Pedidos <FiBook /></Link>
             <Link to={"/admin/coupons"}>Cupons <RiCoupon3Line /></Link>
         </div>
     )
