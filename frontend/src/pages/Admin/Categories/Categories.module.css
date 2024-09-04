@@ -53,3 +53,20 @@
     color: #00453D;
     border: 2px solid #00453D;
 }
+
+.categories > button {
+    padding: .3em;
+    border-radius: .5em;
+    transition: .2s;
+    margin: 1em;
+    cursor: pointer;
+    background-color: #00453D;
+    color: #F5DADF;
+    border: 2px solid #F5DADF;
+}
+
+.categories > button:hover {
+    background-color: #F5DADF;
+    color: #00453D;
+    border: 2px solid #00453D;
+}
