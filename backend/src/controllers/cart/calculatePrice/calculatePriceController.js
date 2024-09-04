@@ -82,7 +82,7 @@ const calculatePriceController = async(req, res) => {
                 include: { users: true }, 
             })
 
-            if (!searchCoupon) {
+            if (!searchCoupon || !searchCoupon.valid) {
                 res.status(404).json({ msg: "Codigo de cupom incorreto" })
                 return
             }
