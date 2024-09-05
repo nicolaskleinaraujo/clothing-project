@@ -35,6 +35,10 @@ const AllOrders = () => {
         }
     }
 
+    const handleFilter = () => {
+        console.log("Handled")
+    }
+
     const updateTrackingCode = async(id) => {
         setLoading(true)
 
@@ -91,6 +95,14 @@ const AllOrders = () => {
                 <Loading />
             ) : (
                 <div className={styles.all_orders}>
+                    <h1>Pedidos</h1>
+
+                    <select name="filter" id="filter" onChange={(e) => handleFilter(e.target.value)}>
+                        <option value="off">Todos</option>
+                        <option value="paid">Pagos</option>
+                        <option value="received">Recebidos</option>
+                    </select>
+
                     { orders.map(order => (
                         <div key={order.id}>
                             <p>{order.user.Address[0].name}</p>
