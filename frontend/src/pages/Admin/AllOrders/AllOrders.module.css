@@ -1,0 +1,45 @@
+.all_orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.all_orders > div {
+    background-color: #00453D;
+    color: #F5DADF;
+    border-radius: .5em;
+    margin-bottom: .8em;
+    width: 90vw;
+}
+
+.all_orders > div > p {
+    margin: .5em 0;
+}
+
+.all_orders_products {
+    display: flex;
+    align-items: center;
+    background-color: #F5DADF;
+    color: #00453D;
+    border-radius: .5em;
+    padding: .3em;
+    width: 95%;
+    margin: .8em auto 0 auto;
+}
+
+.all_orders_products img {
+    width: 80px;
+    border-radius: .5em 0 0 .5em;
+    max-height: 8em;
+    margin: 0 .5em;
+}
+
+.all_orders_products p {
+    width: 35%;
+}
+
+.all_orders_buttons {
+    margin: 1.2em;
+}

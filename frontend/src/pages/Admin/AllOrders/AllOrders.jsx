@@ -16,7 +16,7 @@ const AllOrders = () => {
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [paid, setPaid] = useState(false)
-    const [received, setReceived] = useState(true)
+    const [received, setReceived] = useState(false)
 
     const [orders, setOrders] = useState([])
 
@@ -52,7 +52,7 @@ const AllOrders = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <div>
+                <div className={styles.all_orders}>
                     { orders.map(order => (
                         <div key={order.id}>
                             <p>{order.user.Address[0].name}</p>
@@ -61,14 +61,14 @@ const AllOrders = () => {
                             <p>{order.user.Address[0].city}, {order.user.Address[0].state} {order.user.Address[0].cep}</p>
 
                             { order.orderProducts.map(product => (
-                                <div key={product.id}>
+                                <div key={product.id} className={styles.all_orders_products}>
                                     <img src={`${import.meta.env.VITE_API_URL}/images/${product.product.image.split(", ")[0]}`} alt="Foto Produto" />
                                     <p>{product.product.name}</p>
                                     <p>{product.color} | {product.size.size}</p>
                                 </div>
                             ))}
 
-                            <div>
+                            <div className={styles.all_orders_buttons}>
                                 <button onClick={updateTrackingCode}>Adicionar Rastreio</button>
                                 <button onClick={updateDelivered}>Mudar Recebido</button>
                             </div>
