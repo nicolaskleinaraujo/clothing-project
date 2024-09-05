@@ -35,8 +35,28 @@ const AllOrders = () => {
         }
     }
 
-    const updateTrackingCode = async() => {
-        console.log("updated")
+    const updateTrackingCode = async(id) => {
+        setLoading(true)
+
+        try {
+            const trackingCode = prompt("Informe o codigo de entrega")
+
+            if (trackingCode !== null && trackingCode !== "") {
+                await dbFetch.patch("/orders", {
+                    id,
+                    tracking_code: trackingCode,
+                    userId,
+                })
+
+                toast.success("Codigo de rastreio atualizado")
+                getAllOrders()
+            }
+
+            setLoading(false)
+        } catch (error) {
+            toast.error(error.response.data.msg)
+            setLoading(false)
+        }
     }
 
     const updateDelivered = async() => {
@@ -59,6 +79,7 @@ const AllOrders = () => {
                             <p>{order.user.Address[0].street}, {order.user.Address[0].houseNum}</p>
                             <p>{order.user.Address[0].complement} {order.user.Address[0].district}</p>
                             <p>{order.user.Address[0].city}, {order.user.Address[0].state} {order.user.Address[0].cep}</p>
+                            {order.tracking_code && `Rastreio: ${order.tracking_code}`}
 
                             { order.orderProducts.map(product => (
                                 <div key={product.id} className={styles.all_orders_products}>
@@ -69,7 +90,7 @@ const AllOrders = () => {
                             ))}
 
                             <div className={styles.all_orders_buttons}>
-                                <button onClick={updateTrackingCode}>Adicionar Rastreio</button>
+                                <button onClick={() => updateTrackingCode(order.id)}>Adicionar Rastreio</button>
                                 <button onClick={updateDelivered}>Mudar Recebido</button>
                             </div>
                         </div>
