@@ -49,7 +49,7 @@ const AllOrders = () => {
                 })
 
                 toast.success("Codigo de rastreio atualizado")
-                getAllOrders()
+                return getAllOrders()
             }
 
             setLoading(false)
@@ -59,8 +59,26 @@ const AllOrders = () => {
         }
     }
 
-    const updateDelivered = async() => {
-        console.log("updated")
+    const updateDelivered = async(id) => {
+        setLoading(true)
+
+        try {
+            if (confirm("Tem certeza de sua ação?")) {
+                await dbFetch.patch("/orders", {
+                    id,
+                    received: true,
+                    userId,
+                })
+
+                toast.success("Status de entregue atualizado")
+                return getAllOrders()
+            }
+
+            setLoading(false)
+        } catch (error) {
+            toast.error(error.response.data.msg)
+            setLoading(false)        
+        }
     }
 
     useEffect(() => {
@@ -91,7 +109,7 @@ const AllOrders = () => {
 
                             <div className={styles.all_orders_buttons}>
                                 <button onClick={() => updateTrackingCode(order.id)}>Adicionar Rastreio</button>
-                                <button onClick={updateDelivered}>Mudar Recebido</button>
+                                { !order.received && <button onClick={() => updateDelivered(order.id)}>Mudar Recebido</button> } 
                             </div>
                         </div>
                     ))}
