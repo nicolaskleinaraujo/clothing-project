@@ -35,8 +35,25 @@ const AllOrders = () => {
         }
     }
 
-    const handleFilter = () => {
-        console.log("Handled")
+    const handleFilter = (value) => {
+        setLoading(true)
+
+        switch (value) {
+            case "paid":
+                setPaid(true)
+                setReceived(false)
+                break
+
+            case "received":
+                setPaid(false)
+                setReceived(true)
+                break
+
+            default:
+                setPaid(false)
+                setReceived(false)
+                break
+        }
     }
 
     const updateTrackingCode = async(id) => {
@@ -87,7 +104,7 @@ const AllOrders = () => {
 
     useEffect(() => {
         getAllOrders()
-    }, [])
+    }, [paid, received])
 
     return (
         <div>
@@ -97,7 +114,12 @@ const AllOrders = () => {
                 <div className={styles.all_orders}>
                     <h1>Pedidos</h1>
 
-                    <select name="filter" id="filter" onChange={(e) => handleFilter(e.target.value)}>
+                    <select 
+                        name="filter" 
+                        id="filter" 
+                        defaultValue={paid ? "paid" : received ? "received" : "off"} 
+                        onChange={(e) => handleFilter(e.target.value)} 
+                    >
                         <option value="off">Todos</option>
                         <option value="paid">Pagos</option>
                         <option value="received">Recebidos</option>
