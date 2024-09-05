@@ -12,7 +12,7 @@
 }
 
 .all_orders select {
-    margin: 1em;
+    margin: 1.2em 0;
     width: 75%;
     padding: .5em;
     border-radius: .3em;
@@ -27,7 +27,7 @@
     background-color: #00453D;
     color: #F5DADF;
     border-radius: .5em;
-    margin-bottom: .8em;
+    margin-bottom: 2em;
     width: 90vw;
 }
 
@@ -49,7 +49,7 @@
 .all_orders_products img {
     width: 80px;
     border-radius: .5em 0 0 .5em;
-    max-height: 8em;
+    max-height: 7.2em;
     margin: 0 .5em;
 }
 
@@ -59,4 +59,24 @@
 
 .all_orders_buttons {
     margin: 1.2em;
+}
+
+.all_orders_buttons button {
+    border: 2px solid #F5DADF;
+    background-color: transparent;
+    color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.all_orders_buttons button:first-of-type {
+    margin-right: .3em;
+}
+
+.all_orders_buttons button:hover {
+    background-color: #F5DADF;
+    color: #00453D;
+    border: 2px solid #00453D;
 }
