@@ -25,7 +25,7 @@ const adminSortController = async(req, res) => {
             orders = await prisma.orders.findMany({ where: { paid: formatedPaid }, include: includeClause })
         } else if (formatedPaid === false && formatedReceived === true) {
             orders = await prisma.orders.findMany({ where: { received: formatedReceived }, include: includeClause })
-        } else if (formatedPaid === false && received === false) {
+        } else if (formatedPaid === false && formatedReceived === false) {
             orders = await prisma.orders.findMany({ include: includeClause })
         }
 
@@ -40,7 +40,7 @@ const adminSortController = async(req, res) => {
 
         res.status(200).json({ msg: "Busca feita com sucesso", orders })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
