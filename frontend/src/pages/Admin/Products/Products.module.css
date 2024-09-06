@@ -32,6 +32,11 @@
     background-color: #00453D;
 }
 
+.products label textarea {
+    width: 88vw;
+    height: 20vh;
+}
+
 .products > input {
     margin: .8em;
     border-radius: .5em;
