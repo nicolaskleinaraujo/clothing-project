@@ -40,7 +40,7 @@ const Products = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <>
+                <div className={styles.products}>
                     <div className={styles.products_products}>
                         {
                             products.map(product => (
@@ -55,7 +55,7 @@ const Products = () => {
                             ))
                         }
                     </div>
-                </>
+                </div>
             )}
         </div>
     )
