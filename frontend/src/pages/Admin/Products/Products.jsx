@@ -48,7 +48,19 @@ const Products = () => {
     }
 
     const handleDelete = async(id) => {
-        console.log("Handled")
+        setLoading(true)
+
+        try {
+            await dbFetch.delete("/products", {
+                data: { id, userId }
+            })
+
+            toast.success("Produto deletado com sucesso")
+            return getProducts()
+        } catch (error) {
+            toast.error(error.response.data.msg)
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
