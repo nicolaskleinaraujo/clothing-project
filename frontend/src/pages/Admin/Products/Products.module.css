@@ -1,0 +1,58 @@
+.products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F5DADF;
+    padding: 5em;
+}
+
+.products h1 {
+    font-size: 1.5em;
+}
+
+.products label {
+    margin: 1em;
+    color: #00453D;
+}
+
+.products label p {
+    color: #00453D;
+    font-size: 1.1em;
+    text-indent: .2em;
+}
+
+.products label input {
+    border-radius: .5em;
+    text-indent: .2em;
+    border: 2px solid #00453D;
+    font-size: 1.2em;
+    color: white;
+    width: 18em;
+    height: 2em;
+    background-color: #00453D;
+}
+
+.products > input {
+    margin: .8em;
+    border-radius: .5em;
+    width: 18em;
+    height: 3em;
+    cursor: pointer;
+    border: none;
+    background-color: #00453D;
+    color: white;
+    padding: 1em;
+}
+
+.products > p {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: .8em;
+    color: #00453D;
+}
+
+.products > p a {
+    font-size: 1em;
+    color: #00453D;
+    text-decoration: underline;
+}

@@ -131,6 +131,8 @@ const Products = () => {
                             value={quantity} 
                         />
                     </label>
+
+                    <input type="submit" value={slug === undefined ? "Criar" : "Atualizar"} />
                 </form>
             )}
         </div>
