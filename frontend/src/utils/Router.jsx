@@ -26,6 +26,7 @@ import Categories from "../pages/Admin/Categories/Categories"
 import CreateCoupon from "../pages/Admin/CreateCoupon/CreateCoupon"
 import AllOrders from "../pages/Admin/AllOrders/AllOrders"
 import Products from "../pages/Admin/Products/Products"
+import EditProducts from "../pages/Admin/EditProducts/EditProducts"
 
 const Router = () => {
     return (
@@ -57,6 +58,7 @@ const Router = () => {
                         <Route path="/admin/categories" element={ <Categories /> } />
                         <Route path="/admin/orders" element={ <AllOrders /> } />
                         <Route path="/admin/products" element={ <Products /> } />
+                        <Route path="/admin/products/edit/:id" element={ <EditProducts /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
