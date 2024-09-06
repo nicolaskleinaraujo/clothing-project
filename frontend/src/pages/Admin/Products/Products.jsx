@@ -4,7 +4,7 @@ import styles from "./Products.module.css"
 // Modules
 import dbFetch from "../../../config/axios"
 import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { LoadingContext } from "../../../context/LoadingContext"
 import { toast } from "react-toastify"
 import Loading from "../../../components/Loading/Loading"
@@ -31,6 +31,14 @@ const Products = () => {
         }
     }
 
+    const handleAvaiableChange = async(id, data) => {
+        console.log("Handled")
+    }
+
+    const handleDelete = async(id) => {
+        console.log("Handled")
+    }
+
     useEffect(() => {
         getProducts()
     }, [])
@@ -51,6 +59,10 @@ const Products = () => {
                                     <p>Tamanhos: {product.sizes.map(size => size.size + ", ")}</p>
                                     <p>Cores: {product.colors}</p>
                                     <p>Estoque: {product.quantity}</p>
+
+                                    <Link to={"/"}>Editar</Link>
+                                    <button onClick={() => handleAvaiableChange(product.id, !product.avaiable)}>Mudar Disponivel</button>
+                                    <button onClick={() => handleDelete(product.id)}>Deletar</button>
                                 </div>
                             ))
                         }
