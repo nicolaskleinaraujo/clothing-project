@@ -49,6 +49,8 @@ const Products = () => {
                 <Loading />
             ) : (
                 <div className={styles.products}>
+                    <h1>Produtos</h1>
+
                     <div className={styles.products_products}>
                         {
                             products.map(product => (
