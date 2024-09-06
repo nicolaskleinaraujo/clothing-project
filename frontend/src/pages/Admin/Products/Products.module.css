@@ -1,3 +1,9 @@
+.products h1 {
+    font-size: 2em;
+    text-align: center;
+    margin: .7em;
+}
+
 .products_products {
     display: flex;
     flex-direction: row;

@@ -6,11 +6,13 @@ import dbFetch from "../../../config/axios"
 import { useState, useEffect, useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { LoadingContext } from "../../../context/LoadingContext"
+import { UserContext } from "../../../context/UserContext"
 import { toast } from "react-toastify"
 import Loading from "../../../components/Loading/Loading"
 
 const Products = () => {
     const navigate = useNavigate()
+    const { userId } = useContext(UserContext)
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [products, setProducts] = useState([])
@@ -31,8 +33,18 @@ const Products = () => {
         }
     }
 
-    const handleAvaiableChange = async(id, data) => {
-        console.log("Handled")
+    const handleAvaiableChange = async(id) => {
+        setLoading(true)
+
+        try {
+            await dbFetch.patch("/products/avaiable", { id, userId })
+
+            toast.success("Disponivel atualizado com sucesso")
+            return getProducts()
+        } catch (error) {
+            toast.error(error.response.data.msg)
+            setLoading(false)
+        }
     }
 
     const handleDelete = async(id) => {
@@ -60,10 +72,11 @@ const Products = () => {
                                     <p>R${product.price.toFixed(2)}</p>
                                     <p>Tamanhos: {product.sizes.map(size => size.size + ", ")}</p>
                                     <p>Cores: {product.colors}</p>
+                                    <p>Disponivel: {product.avaiable ? "Sim" : "Não"}</p>
                                     <p>Estoque: {product.quantity}</p>
 
                                     <Link to={"/"}>Editar</Link>
-                                    <button onClick={() => handleAvaiableChange(product.id, !product.avaiable)}>Mudar Disponivel</button>
+                                    <button onClick={() => handleAvaiableChange(product.id)}>Mudar Disponivel</button>
                                     <button onClick={() => handleDelete(product.id)}>Deletar</button>
                                 </div>
                             ))
