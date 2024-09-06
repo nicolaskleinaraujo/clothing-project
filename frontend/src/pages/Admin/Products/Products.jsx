@@ -87,7 +87,7 @@ const Products = () => {
                                     <p>Disponivel: {product.avaiable ? "Sim" : "Não"}</p>
                                     <p>Estoque: {product.quantity}</p>
 
-                                    <Link to={`/admin/products/edit/${product.id}`}>Editar</Link>
+                                    <Link to={`/admin/products/edit/${product.slug}`}>Editar</Link>
                                     <button onClick={() => handleAvaiableChange(product.id)}>Mudar Disponivel</button>
                                     <button onClick={() => handleDelete(product.id)}>Deletar</button>
                                 </div>

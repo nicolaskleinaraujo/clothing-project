@@ -58,7 +58,7 @@ const Router = () => {
                         <Route path="/admin/categories" element={ <Categories /> } />
                         <Route path="/admin/orders" element={ <AllOrders /> } />
                         <Route path="/admin/products" element={ <Products /> } />
-                        <Route path="/admin/products/edit/:id" element={ <EditProducts /> } />
+                        <Route path="/admin/products/edit/:slug" element={ <EditProducts /> } />
                     </Route>
                 </Routes>
             </BrowserRouter>
