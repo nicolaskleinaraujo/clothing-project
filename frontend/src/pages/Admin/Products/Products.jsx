@@ -16,19 +16,32 @@ const Products = () => {
     const { loading, setLoading } = useContext(LoadingContext)
     const { userId } = useContext(UserContext)
 
-    const [product, setProduct] = useState({})
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [price, setPrice] = useState("")
+    const [sizes, setSizes] = useState("")
+    const [colors, setColors] = useState("")
+    const [quantity, setQuantity] = useState(0)
 
     const getProduct = async() => {
-        setLoading(true)
+        if (slug) {
+            setLoading(true)
 
-        try {
-            const res = await dbFetch.get(`/products/slug/${slug}`)
+            try {
+                const res = await dbFetch.get(`/products/slug/${slug}`)
 
-            setProduct(res.data.product)
-            setLoading(false)
-        } catch (error) {
-            toast.error(error.response.data.msg)
-            navigate("/admin/products")
+                setName(res.data.product.name)
+                setDescription(res.data.product.description)
+                setPrice(res.data.product.price)
+                setSizes(res.data.product.sizes.map(size => size.size).join(", "))
+                setColors(res.data.product.colors)
+                setQuantity(res.data.product.quantity)
+
+                setLoading(false)
+            } catch (error) {
+                toast.error(error.response.data.msg)
+                navigate("/admin/products")
+            }
         }
     }
 
