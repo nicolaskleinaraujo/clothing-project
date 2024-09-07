@@ -12,6 +12,8 @@ const updateProductController = async (req, res) => {
         categoryId,
     } = req.body
 
+    // FIXME changes how price works on product model and controllers
+
     if (
         isNaN(id) ||
         name === "" ||

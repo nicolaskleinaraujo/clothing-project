@@ -16,12 +16,14 @@ const Products = () => {
     const { loading, setLoading } = useContext(LoadingContext)
     const { userId } = useContext(UserContext)
 
+    const [productId, setProductId] = useState(0)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [sizes, setSizes] = useState("")
     const [colors, setColors] = useState("")
     const [quantity, setQuantity] = useState("")
+    const [categoryId, setCategoryId] = useState(0)
 
     const getProduct = async() => {
         if (slug) {
@@ -30,6 +32,7 @@ const Products = () => {
             try {
                 const res = await dbFetch.get(`/products/slug/${slug}`)
 
+                setProductId(res.data.product.id)
                 setName(res.data.product.name)
                 setDescription(res.data.product.description)
 
@@ -39,6 +42,7 @@ const Products = () => {
                 setSizes(res.data.product.sizes.map(size => size.size).join(", "))
                 setColors(res.data.product.colors)
                 setQuantity(res.data.product.quantity)
+                setCategoryId(res.data.product.categoryId)
 
                 setLoading(false)
             } catch (error) {
@@ -69,6 +73,36 @@ const Products = () => {
         return setPrice(`${decimal},${integer}`)
     }
 
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        setLoading(true)
+
+        try {
+            if (slug === undefined) {
+                console.log("Created")
+            } else if (slug !== undefined) {
+                const res = await dbFetch.put("/products", {
+                    id: productId,
+                    name,
+                    description,
+                    price,
+                    sizes,
+                    colors,
+                    quantity,
+                    categoryId,
+                    userId,
+                })
+
+                toast.success(res.data.msg)
+            }
+
+            return navigate("/admin/products")
+        } catch (error) {
+            toast.error(error.response.data.msg)
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         getProduct()
     }, [])
@@ -78,7 +112,7 @@ const Products = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <form onSubmit={() => console.log("Submited")} className={styles.products}>
+                <form onSubmit={handleSubmit} className={styles.products}>
                     { slug === undefined ? (
                         <h1>Novo Produto</h1>
                     ) : (
