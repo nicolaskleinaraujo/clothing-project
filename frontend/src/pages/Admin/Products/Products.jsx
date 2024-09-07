@@ -52,8 +52,12 @@ const Products = () => {
         }
     }
 
-    const handlePrice = (value) => {
+    const handleNumber = (value, type) => {
         const input = value.toString().replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
+
+        if (type === "QUANT") {
+            return setQuantity(input)
+        }
 
         if (input.length <= 2) {
             return setPrice(`0,${input.padStart(2, "0")}`)
@@ -149,7 +153,7 @@ const Products = () => {
                             name="price" 
                             id="price" 
                             required 
-                            onChange={(e) => handlePrice(e.target.value)} 
+                            onChange={(e) => handleNumber(e.target.value)} 
                             value={price} 
                         />
                     </label>
@@ -186,7 +190,7 @@ const Products = () => {
                             name="quantity" 
                             id="quantity" 
                             required 
-                            onChange={(e) => setQuantity(e.target.value)}  
+                            onChange={(e) => handleNumber(e.target.value, "QUANT")}  
                             value={quantity} 
                         />
                     </label>
