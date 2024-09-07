@@ -17,6 +17,10 @@ const getBySlugController = async(req, res) => {
             },
         })
 
+        product.Images.map(image => {
+            image.content = image.content.toString("base64")
+        })
+
         res.status(200).json({ msg: "Produto achado com sucesso", product })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
