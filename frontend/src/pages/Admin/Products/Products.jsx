@@ -21,7 +21,7 @@ const Products = () => {
     const [price, setPrice] = useState("")
     const [sizes, setSizes] = useState("")
     const [colors, setColors] = useState("")
-    const [quantity, setQuantity] = useState(0)
+    const [quantity, setQuantity] = useState("")
 
     const getProduct = async() => {
         if (slug) {
@@ -46,7 +46,17 @@ const Products = () => {
     }
 
     const handlePrice = (e) => {
-        console.log(e.target.value)
+        let input = e.target.value.replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
+        console.log(input)
+
+        if (input.length <= 2) {
+            return setPrice(`0,${input.padStart(2, "0")}`)
+        }
+
+        const decimal = input.slice(0, -2)
+        const integer = input.slice(-2)
+
+        setPrice(`${decimal},${integer}`)
     }
 
     useEffect(() => {
@@ -58,7 +68,7 @@ const Products = () => {
             { loading ? (
                 <Loading />
             ) : (
-                <form onSubmit={console.log("Submited")} className={styles.products}>
+                <form onSubmit={() => console.log("Submited")} className={styles.products}>
                     { slug === undefined ? (
                         <h1>Novo Produto</h1>
                     ) : (
@@ -83,6 +93,7 @@ const Products = () => {
                             name="description" 
                             id="description" 
                             value={description} 
+                            required 
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </label>
@@ -93,6 +104,7 @@ const Products = () => {
                             type="text" 
                             name="price" 
                             id="price" 
+                            required 
                             onChange={(e) => handlePrice(e)} 
                             value={price} 
                         />
@@ -104,6 +116,7 @@ const Products = () => {
                             type="text" 
                             name="sizes" 
                             id="sizes" 
+                            required 
                             onChange={(e) => setSizes(e.target.value)} 
                             value={sizes} 
                             placeholder="Preto, Azul"
@@ -116,6 +129,7 @@ const Products = () => {
                             type="text" 
                             name="colors" 
                             id="colors" 
+                            required 
                             onChange={(e) => setColors(e.target.value)} 
                             value={colors} 
                         />
@@ -127,6 +141,7 @@ const Products = () => {
                             type="text" 
                             name="quantity" 
                             id="quantity" 
+                            required 
                             onChange={(e) => setQuantity(e.target.value)}  
                             value={quantity} 
                         />
