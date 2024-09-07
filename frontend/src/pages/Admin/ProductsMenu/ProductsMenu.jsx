@@ -75,6 +75,8 @@ const ProductsMenu = () => {
                 <div className={styles.products}>
                     <h1>Produtos</h1>
 
+                    <Link to={"/admin/products/edit/"}>Novo Produto</Link>
+
                     <div className={styles.products_products}>
                         {
                             products.map(product => (
