@@ -32,7 +32,10 @@ const Products = () => {
 
                 setName(res.data.product.name)
                 setDescription(res.data.product.description)
-                setPrice(res.data.product.price)
+
+                const rawPrice = res.data.product.price
+                handlePrice(rawPrice.toFixed(2))
+
                 setSizes(res.data.product.sizes.map(size => size.size).join(", "))
                 setColors(res.data.product.colors)
                 setQuantity(res.data.product.quantity)
@@ -45,8 +48,8 @@ const Products = () => {
         }
     }
 
-    const handlePrice = (e) => {
-        let input = e.target.value.replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
+    const handlePrice = (value) => {
+        const input = value.toString().replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
 
         if (input.length <= 2) {
             return setPrice(`0,${input.padStart(2, "0")}`)
@@ -112,7 +115,7 @@ const Products = () => {
                             name="price" 
                             id="price" 
                             required 
-                            onChange={(e) => handlePrice(e)} 
+                            onChange={(e) => handlePrice(e.target.value)} 
                             value={price} 
                         />
                     </label>
