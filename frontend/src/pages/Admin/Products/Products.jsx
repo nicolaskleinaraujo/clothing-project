@@ -47,7 +47,6 @@ const Products = () => {
 
     const handlePrice = (e) => {
         let input = e.target.value.replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
-        console.log(input)
 
         if (input.length <= 2) {
             return setPrice(`0,${input.padStart(2, "0")}`)
@@ -56,7 +55,15 @@ const Products = () => {
         const decimal = input.slice(0, -2)
         const integer = input.slice(-2)
 
-        setPrice(`${decimal},${integer}`)
+        if (input.length >= 6 && input.length <= 8) {
+            return setPrice(`${decimal.slice(0, -3)}.${decimal.slice(-3)},${integer}`)
+        }
+
+        if (input.length >= 9) {
+            return setPrice(`${decimal.slice(0, -6)}.${decimal.slice(-6, -3)}.${decimal.slice(-3)},${integer}`)
+        }
+
+        return setPrice(`${decimal},${integer}`)
     }
 
     useEffect(() => {
