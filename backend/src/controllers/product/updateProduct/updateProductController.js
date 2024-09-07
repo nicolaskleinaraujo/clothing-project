@@ -1,4 +1,5 @@
 const prisma = require("../../../db/client")
+const currencyHandler = require("../../../config/currencyHandler")
 
 const updateProductController = async (req, res) => {
     const {
@@ -12,13 +13,11 @@ const updateProductController = async (req, res) => {
         categoryId,
     } = req.body
 
-    // FIXME changes how price works on product model and controllers
-
     if (
         isNaN(id) ||
         name === "" ||
         description === "" ||
-        isNaN(price) ||
+        price === "" ||
         sizes === "" ||
         colors === "" ||
         isNaN(quantity) ||
@@ -46,12 +45,14 @@ const updateProductController = async (req, res) => {
     }))
 
     try {
+        const formatedPrice = currencyHandler(price)
+
         const newProduct = await prisma.products.update({
             where: { id },
             data: {
                 name,
                 description,
-                price: parseFloat(price),
+                price: formatedPrice,
                 sizes: { disconnect, connectOrCreate },
                 colors,
                 quantity: parseInt(quantity),

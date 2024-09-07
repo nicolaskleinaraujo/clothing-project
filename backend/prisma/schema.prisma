@@ -42,7 +42,7 @@ model Products {
   id          Int     @id @default(autoincrement())
   name        String
   description String
-  price       String
+  price       Float
   colors      String
   quantity    Int
   avaiable    Boolean @default(true)

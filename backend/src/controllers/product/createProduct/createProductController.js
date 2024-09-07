@@ -1,5 +1,6 @@
 const prisma = require("../../../db/client")
 const slugify = require("slugify")
+const currencyHandler = require("../../../config/currencyHandler")
 
 const createProductController = async (req, res) => {
     const {
@@ -15,7 +16,7 @@ const createProductController = async (req, res) => {
     if (
         name === "" ||
         description === "" ||
-        isNaN(price) ||
+        price === "" ||
         sizes === "" ||
         colors === "" ||
         isNaN(quantity) ||
@@ -38,11 +39,13 @@ const createProductController = async (req, res) => {
     const slug = slugify(name + " " + Date.now(), { lower: true })
 
     try {
+        const formatedPrice = currencyHandler(price)
+
         const product = await prisma.products.create({
             data: {
                 name,
                 description,
-                price: parseFloat(price),
+                price: formatedPrice,
                 sizes: { connectOrCreate },
                 colors,
                 quantity: parseInt(quantity),

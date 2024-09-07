@@ -43,9 +43,7 @@ const sortProductController = async (req, res) => {
             },
         })
 
-        products.forEach((product, index) => {
-            product.Images[index].content = product.Images[index].content.toString("base64")
-        })
+        products.forEach(product => product.Images[0].content = product.Images[0].content.toString("base64"))
     
         res.status(200).json({ msg: "Pesquisa feita com sucesso", products })
     } catch (error) {
