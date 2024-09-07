@@ -4,9 +4,7 @@ const productController = require("../controllers/product/index")
 const validateAdmin = require("../middlewares/validateAdmin")
 
 // Multer
-const multer = require("multer")
-const storage = require("../config/multer")
-const upload = multer({ storage })
+const upload = require("../config/multer")
 
 // Routes
 router.route("/").post(upload.array("file"), (req, res) => productController.createProductController(req, res))
