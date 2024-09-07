@@ -39,7 +39,7 @@ const SortProducts = () => {
                             products && products.map(product => (
                                 <Link to={`/product/${product.slug}`} key={product.id}>
                                     <div>
-                                        <img src={`${import.meta.env.VITE_API_URL}/images/${product.image}`} alt="Foto Produto" />
+                                        <img src={`data:image/png;base64,${product.Images[0].content}`} alt="Foto Produto" />
                                         <p>{product.name}</p>
                                         <p>R${product.price.toFixed(2)}</p>
                                         <button onClick={() => navigate(`/products/${product.slug}`)}><MdReadMore /></button>

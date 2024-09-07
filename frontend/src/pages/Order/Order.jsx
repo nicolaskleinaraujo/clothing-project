@@ -91,7 +91,7 @@ const Order = () => {
                         { products &&
                             products.map(product => (
                                 <div key={product.id}>
-                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.product.image.split(", ")[0]}`} alt="Foto do Produto" />
+                                    <img src={`data:image/png;base64,${product.product.Images[0].content}`} alt="Foto Produto" />
                                     <div>
                                         <p>{product.quantity}x {product.product.name}</p>
                                         <p>

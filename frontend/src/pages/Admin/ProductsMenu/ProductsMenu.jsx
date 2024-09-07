@@ -79,7 +79,7 @@ const ProductsMenu = () => {
                         {
                             products.map(product => (
                                 <div key={product.id}>
-                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.image.split(", ")[0]}`} alt="Foto Produto" />
+                                    <img src={`data:image/png;base64,${product.Images[0].content}`} alt="Foto Produto" />
                                     <p>{product.name}</p>
                                     <p>R${product.price.toFixed(2)}</p>
                                     <p>Tamanhos: {product.sizes.map(size => size.size + ", ")}</p>

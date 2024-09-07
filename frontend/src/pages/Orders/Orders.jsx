@@ -57,7 +57,7 @@ const Orders = () => {
                             orders.map(order => (
                                 <Link to={`/order/${order.id}`} key={order.id}>
                                     <div>
-                                        <img src={`${import.meta.env.VITE_API_URL}/images/${order.orderProducts[0].product.image}`} alt="Foto do Produto" />
+                                        <img src={`data:image/png;base64,${order.orderProducts[0].product.Images[0].content}`} alt="Foto do Produto" />
                                         <p>Realizado em {data}</p>
                                         <div>
                                             <p>{order.paid ? order.received ? "Entregue" : "Pago" : "Aguardando Pagamento"}</p>
