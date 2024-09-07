@@ -17,7 +17,7 @@ const getBySlugController = async(req, res) => {
             },
         })
 
-        product.Images.map(image => {
+        product.Images.forEach(image => {
             image.content = image.content.toString("base64")
         })
 

@@ -50,7 +50,7 @@ const calculatePriceController = async(req, res) => {
         }
 
         // Converting images into base64
-        product.Images.map(image => image.content = image.content.toString("base64"))
+        product.Images[0].content = product.Images[0].content.toString("base64")
 
         // Adds the product to order products
         product.sizes = product.sizes.filter(size => size.id === cart[index].sizeId)

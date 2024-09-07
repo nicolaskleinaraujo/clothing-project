@@ -37,7 +37,9 @@ const sortById = async(req, res) => {
         }
 
         // Converting images to base64
-        order.orderProducts.product.Images.map(image => image.content = image.content.toString("base64"))
+        order.orderProducts.forEach(product => {
+            product.product.Images[0].content = product.product.Images[0].content.toString("base64")
+        })
 
         res.status(200).json({ msg: "Pesquisa feita com sucesso", order })
     } catch (error) {
