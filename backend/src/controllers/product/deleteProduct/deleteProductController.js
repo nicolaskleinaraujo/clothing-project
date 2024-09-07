@@ -18,6 +18,7 @@ const deleteProductController = async (req, res) => {
     }
 
     try {
+        // FIXME order deletion
         await prisma.images.deleteMany({ where: { productId: product.id } })
         await prisma.orderProduct.deleteMany({ where: { productId: product.id } })
         await prisma.products.delete({ where: { id } })

@@ -37,6 +37,17 @@
     height: 20vh;
 }
 
+.products label select {
+    width: 88vw;
+    padding: .5em;
+    border-radius: .5em;
+    color: #F5DADF;
+    border: 2px solid #F5DADF;
+    background-color: #00453D;
+    font-size: 1.1em;
+    text-align: center;
+}
+
 .products > input {
     margin: .8em;
     border-radius: .5em;

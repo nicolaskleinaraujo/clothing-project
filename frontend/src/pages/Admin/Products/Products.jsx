@@ -16,6 +16,8 @@ const Products = () => {
     const { loading, setLoading } = useContext(LoadingContext)
     const { userId } = useContext(UserContext)
 
+    const [categories, setCategories] = useState([])
+
     const [productId, setProductId] = useState(0)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -25,10 +27,10 @@ const Products = () => {
     const [quantity, setQuantity] = useState("")
     const [categoryId, setCategoryId] = useState(0)
 
-    const getProduct = async() => {
-        if (slug) {
-            setLoading(true)
+    const getInfos = async() => {
+        setLoading(true)
 
+        if (slug) {
             try {
                 const res = await dbFetch.get(`/products/slug/${slug}`)
 
@@ -43,16 +45,20 @@ const Products = () => {
                 setColors(res.data.product.colors)
                 setQuantity(res.data.product.quantity)
                 setCategoryId(res.data.product.categoryId)
-
-                setLoading(false)
             } catch (error) {
                 toast.error(error.response.data.msg)
                 navigate("/admin/products")
             }
         }
+
+        const categoriesRes = await dbFetch.get("/categories")
+        setCategories(categoriesRes.data.categories)
+
+        setLoading(false)
     }
 
     const handleNumber = (value, type) => {
+        console.log(categoryId)
         const input = value.toString().replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
 
         if (type === "QUANT") {
@@ -81,11 +87,28 @@ const Products = () => {
         e.preventDefault()
         setLoading(true)
 
+        if (parseInt(categoryId) === 0) {
+            return toast.error("Selecione a categoria")
+        }
+
         try {
+            let res
+
             if (slug === undefined) {
-                console.log("Created")
+                res = await dbFetch.post("/products", {
+                    name,
+                    description,
+                    price,
+                    sizes,
+                    colors,
+                    quantity,
+                    categoryId,
+
+                    // TODO create file upload
+                    file: "",
+                })
             } else if (slug !== undefined) {
-                const res = await dbFetch.put("/products", {
+                res = await dbFetch.put("/products", {
                     id: productId,
                     name,
                     description,
@@ -96,11 +119,10 @@ const Products = () => {
                     categoryId,
                     userId,
                 })
-
-                toast.success(res.data.msg)
             }
 
-            return navigate("/admin/products")
+            toast.success(res.data.msg)
+            return navigate(`/product/${res.data.product.slug}`)
         } catch (error) {
             toast.error(error.response.data.msg)
             setLoading(false)
@@ -108,7 +130,7 @@ const Products = () => {
     }
 
     useEffect(() => {
-        getProduct()
+        getInfos()
     }, [])
 
     return (
@@ -144,6 +166,16 @@ const Products = () => {
                             required 
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
+                    </label>
+
+                    <label>
+                        <p>Categoria</p>
+                        <select name="category" id="category" defaultValue={"0"} onChange={(e) => setCategoryId(e.target.value)}>
+                            <option value="0" disabled>--SELECIONE UMA CATEGORIA--</option>
+                            { categories.map(category => (
+                                <option value={category.id} key={category.id}>{category.name}</option>
+                            ))}
+                        </select>
                     </label>
 
                     <label>
