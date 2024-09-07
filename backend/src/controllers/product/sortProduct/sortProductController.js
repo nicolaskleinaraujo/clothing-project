@@ -37,7 +37,10 @@ const sortProductController = async (req, res) => {
     try {
         const products = await prisma.products.findMany({
             where: whereClause,
-            include: { sizes: true }
+            include: { 
+                sizes: true,
+                Images: { orderBy: { id: "asc" } },
+            },
         })
     
         res.status(200).json({ msg: "Pesquisa feita com sucesso", products })
