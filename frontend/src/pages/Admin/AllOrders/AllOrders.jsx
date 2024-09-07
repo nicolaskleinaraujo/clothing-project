@@ -135,7 +135,7 @@ const AllOrders = () => {
 
                             { order.orderProducts.map(product => (
                                 <div key={product.id} className={styles.all_orders_products}>
-                                    <img src={`${import.meta.env.VITE_API_URL}/images/${product.product.image.split(", ")[0]}`} alt="Foto Produto" />
+                                    <img src={`data:image/png;base64,${product.product.Images[0].content}`} alt="Foto Produto" />
                                     <p>{product.product.name}</p>
                                     <p>{product.color} | {product.size.size}</p>
                                 </div>
