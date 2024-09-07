@@ -15,7 +15,10 @@ const sortById = async(req, res) => {
                 orderProducts: {
                     include: {
                         product: {
-                            include: { sizes: true }
+                            include: { 
+                                sizes: true,
+                                Images: { orderBy: { id: "asc" } }
+                            }
                         }
                     }
                 }
@@ -32,6 +35,9 @@ const sortById = async(req, res) => {
             res.status(401).json({ msg: "Usuario não é admin" })
             return
         }
+
+        // Converting images to base64
+        order.orderProducts.product.Images.map(image => image.content = image.content.toString("base64"))
 
         res.status(200).json({ msg: "Pesquisa feita com sucesso", order })
     } catch (error) {

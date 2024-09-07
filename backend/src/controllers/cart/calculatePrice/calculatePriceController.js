@@ -15,7 +15,14 @@ const calculatePriceController = async(req, res) => {
     for (let index = 0; index < cart.length; index++) {
         const id = cart[index].productId
 
-        const product = await prisma.products.findUnique({ where: { id }, include: { sizes: true } })
+        const product = await prisma.products.findUnique({ 
+            where: { id }, 
+            include: { 
+                sizes: true,
+                Images: { orderBy: { id: "asc" } }
+            },
+        })
+
         if (!product) {
             res.status(400).json({ msg: "Pedido invalido" })
             return
@@ -41,6 +48,9 @@ const calculatePriceController = async(req, res) => {
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
+
+        // Converting images into base64
+        product.Images.map(image => image.content = image.content.toString("base64"))
 
         // Adds the product to order products
         product.sizes = product.sizes.filter(size => size.id === cart[index].sizeId)

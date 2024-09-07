@@ -20,10 +20,17 @@ const sortByUserController = async(req, res) => {
             orderBy: { id: "desc" },
             include: {
                 orderProducts: {
-                    include: { product: true },
+                    include: { 
+                        product: {
+                            include: { Images: { orderBy: { id: "asc" } } }
+                        } 
+                    },
                 },
             },
         })
+
+        // Converting images to base64
+        orders.orderProducts.product.Images.map(image => image.content = image.content.toString("base64"))
 
         res.status(200).json({ msg: "Pesquisa feita com sucesso", orders })
     } catch (error) {
