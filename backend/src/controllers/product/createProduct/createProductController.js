@@ -12,9 +12,6 @@ const createProductController = async (req, res) => {
         categoryId,
     } = req.body
 
-    const imagesNames = req.files.map(file => file.filename)
-    const imagesString = imagesNames.join(", ")
-
     if (
         name === "" ||
         description === "" ||
@@ -45,7 +42,6 @@ const createProductController = async (req, res) => {
             data: {
                 name,
                 description,
-                image: imagesString,
                 price: parseFloat(price),
                 sizes: { connectOrCreate },
                 colors,
@@ -56,7 +52,19 @@ const createProductController = async (req, res) => {
             include: { sizes: true }
         })
 
-        res.status(201).json({ msg: "Produto criado com sucesso", product })
+        const imagesInfos = req.files.map(file => {
+            return {
+                filename: file.fieldname,
+                content: file.buffer,
+                productId: product.id
+            }
+        })
+
+        const images = await prisma.images.createMany({
+            data: imagesInfos
+        })
+
+        res.status(201).json({ msg: "Produto criado com sucesso", product, images })
     } catch (error) {
         res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
