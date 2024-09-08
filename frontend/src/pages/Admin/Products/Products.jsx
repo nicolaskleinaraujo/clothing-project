@@ -83,6 +83,13 @@ const Products = () => {
         return setPrice(`${decimal},${integer}`)
     }
 
+    const handleImageChange = (file) => {
+        if (file[0] !== undefined) {
+            file[0].id = `${file[0].name}${Date.now()}`
+            setSelectedFiles((prevState) => [...prevState, file[0]])
+        }
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault()
         setLoading(true)
@@ -103,7 +110,7 @@ const Products = () => {
                 formData.append("colors", colors)
                 formData.append("quantity", quantity)
                 formData.append("categoryId", categoryId)
-                selectedFiles.map(file => {
+                selectedFiles.forEach(file => {
                     formData.append("file", file)
                 })
 
@@ -236,14 +243,16 @@ const Products = () => {
                         <p>Fotos</p>
                         <input 
                             type="file" 
-                            onChange={(e) => setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, e.target.files[0]])} 
+                            id="images" 
+                            name="images" 
+                            onChange={(e) => handleImageChange(e.target.files)} 
                         />
                     </label>
 
-                    {selectedFiles.length > 0 && (
+                    { selectedFiles.length > 0 && (
                         <div>
                             {selectedFiles.map(file => (
-                                <p key={file.lastModified}>{file.name}</p>
+                                <p key={file.id}>{file.name}</p>
                             ))}
                         </div>
                     )}
