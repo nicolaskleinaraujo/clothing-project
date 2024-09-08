@@ -17,6 +17,7 @@ const Products = () => {
     const { userId } = useContext(UserContext)
 
     const [categories, setCategories] = useState([])
+    const [selectedFiles, setSelectedFiles] = useState([])
 
     const [productId, setProductId] = useState(0)
     const [name, setName] = useState("")
@@ -58,7 +59,6 @@ const Products = () => {
     }
 
     const handleNumber = (value, type) => {
-        console.log(categoryId)
         const input = value.toString().replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
 
         if (type === "QUANT") {
@@ -95,17 +95,22 @@ const Products = () => {
             let res
 
             if (slug === undefined) {
-                res = await dbFetch.post("/products", {
-                    name,
-                    description,
-                    price,
-                    sizes,
-                    colors,
-                    quantity,
-                    categoryId,
+                const formData = new FormData()
+                formData.append("name", name)
+                formData.append("description", description)
+                formData.append("price", price)
+                formData.append("sizes", sizes)
+                formData.append("colors", colors)
+                formData.append("quantity", quantity)
+                formData.append("categoryId", categoryId)
+                selectedFiles.map(file => {
+                    formData.append("file", file)
+                })
 
-                    // TODO create file upload
-                    file: "",
+                res = await dbFetch.post("/products", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
                 })
             } else if (slug !== undefined) {
                 res = await dbFetch.put("/products", {
@@ -226,6 +231,22 @@ const Products = () => {
                             value={quantity} 
                         />
                     </label>
+
+                    <label>
+                        <p>Fotos</p>
+                        <input 
+                            type="file" 
+                            onChange={(e) => setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, e.target.files[0]])} 
+                        />
+                    </label>
+
+                    {selectedFiles.length > 0 && (
+                        <div>
+                            {selectedFiles.map(file => (
+                                <p key={file.lastModified}>{file.name}</p>
+                            ))}
+                        </div>
+                    )}
 
                     <input type="submit" value={slug === undefined ? "Criar" : "Atualizar"} />
                 </form>
