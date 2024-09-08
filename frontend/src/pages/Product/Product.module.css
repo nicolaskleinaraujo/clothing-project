@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.product > div {
+    width: 100vw;
+}
+
 .product_carousel {
     display: flex;
     position: relative;
