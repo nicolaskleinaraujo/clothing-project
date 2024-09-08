@@ -1,5 +1,6 @@
 const prisma = require("../../../db/client")
 const slugify = require("slugify")
+const sharp = require("sharp")
 const currencyHandler = require("../../../config/currencyHandler")
 
 const createProductController = async (req, res) => {
@@ -55,13 +56,13 @@ const createProductController = async (req, res) => {
             include: { sizes: true }
         })
 
-        const imagesInfos = req.files.map(file => {
+        const imagesInfos = await Promise.all(req.files.map(async(file) => {
             return {
                 filename: file.fieldname,
-                content: file.buffer,
+                content: await sharp(file.buffer).resize(1024, 1350, "inside").toBuffer(),
                 productId: product.id
             }
-        })
+        }))
 
         const images = await prisma.images.createMany({
             data: imagesInfos
