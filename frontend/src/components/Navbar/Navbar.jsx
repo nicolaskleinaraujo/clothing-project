@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
     const { userId } = useContext(UserContext)
+    const [hiddenMenu, setHiddenMenu] = useState(false)
 
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
@@ -30,10 +31,10 @@ const Navbar = () => {
     return (
         <div className={styles.navbar}>
             <div className={styles.navbar_menu}>
-                <button style={{ zIndex: 100 }}><FiMenu /></button>
+                <button onClick={() => setHiddenMenu(!hiddenMenu)} style={{ zIndex: 100 }}><FiMenu /></button>
             </div>
 
-            <div className={styles.navbar_hidden_menu} /*style={{display: menuOpen ? "flex" : "none"}}*/>
+            <div className={styles.navbar_hidden_menu} style={{ display: hiddenMenu ? "flex" : "none" }}>
                 <h2>Categorias</h2>
                 <ul>
                     { categories && categories.map(category => (
