@@ -9,69 +9,21 @@
 }
 
 .navbar img {
-    width: 40px;
+    width: 10em;
 }
 
-.navbar_category, .navbar_size {
-    position: relative;
-    display: inline-block;
+.navbar_menu,
+.navbar_account {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
-.navbar_category {
-    margin: 0 .2em;
-}
-
-.navbar_category button, .navbar_size button {
-    background-color: transparent;
-    font-size: 1em;
-    border: none;
-    cursor: pointer;
-    border-radius: .3em;
+.navbar_menu svg {
     color: #F5DADF;
-}
-
-.navbar_category button:hover, .navbar_size button:hover {
-    background-color: #F5DADF;
-    color: #00453D;
-}
-
-.navbar_category_content,
-.navbar_size_content,
-.navbar_user_content {
-    display: none;
-}
-
-.navbar_category_open_content,
-.navbar_size_open_content,
-.navbar_user_open_content {
-    display: block;
-    position: absolute;
-    background-color: #00453D;
-    min-width: 12em;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border: 3px solid #F5DADF;
-    border-radius: .3em;
-}
-
-.navbar_category_open_content a,
-.navbar_size_open_content a,
-.navbar_user_open_content a {
-    color: #F5DADF;
-    padding: 1em 1.2em;
-    text-decoration: none;
-    display: block;
-}
-
-.navbar_user_open_content {
-    right: 0;
-}
-
-.navbar_category_open_content a:hover,
-.navbar_size_open_content a:hover 
-.navbar_user_open_content a:hover {
-    background-color: #F5DADF;
-    color: #00453D;
+    font-size: 1.5em;
+    border-radius: .2em;
 }
 
 .navbar_account a,
@@ -80,10 +32,9 @@
     margin: .6em;
 }
 
-.navbar_account button {
+.navbar button {
     background-color: transparent;
     border: none;
-    margin: .6em 0 1.5em 16%;
 }
 
 .navbar_account a svg {
