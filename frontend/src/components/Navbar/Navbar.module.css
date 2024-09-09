@@ -20,6 +20,11 @@
     align-items: center;
 }
 
+.navbar_menu button {
+    z-index: 100;
+    cursor: pointer;
+}
+
 .navbar_menu svg {
     color: #F5DADF;
     font-size: 1.5em;

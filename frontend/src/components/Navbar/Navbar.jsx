@@ -31,7 +31,7 @@ const Navbar = () => {
     return (
         <div className={styles.navbar}>
             <div className={styles.navbar_menu}>
-                <button onClick={() => setHiddenMenu(!hiddenMenu)} style={{ zIndex: 100 }}><FiMenu /></button>
+                <button onClick={() => setHiddenMenu(!hiddenMenu)}><FiMenu /></button>
             </div>
 
             <div className={styles.navbar_hidden_menu} style={{ display: hiddenMenu ? "flex" : "none" }}>
