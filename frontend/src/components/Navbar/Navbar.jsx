@@ -14,9 +14,6 @@ import { Link } from "react-router-dom"
 const Navbar = () => {
     const { userId } = useContext(UserContext)
 
-    const [categoriesOpen, setCategoriesOpen] = useState(false)
-    const [sizesOpen, setSizesOpen] = useState(false)
-
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
 
@@ -33,7 +30,24 @@ const Navbar = () => {
     return (
         <div className={styles.navbar}>
             <div className={styles.navbar_menu}>
-                <button><FiMenu /></button>
+                <button style={{ zIndex: 100 }}><FiMenu /></button>
+            </div>
+
+            <div className={styles.navbar_hidden_menu} /*style={{display: menuOpen ? "flex" : "none"}}*/>
+                <h2>Categorias</h2>
+                <ul>
+                    { categories && categories.map(category => (
+                        <li key={category.id}>{category.name}</li>
+                    ))}
+                </ul>
+
+                <h2>Tamanhos</h2>
+                    { sizes && sizes.map(size => (
+                        <label>
+                            <input type="checkbox" name="size" id="size" value={size.size} />
+                            <p>{size.size}</p>
+                        </label>
+                    ))}
             </div>
 
             <Link to="/"><img src="/project-big-logo.png" alt="Logo do Projeto" /></Link>

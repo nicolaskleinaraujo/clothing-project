@@ -26,6 +26,43 @@
     border-radius: .2em;
 }
 
+.navbar_hidden_menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 75vw;
+    height: 100vh;
+    padding: 2em;
+    top: 0;
+    left: 0;
+    background-color: #00453df1;
+    transition: .2s ease-in-out;
+    border: 1px solid #F5DADF;
+    color: #F5DADF;
+}
+
+.navbar_hidden_menu h2:last-of-type {
+    margin-top: 1.5em;
+}
+
+.navbar_hidden_menu ul li {
+    list-style-type: none;
+    margin: .8em;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.navbar_hidden_menu > label {
+    display: flex;
+    margin: .6em;
+}
+
+.navbar_hidden_menu > label > p {
+    margin-left: .5em;
+}
+
 .navbar_account a,
 .navbar_account button {
     color: #F5DADF;
