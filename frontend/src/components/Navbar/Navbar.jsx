@@ -6,13 +6,17 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import { FiUser, FiShoppingBag, FiMenu } from "react-icons/fi"
 import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
+    const navigate = useNavigate()
     const { userId } = useContext(UserContext)
+
     const [hiddenMenu, setHiddenMenu] = useState(false)
+    const [selectedSizes, setSelectedSizes] = useState("")
 
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
@@ -21,6 +25,33 @@ const Navbar = () => {
         const res = await dbFetch.get("/categories")
         setCategories(res.data.categories)
         setSizes(res.data.sizes)
+    }
+
+    const handleSelect = (e) => {
+        const selectedSizesArray = selectedSizes.split(",")
+
+        if (selectedSizesArray.length === 0) {
+            setSelectedSizes(e)
+        } else if (selectedSizesArray.length > 0) {
+            if (selectedSizesArray.includes(e)) {
+                const index = selectedSizesArray.indexOf(e)
+                selectedSizesArray.splice(index, 1)
+
+                setSelectedSizes(selectedSizesArray.join(","))
+            }
+
+            setSelectedSizes((prevSizes) => `${prevSizes},${e}`)
+        }
+
+        console.log(selectedSizesArray)
+    }
+
+    const handleFilter = () => {
+        const path = location.pathname.replace(/^\/|\/[^\/]*$/g, '')
+
+        if (path === "sort-products") {
+            navigate(`${location.pathname}&sizes=${selectedSizes}`)
+        }
     }
 
     useEffect(() => {
@@ -45,11 +76,19 @@ const Navbar = () => {
 
                 <h2>Tamanhos</h2>
                     { sizes && sizes.map(size => (
-                        <label>
-                            <input type="checkbox" name="size" id="size" value={size.size} />
+                        <label key={size.id}>
+                            <input 
+                                type="checkbox" 
+                                name="size" 
+                                id="size" 
+                                value={size.size} 
+                                onChange={(e) => handleSelect(e.target.value)} 
+                            />
                             <p>{size.size}</p>
                         </label>
                     ))}
+
+                    <button onClick={() => handleFilter()}>Filtrar</button>
             </div>
 
             <Link to="/"><img src="/project-big-logo.png" alt="Logo do Projeto" /></Link>
