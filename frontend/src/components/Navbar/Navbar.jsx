@@ -21,6 +21,8 @@ const Navbar = () => {
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
 
+    const [params, setParams] = useState(null)
+
     const getInfos = async() => {
         const res = await dbFetch.get("/categories")
         setCategories(res.data.categories)
@@ -36,9 +38,10 @@ const Navbar = () => {
     }
 
     const handleFilter = () => {
-        const path = location.pathname.replace(/^\/|\/[^\/]*$/g, '')
+        console.log(params)
 
-        if (path === "sort-products") {
+        if (params.includes("category")) {
+            console.log("teste")
             navigate(`${location.pathname}&sizes=${selectedSizes}`)
         }
     }
@@ -46,6 +49,17 @@ const Navbar = () => {
     useEffect(() => {
         getInfos()
     }, [])
+
+    useEffect(() => {
+        const locationArray = location.pathname.split("/")
+        const paramsArray = locationArray[locationArray.length - 1].split("&")
+
+        paramsArray.forEach((param, index) => {
+            paramsArray[index] = param.replace(/=.*/, '')
+        })
+
+        setParams(paramsArray)
+    }, [location.pathname])
 
     return (
         <div className={styles.navbar}>

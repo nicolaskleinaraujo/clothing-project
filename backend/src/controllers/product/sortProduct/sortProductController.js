@@ -7,34 +7,35 @@ const sortProductController = async (req, res) => {
     // Creating the where payload used to sort the products
     const whereClause = {}
 
-    if (category && sizes) {
-        sizesArray = sizes.split(",").map(size => size.trim())
+    try {
+        if (category && sizes) {
+            sizesArray = sizes.split(",").map(size => size.trim())
 
-        whereClause.AND = [
-            { categoryId: parseInt(category) }, 
-            ...sizesArray.map(size => ({
+            whereClause.AND = [
+                { categoryId: parseInt(category) }, 
+                ...sizesArray.map(size => ({
+                    sizes: {
+                        some: {
+                            size: size,
+                        },
+                    },
+                }))
+            ]
+        } else if (sizes) {
+            sizesArray = sizes.split(",").map(size => size.trim())
+
+            whereClause.AND = sizesArray.map(size => ({
                 sizes: {
                     some: {
                         size: size,
                     },
                 },
             }))
-        ]
-    } else if (sizes) {
-        sizesArray = sizes.split(",").map(size => size.trim())
+        } else if (category) {
+            whereClause.categoryId = parseInt(category)
+        }
 
-        whereClause.AND = sizesArray.map(size => ({
-            sizes: {
-                some: {
-                    size: size,
-                },
-            },
-        }))
-    } else if (category) {
-        whereClause.categoryId = parseInt(category)
-    }
-
-    try {
+    
         const products = await prisma.products.findMany({
             where: whereClause,
             include: { 
