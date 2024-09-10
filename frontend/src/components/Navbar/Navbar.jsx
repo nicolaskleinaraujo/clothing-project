@@ -6,10 +6,10 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { FiUser, FiShoppingBag, FiMenu } from "react-icons/fi"
 import { UserContext } from "../../context/UserContext"
-import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const Navbar = () => {
     const navigate = useNavigate()
@@ -38,12 +38,15 @@ const Navbar = () => {
     }
 
     const handleFilter = () => {
-        console.log(params)
+        if (selectedSizes.length === 0) {
+            return toast.info("Primeiramente, selecione um tamanho")
+        }
 
         if (params.includes("category")) {
-            console.log("teste")
-            navigate(`${location.pathname}&sizes=${selectedSizes}`)
+            return navigate(`${location.pathname}&sizes=${selectedSizes}`)
         }
+
+        navigate(`/sort-products/sizes=${selectedSizes}`)
     }
 
     useEffect(() => {
