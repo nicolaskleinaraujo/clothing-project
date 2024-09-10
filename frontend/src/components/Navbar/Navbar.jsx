@@ -16,7 +16,7 @@ const Navbar = () => {
     const { userId } = useContext(UserContext)
 
     const [hiddenMenu, setHiddenMenu] = useState(false)
-    const [selectedSizes, setSelectedSizes] = useState("")
+    const [selectedSizes, setSelectedSizes] = useState([])
 
     const [categories, setCategories] = useState([])
     const [sizes, setSizes] = useState([])
@@ -28,22 +28,11 @@ const Navbar = () => {
     }
 
     const handleSelect = (e) => {
-        const selectedSizesArray = selectedSizes.split(",")
-
-        if (selectedSizesArray.length === 0) {
-            setSelectedSizes(e)
-        } else if (selectedSizesArray.length > 0) {
-            if (selectedSizesArray.includes(e)) {
-                const index = selectedSizesArray.indexOf(e)
-                selectedSizesArray.splice(index, 1)
-
-                setSelectedSizes(selectedSizesArray.join(","))
-            }
-
-            setSelectedSizes((prevSizes) => `${prevSizes},${e}`)
+        if (selectedSizes.includes(e)) {
+            return setSelectedSizes(selectedSizes.filter(size => size !== e))
         }
 
-        console.log(selectedSizesArray)
+        setSelectedSizes([...selectedSizes, e])
     }
 
     const handleFilter = () => {
@@ -82,7 +71,7 @@ const Navbar = () => {
                                 name="size" 
                                 id="size" 
                                 value={size.size} 
-                                onChange={(e) => handleSelect(e.target.value)} 
+                                onClick={(e) => handleSelect(e.target.value)} 
                             />
                             <p>{size.size}</p>
                         </label>
