@@ -46,6 +46,7 @@
     transition: .2s ease-in-out;
     border: 1px solid #F5DADF;
     color: #F5DADF;
+    z-index: 99;
 }
 
 .navbar_hidden_menu h2:last-of-type {
@@ -57,6 +58,10 @@
     margin: .8em;
     text-align: center;
     text-decoration: underline;
+}
+
+.navbar_hidden_menu ul li a {
+    color: #F5DADF;
 }
 
 .navbar_hidden_menu > label {

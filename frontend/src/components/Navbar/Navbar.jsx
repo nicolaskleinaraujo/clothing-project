@@ -7,7 +7,6 @@ import dbFetch from "../../config/axios"
 // Modules
 import { useState, useEffect, useContext } from "react"
 import { FiUser, FiShoppingBag, FiMenu } from "react-icons/fi"
-import { IoIosArrowDown } from "react-icons/io"
 import { UserContext } from "../../context/UserContext"
 import { Link } from "react-router-dom"
 
@@ -38,7 +37,9 @@ const Navbar = () => {
                 <h2>Categorias</h2>
                 <ul>
                     { categories && categories.map(category => (
-                        <li key={category.id}>{category.name}</li>
+                        <li key={category.id}>
+                            <Link to={`/sort-products/category=${category.id}`}>{category.name}</Link>
+                        </li>
                     ))}
                 </ul>
 
