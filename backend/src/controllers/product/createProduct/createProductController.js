@@ -59,7 +59,7 @@ const createProductController = async (req, res) => {
         const imagesInfos = await Promise.all(req.files.map(async(file) => {
             return {
                 filename: file.fieldname,
-                content: await sharp(file.buffer).resize(1024, 1350, "inside").toBuffer(),
+                content: await sharp(file.buffer).resize(1024, 1350, "inside").toFormat("webp").toBuffer(),
                 productId: product.id
             }
         }))
