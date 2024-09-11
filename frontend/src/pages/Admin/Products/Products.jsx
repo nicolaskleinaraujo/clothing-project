@@ -41,7 +41,7 @@ const Products = () => {
                 setDescription(res.data.product.description)
 
                 const rawPrice = res.data.product.price
-                handlePrice(rawPrice.toFixed(2))
+                handleNumber(rawPrice.toFixed(2))
 
                 setSizes(res.data.product.sizes.map(size => size.size).join(", "))
                 setColors(res.data.product.colors)
@@ -188,7 +188,7 @@ const Products = () => {
 
                     <label>
                         <p>Categoria</p>
-                        <select name="category" id="category" defaultValue={"0"} onChange={(e) => setCategoryId(e.target.value)}>
+                        <select name="category" id="category" defaultValue={categoryId ? categoryId : "0"} onChange={(e) => setCategoryId(e.target.value)}>
                             <option value="0" disabled>--SELECIONE UMA CATEGORIA--</option>
                             { categories.map(category => (
                                 <option value={category.id} key={category.id}>{category.name}</option>
