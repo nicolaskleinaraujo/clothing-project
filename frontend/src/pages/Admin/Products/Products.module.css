@@ -60,6 +60,18 @@
     padding: 1em;
 }
 
+.products input::file-selector-button {
+    font-size: .8em;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 2px solid #F5DADF;
+    background-color: transparent;
+    color: #F5DADF;
+    padding: .3em;
+    border-radius: .5em;
+    font-weight: bolder;
+}
+
 .products > p {
     font-size: 1.2em;
     text-align: center;

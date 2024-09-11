@@ -211,7 +211,7 @@ const Products = () => {
                             required 
                             onChange={(e) => setSizes(e.target.value)} 
                             value={sizes} 
-                            placeholder="Preto, Azul"
+                            placeholder="P, M, G"
                         />
                     </label>
 
@@ -222,6 +222,7 @@ const Products = () => {
                             name="colors" 
                             id="colors" 
                             required 
+                            placeholder="Preto, Azul" 
                             onChange={(e) => setColors(e.target.value)} 
                             value={colors} 
                         />
