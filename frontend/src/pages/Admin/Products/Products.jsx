@@ -86,7 +86,12 @@ const Products = () => {
     const handleImageChange = (file) => {
         if (file[0] !== undefined) {
             file[0].id = `${file[0].name}${Date.now()}`
-            setSelectedFiles((prevState) => [...prevState, file[0]])
+
+            if (selectedFiles.length === 0) {
+                return setSelectedFiles([file[0]])
+            }
+
+            setSelectedFiles([selectedFiles, file[0]])
         }
     }
 
@@ -250,13 +255,14 @@ const Products = () => {
                         />
                     </label>
 
-                    { selectedFiles.length > 0 && (
-                        <div>
-                            {selectedFiles.map(file => (
+                    { selectedFiles.length > 0 &&
+                        selectedFiles.map(file => (
+                            <div className={styles.products_images}>
                                 <p key={file.id}>{file.name}</p>
-                            ))}
-                        </div>
-                    )}
+                                <button onClick={() => setSelectedFiles(selectedFiles.filter(file => file.id !== file.id))}>Remover</button>
+                            </div>
+                        ))
+                    }
 
                     <input type="submit" value={slug === undefined ? "Criar" : "Atualizar"} />
                 </form>
