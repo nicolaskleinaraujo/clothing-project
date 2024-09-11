@@ -84,3 +84,16 @@
     color: #00453D;
     text-decoration: underline;
 }
+
+.products_images {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.products_images p {
+    max-width: 40vw;
+    height: 1.2em;
+    overflow: hidden;
+}

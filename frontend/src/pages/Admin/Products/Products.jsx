@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { LoadingContext } from "../../../context/LoadingContext"
 import { UserContext } from "../../../context/UserContext"
 import { toast } from "react-toastify"
+import { FiTrash } from "react-icons/fi" 
 import Loading from "../../../components/Loading/Loading"
 
 const Products = () => {
@@ -88,10 +89,12 @@ const Products = () => {
             file[0].id = `${file[0].name}${Date.now()}`
 
             if (selectedFiles.length === 0) {
+                console.log("teste")
                 return setSelectedFiles([file[0]])
             }
 
-            setSelectedFiles([selectedFiles, file[0]])
+            console.log(selectedFiles)
+            setSelectedFiles([...selectedFiles, file[0]])
         }
     }
 
@@ -257,9 +260,11 @@ const Products = () => {
 
                     { selectedFiles.length > 0 &&
                         selectedFiles.map(file => (
-                            <div className={styles.products_images}>
-                                <p key={file.id}>{file.name}</p>
-                                <button onClick={() => setSelectedFiles(selectedFiles.filter(file => file.id !== file.id))}>Remover</button>
+                            <div className={styles.products_images} key={file.id}>
+                                <p>{file.name}</p>
+                                <button 
+                                    onClick={() => setSelectedFiles(selectedFiles.filter(filter => filter.id !== file.id))}
+                                ><FiTrash /></button>
                             </div>
                         ))
                     }
