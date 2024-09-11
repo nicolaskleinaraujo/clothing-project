@@ -89,11 +89,9 @@ const Products = () => {
             file[0].id = `${file[0].name}${Date.now()}`
 
             if (selectedFiles.length === 0) {
-                console.log("teste")
                 return setSelectedFiles([file[0]])
             }
 
-            console.log(selectedFiles)
             setSelectedFiles([...selectedFiles, file[0]])
         }
     }
