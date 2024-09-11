@@ -86,6 +86,7 @@ const Products = () => {
 
     const handleImageChange = (file) => {
         if (file[0] !== undefined) {
+            console.log(file[0])
             file[0].id = `${file[0].name}${Date.now()}`
 
             if (selectedFiles.length === 0) {
@@ -246,15 +247,17 @@ const Products = () => {
                         />
                     </label>
 
-                    <label>
-                        <p>Fotos</p>
-                        <input 
-                            type="file" 
-                            id="images" 
-                            name="images" 
-                            onChange={(e) => handleImageChange(e.target.files)} 
-                        />
-                    </label>
+                    { !slug && (
+                        <label>
+                            <p>Fotos</p>
+                            <input 
+                                type="file" 
+                                id="images" 
+                                name="images" 
+                                onChange={(e) => handleImageChange(e.target.files)} 
+                            />
+                        </label>
+                    )}
 
                     { selectedFiles.length > 0 &&
                         selectedFiles.map(file => (
