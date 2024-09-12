@@ -55,15 +55,16 @@ const Home = () => {
                                 </Link>
                             ))
                         }
-
-                        <div className={styles.home_pagination}>
-                            {
-                                products && Array(pages).fill().map((_, index) => (
-                                    <button>{index + 1}</button>
-                                ))
-                            }
-                        </div>
                     </div>
+
+                    <div className={styles.home_pagination}>
+                        {
+                            products && Array(pages).fill().map((_, index) => (
+                                <button>{index + 1}</button>
+                            ))
+                        }
+                    </div>
+                    
                 </>
             )}
         </div>
