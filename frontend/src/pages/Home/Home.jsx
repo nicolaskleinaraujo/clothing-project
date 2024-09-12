@@ -12,18 +12,27 @@ import Loading from "../../components/Loading/Loading"
 import { LoadingContext } from "../../context/LoadingContext"
 
 const Home = () => {
-    const { loading, setLoading } = useContext(LoadingContext)
-    const [products, setProducts] = useState([])
     const navigate = useNavigate()
+    const { loading, setLoading } = useContext(LoadingContext)
+
+    const [products, setProducts] = useState([])
+    const [pages, setPages] = useState(0)
 
     const getProducts = async() => {
-        const res = await dbFetch.get("/products?page=1")
-        setProducts(res.data.products)
+        setLoading(true)
+
+        try {
+            const res = await dbFetch.get("/products?page=1")
+            setProducts(res.data.products)
+            setPages(res.data.totalPages)
+        } catch (error) {
+            return getProducts()
+        }
+
         setLoading(false)
     }
 
     useEffect(() => {
-        setLoading(true)
         getProducts()
     }, [])
 
@@ -46,6 +55,14 @@ const Home = () => {
                                 </Link>
                             ))
                         }
+
+                        <div className={styles.home_pagination}>
+                            {
+                                products && Array(pages).fill().map((_, index) => (
+                                    <button>{index + 1}</button>
+                                ))
+                            }
+                        </div>
                     </div>
                 </>
             )}
