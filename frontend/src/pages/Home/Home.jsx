@@ -18,11 +18,13 @@ const Home = () => {
     const [products, setProducts] = useState([])
     const [pages, setPages] = useState(0)
 
+    const [currentPage, setCurrentPage] = useState(1)
+
     const getProducts = async() => {
         setLoading(true)
 
         try {
-            const res = await dbFetch.get("/products?page=1")
+            const res = await dbFetch.get(`/products?page=${currentPage}`)
             setProducts(res.data.products)
             setPages(res.data.totalPages)
         } catch (error) {
@@ -34,7 +36,7 @@ const Home = () => {
 
     useEffect(() => {
         getProducts()
-    }, [])
+    }, [currentPage])
 
     return (
         <div className={styles.home}>
@@ -60,7 +62,7 @@ const Home = () => {
                     <div className={styles.home_pagination}>
                         {
                             products && Array(pages).fill().map((_, index) => (
-                                <button>{index + 1}</button>
+                                <button onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
                             ))
                         }
                     </div>
