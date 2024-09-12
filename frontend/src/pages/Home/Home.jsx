@@ -17,7 +17,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     const getProducts = async() => {
-        const res = await dbFetch.get("/products")
+        const res = await dbFetch.get("/products?page=1")
         setProducts(res.data.products)
         setLoading(false)
     }
