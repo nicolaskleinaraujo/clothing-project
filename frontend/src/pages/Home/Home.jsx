@@ -6,7 +6,7 @@ import dbFetch from "../../config/axios"
 
 // Modules
 import { useState, useEffect, useContext } from "react"
-import { MdReadMore } from "react-icons/md"
+import { MdReadMore, MdFirstPage, MdLastPage } from "react-icons/md"
 import { Link, useNavigate } from "react-router-dom"
 import Loading from "../../components/Loading/Loading"
 import { LoadingContext } from "../../context/LoadingContext"
@@ -28,10 +28,11 @@ const Home = () => {
         try {
             const res = await dbFetch.get(`/products?page=${currentPage}`)
             setProducts(res.data.products)
-            //setPages(res.data.totalPages)
-            setPages(10)
-            setStartPage(Math.max(1, currentPage - 2))
-            setEndPage(Math.min(10, currentPage + 2))
+            setPages(res.data.totalPages)
+
+            // Calculates the pages to be shown on the pagination system
+            setStartPage(Math.max(1, currentPage - 1))
+            setEndPage(Math.min(res.data.totalPages, currentPage + 1))
         } catch (error) {
             return getProducts()
         }
@@ -65,6 +66,10 @@ const Home = () => {
                     </div>
 
                     <div className={styles.home_pagination}>
+                        { currentPage > 1 && <button onClick={() => setCurrentPage(1)}><MdFirstPage /></button> }
+
+                        { currentPage > 2 && <button style={{ cursor: "default" }}>...</button> }
+
                         { pages > 0 && 
                             Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
                                 <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
@@ -72,6 +77,8 @@ const Home = () => {
                         }
 
                         { endPage < pages && <button style={{ cursor: "default" }}>...</button> }
+
+                        { currentPage < pages && <button onClick={() => setCurrentPage(pages)}><MdLastPage /></button> }
                     </div>
                 </>
             )}
