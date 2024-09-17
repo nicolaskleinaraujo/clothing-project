@@ -19,6 +19,8 @@ const Home = () => {
     const [pages, setPages] = useState(0)
 
     const [currentPage, setCurrentPage] = useState(1)
+    const [startPage, setStartPage] = useState(0)
+    const [endPage, setEndPage] = useState(0)
 
     const getProducts = async() => {
         setLoading(true)
@@ -26,7 +28,10 @@ const Home = () => {
         try {
             const res = await dbFetch.get(`/products?page=${currentPage}`)
             setProducts(res.data.products)
-            setPages(res.data.totalPages)
+            //setPages(res.data.totalPages)
+            setPages(10)
+            setStartPage(Math.max(1, currentPage - 2))
+            setEndPage(Math.min(10, currentPage + 2))
         } catch (error) {
             return getProducts()
         }
@@ -60,13 +65,14 @@ const Home = () => {
                     </div>
 
                     <div className={styles.home_pagination}>
-                        {
-                            products && Array(pages).fill().map((_, index) => (
-                                <button onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
+                        { pages > 0 && 
+                            Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
+                                <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
                             ))
                         }
+
+                        { endPage < pages && <button style={{ cursor: "default" }}>...</button> }
                     </div>
-                    
                 </>
             )}
         </div>

@@ -11,6 +11,7 @@ import { toast } from "react-toastify"
 import Loading from "../../components/Loading/Loading"
 
 const SortProducts = () => {
+    // TODO add pagination
     const navigate = useNavigate()
     const { filter } = useParams()
     const { loading, setLoading } = useContext(LoadingContext)
