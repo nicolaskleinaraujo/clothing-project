@@ -11,7 +11,6 @@ import { toast } from "react-toastify"
 import Loading from "../../components/Loading/Loading"
 
 const SortProducts = () => {
-    // TODO add pagination
     const navigate = useNavigate()
     const { filter } = useParams()
     const { loading, setLoading } = useContext(LoadingContext)
@@ -72,7 +71,7 @@ const SortProducts = () => {
                         }
                     </div>
 
-                    <div className={styles.home_pagination}>
+                    <div className={styles.sort_products_pagination}>
                         { currentPage > 1 && <button onClick={() => setCurrentPage(1)}><MdFirstPage /></button> }
 
                         { currentPage > 2 && <button style={{ cursor: "default" }}>...</button> }

@@ -58,3 +58,22 @@
 .sort_products div button svg {
     font-size: 1.5em;
 }
+
+.sort_products_pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5em;
+}
+
+.sort_products_pagination button {
+    background-color: transparent;
+    color: #00453D;
+    margin-right: .5em;
+    padding: .5em .9em;
+    transition: .2s;
+    cursor: pointer;
+    border: none;
+    border-bottom: 2px solid #00453D;
+}
