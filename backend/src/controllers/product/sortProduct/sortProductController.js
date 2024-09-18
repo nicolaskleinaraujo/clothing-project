@@ -44,7 +44,7 @@ const sortProductController = async (req, res) => {
         if (!isNaN(page)) {
             take = 12
 
-            const totalProducts = await prisma.products.count()
+            const totalProducts = await prisma.products.count({ where: whereClause })
             totalPages = Math.ceil(parseInt(totalProducts) / 12)
 
             if (parseInt(page) === 0 || isNaN(page)) {
