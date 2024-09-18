@@ -93,7 +93,7 @@ const SortProducts = () => {
 
                         { endPage < pages && <button style={{ cursor: "default" }}>...</button> }
 
-                        { currentPage < pages && <button onClick={() => setCurrentPage(pages)}><MdLastPage /></button> }
+                        { currentPage < pages && pages > 3 && <button onClick={() => setCurrentPage(pages)}><MdLastPage /></button> }
                     </div>
                 </>
             )}
