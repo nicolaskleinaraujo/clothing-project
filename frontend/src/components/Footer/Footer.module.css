@@ -37,3 +37,15 @@
     text-decoration: underline;
     color: #F5DADF;
 }
+
+.footer_payments {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer_payments img {
+    width: 3em;
+    margin-right: .8em;
+}
