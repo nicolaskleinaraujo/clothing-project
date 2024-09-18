@@ -49,3 +49,18 @@
     width: 3em;
     margin-right: .8em;
 }
+
+.footer_disclaimer {
+    text-align: center;
+    margin-top: 2em;
+    color: #F5DADF;
+}
+
+.footer_disclaimer p {
+    margin-bottom: .5em;
+}
+
+.footer_disclaimer p a {
+    text-decoration: underline;
+    color: #F5DADF;
+}

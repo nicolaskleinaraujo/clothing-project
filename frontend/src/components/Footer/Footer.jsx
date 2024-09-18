@@ -17,7 +17,7 @@ const Footer = () => {
 
                 <div>
                     <h2><FiThumbsUp /> Cliente Satisfeito</h2>
-                    <p>Nota maxima no <a href="http://www.reclameaqui.com.br" target="_blank">Reclame AQUI</a></p>
+                    <p>Nota maxima no <a href="https://reclameaqui.com.br" target="_blank">Reclame AQUI</a></p>
                 </div>
 
                 <div>
@@ -37,6 +37,13 @@ const Footer = () => {
                 <img src="/pix-logo.png" alt="Logo do Pix" />
                 <img src="/mercadopago-logo.png" alt="Logo do Mercado Pago" />
                 <img src="/caixa-logo.png" alt="Logo da Caixa Economica Federal" />
+            </div>
+
+            <div className={styles.footer_disclaimer}>
+                <p>Este site foi feito por <a href="https://github.com/nicolaskleinaraujo" target="_blank">Nicolas Klein</a></p>
+                <p>NÃO EFETUE COMPRAS NESTE SITE</p>
+                <p>Favor, utilizar as features com moderação e consciência</p>
+                <p><a href="mailto:contatonkfa@gmail.com">contatonkfa@gmail.com</a></p>
             </div>
         </div>
     )
