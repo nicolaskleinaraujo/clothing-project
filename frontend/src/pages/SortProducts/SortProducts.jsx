@@ -84,10 +84,14 @@ const SortProducts = () => {
                         {
                             pages > 1 ? (
                                 Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
-                                    <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+                                    <button 
+                                        key={page} 
+                                        onClick={() => setCurrentPage(page)}
+                                        style={{ backgroundColor: currentPage === page && "#F5DADF", cursor: currentPage === page && "default" }}
+                                    >{page}</button>
                                 ))
                             ) : (
-                                <button>1</button>
+                                <button style={{ backgroundColor: "#F5DADF", cursor: "default" }}>1</button>
                             )
                         }
 
