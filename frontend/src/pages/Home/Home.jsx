@@ -55,6 +55,8 @@ const Home = () => {
                 <Loading />
             ) : (
                 <>
+                    {/* TODO create carrousel of promotions */}
+
                     <div className={styles.home_products}>
                         {
                             products && products.map(product => (

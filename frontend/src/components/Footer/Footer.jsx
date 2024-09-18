@@ -39,11 +39,15 @@ const Footer = () => {
                 <img src="/caixa-logo.png" alt="Logo da Caixa Economica Federal" />
             </div>
 
+            <div className={styles.footer_about}>
+                <h2>Sobre a Loja</h2>
+                <p>A Klein Store foi fundada com o objetivo de oferecer produtos de qualidade e um atendimento diferenciado. Ao longo dos anos, crescemos e nos tornamos referência, sempre priorizando a satisfação de nossos clientes. Este site é um projeto ficticio e não vende nenhum produto, não efetue compras neste site.</p>
+            </div>
+
             <div className={styles.footer_disclaimer}>
+                <p>NÃO EFETUE COMPRAS NESTE SITE. Favor, utilizar as features com moderação e consciência</p>
                 <p>Este site foi feito por <a href="https://github.com/nicolaskleinaraujo" target="_blank">Nicolas Klein</a></p>
-                <p>NÃO EFETUE COMPRAS NESTE SITE</p>
-                <p>Favor, utilizar as features com moderação e consciência</p>
-                <p><a href="mailto:contatonkfa@gmail.com">contatonkfa@gmail.com</a></p>
+                <p>Email de contato: <a href="mailto:contatonkfa@gmail.com">contatonkfa@gmail.com</a></p>
             </div>
         </div>
     )
