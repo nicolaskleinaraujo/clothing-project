@@ -45,9 +45,9 @@ const Footer = () => {
             </div>
 
             <div className={styles.footer_disclaimer}>
-                <p>NÃO EFETUE COMPRAS NESTE SITE. Favor, utilizar as features com moderação e consciência</p>
                 <p>Este site foi feito por <a href="https://github.com/nicolaskleinaraujo" target="_blank">Nicolas Klein</a></p>
-                <p>Email de contato: <a href="mailto:contatonkfa@gmail.com">contatonkfa@gmail.com</a></p>
+                <p>NÃO EFETUE COMPRAS NESTE SITE</p>
+                <p>Favor, utilizar as features com moderação e consciência</p>
             </div>
         </div>
     )

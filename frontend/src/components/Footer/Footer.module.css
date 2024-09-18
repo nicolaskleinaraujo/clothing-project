@@ -51,6 +51,16 @@
     margin-right: .8em;
 }
 
+.footer_about {
+    color: #F5DADF;
+    margin-top: 2em;
+}
+
+.footer_about h2 {
+    text-align: center;
+    margin-bottom: .3em;
+}
+
 .footer_disclaimer {
     text-align: center;
     margin-top: 2em;
