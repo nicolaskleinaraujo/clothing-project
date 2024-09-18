@@ -2,7 +2,8 @@
 import styles from "./Loading.module.css"
 
 // Modules
-import 'ldrs/hatch'
+import { hatch } from 'ldrs'
+hatch.register()
 
 const Loading = () => {
     return (
