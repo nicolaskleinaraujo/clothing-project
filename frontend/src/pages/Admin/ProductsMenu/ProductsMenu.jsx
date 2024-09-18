@@ -79,7 +79,7 @@ const ProductsMenu = () => {
 
     useEffect(() => {
         getProducts()
-    }, [])
+    }, [currentPage])
 
     return (
         <div>
@@ -90,6 +90,26 @@ const ProductsMenu = () => {
                     <h1>Produtos</h1>
 
                     <Link to={"/admin/products/edit/"}>Novo Produto</Link>
+
+                    <div className={styles.products_pagination}>
+                        { currentPage > 2 && <button onClick={() => setCurrentPage(1)}><MdFirstPage /></button> }
+
+                        { currentPage > 2 && <button style={{ cursor: "default" }}>...</button> }
+
+                        {
+                            pages > 1 ? (
+                                Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
+                                    <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+                                ))
+                            ) : (
+                                <button>1</button>
+                            )
+                        }
+
+                        { endPage < pages && <button style={{ cursor: "default" }}>...</button> }
+
+                        { currentPage < pages && pages > 3 && <button onClick={() => setCurrentPage(pages)}><MdLastPage /></button> }
+                    </div>
 
                     <div className={styles.products_products}>
                         {
