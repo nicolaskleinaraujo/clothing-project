@@ -31,8 +31,13 @@ const SortProducts = () => {
             setPages(res.data.totalPages)
 
             // Calculates the pages to be shown on the pagination system
-            setStartPage(Math.max(1, currentPage - 1))
-            setEndPage(Math.min(res.data.totalPages, currentPage + 1))
+            if (res.data.totalPages === 1) {
+                setStartPage(1)
+                setEndPage(1)
+            } else if (res.data.totalPages > 1) {
+                setStartPage(Math.max(1, currentPage - 1))
+                setEndPage(Math.min(res.data.totalPages, currentPage + 1))
+            }
 
             if (res.data.products.length === 0) {
                 toast.info("Nenhum produto com o filtro selecionado")
@@ -72,14 +77,18 @@ const SortProducts = () => {
                     </div>
 
                     <div className={styles.sort_products_pagination}>
-                        { currentPage > 1 && <button onClick={() => setCurrentPage(1)}><MdFirstPage /></button> }
+                        { currentPage > 2 && <button onClick={() => setCurrentPage(1)}><MdFirstPage /></button> }
 
                         { currentPage > 2 && <button style={{ cursor: "default" }}>...</button> }
 
-                        { pages > 0 && 
-                            Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
-                                <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
-                            ))
+                        {
+                            pages > 1 ? (
+                                Array.from({ length: pages }, (_, index) => index + 1).slice(startPage - 1, endPage).map(page => (
+                                    <button key={page} onClick={() => setCurrentPage(page)}>{page}</button>
+                                ))
+                            ) : (
+                                <button>1</button>
+                            )
                         }
 
                         { endPage < pages && <button style={{ cursor: "default" }}>...</button> }
