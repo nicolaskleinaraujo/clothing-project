@@ -5,6 +5,7 @@ import AdminRoute from "./AdminRoute"
 
 // Components
 import Navbar from "../components/Navbar/Navbar"
+import Footer from "../components/Footer/Footer"
 
 // Pages
 import Login from "../pages/Login/Login"
@@ -61,6 +62,7 @@ const Router = () => {
                         <Route path="/admin/products/edit/:slug?" element={ <Products /> } />
                     </Route>
                 </Routes>
+                <Footer />
             </BrowserRouter>
         </>
     )
