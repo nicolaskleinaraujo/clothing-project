@@ -32,9 +32,11 @@ const Footer = () => {
             </div>
 
             <div className={styles.footer_payments}>
-                <img src="https://placehold.co/50x50" alt="Metodo de Pagamento" />
-                <img src="https://placehold.co/50x50" alt="Metodo de Pagamento" />
-                <img src="https://placehold.co/50x50" alt="Metodo de Pagamento" />
+                <img src="/visa-logo.png" alt="Logo da Visa" />
+                <img src="/mastercard-logo.png" alt="Logo da Mastercard" />
+                <img src="/pix-logo.png" alt="Logo do Pix" />
+                <img src="/mercadopago-logo.png" alt="Logo do Mercado Pago" />
+                <img src="/caixa-logo.png" alt="Logo da Caixa Economica Federal" />
             </div>
         </div>
     )
