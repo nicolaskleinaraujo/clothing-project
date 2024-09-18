@@ -16,14 +16,28 @@ const ProductsMenu = () => {
     const { loading, setLoading } = useContext(LoadingContext)
 
     const [products, setProducts] = useState([])
+    const [pages, setPages] = useState(0)
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [startPage, setStartPage] = useState(0)
+    const [endPage, setEndPage] = useState(0)
 
     const getProducts = async() => {
         setLoading(true)
 
         try {
-            const res = await dbFetch.get("/products")
-
+            const res = await dbFetch.get(`/products?page=${currentPage}`)
             setProducts(res.data.products)
+            setPages(res.data.totalPages)
+
+            // Calculates the pages to be shown on the pagination system
+            if (res.data.totalPages === 1) {
+                setStartPage(1)
+                setEndPage(1)
+            } else if (res.data.totalPages > 1) {
+                setStartPage(Math.max(1, currentPage - 1))
+                setEndPage(Math.min(res.data.totalPages, currentPage + 1))
+            }
 
             setLoading(false)
         } catch (error) {
