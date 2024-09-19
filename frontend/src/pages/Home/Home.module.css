@@ -86,19 +86,39 @@
 
     .home_products div {
         width: 30vw;
-        height: 57vw;
+        height: 38vw;
     }
 
     .home_products img {
         width: 16vw;
-        height: 24vw;
+        height: 20vw;
     }
 
     .home_products p {
-        font-size: 3vw;
+        font-size: 2vw;
     }
 
-    .home_products svg {
+    .home_products div button svg {
         font-size: 4vw;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .home_products div {
+        width: 23vw;
+        height: 30vw;
+    }
+
+    .home_products img {
+        width: 12vw;
+        height: 18vw;
+    }
+
+    .home_products p {
+        font-size: 1.5vw;
+    }
+
+    .home_products div button svg {
+        font-size: 2vw;
     }
 }
