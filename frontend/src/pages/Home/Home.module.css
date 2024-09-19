@@ -78,3 +78,27 @@
     border-bottom: 2px solid #00453D;
     border-radius: .2em .2em 0 0;
 }
+
+@media screen and (min-width: 768px) {
+    .home_products {
+        justify-content: space-evenly;
+    }
+
+    .home_products div {
+        width: 30vw;
+        height: 57vw;
+    }
+
+    .home_products img {
+        width: 16vw;
+        height: 24vw;
+    }
+
+    .home_products p {
+        font-size: 3vw;
+    }
+
+    .home_products svg {
+        font-size: 4vw;
+    }
+}
