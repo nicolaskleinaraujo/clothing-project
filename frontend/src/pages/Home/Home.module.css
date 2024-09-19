@@ -17,8 +17,8 @@
     align-items: center;
     color: #F5DADF;
     background-color: #00453D;
-    width: 11em;
-    height: 18em;
+    width: 46vw;
+    height: 73vw;
     padding: .3em;
     margin: .3em;
     border-radius: .3em;
@@ -26,14 +26,14 @@
 
 .home_products img {
     padding-top: .3em;
-    width: 100px;
-    height: 120px;
+    width: 32vw;
+    height: 40vw;
     margin-bottom: .8em;
     border-radius: .5em;
 }
 
 .home_products p {
-    font-size: 1em;
+    font-size: 4vw;
     text-align: center;
     max-width: 80%;
     word-wrap: break-word;
@@ -56,7 +56,7 @@
 }
 
 .home_products div button svg {
-    font-size: 1.5em;
+    font-size: 6vw;
 }
 
 .home_pagination {
