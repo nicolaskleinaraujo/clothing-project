@@ -25,6 +25,12 @@
     cursor: pointer;
     background-color: transparent;
     border: none;
+    transition: .2s;
+}
+
+.navbar_menu button:hover svg {
+    color: #00453D;
+    background-color: #F5DADF;
 }
 
 .navbar_menu svg {
