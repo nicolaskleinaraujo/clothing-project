@@ -11,7 +11,8 @@
 .footer_compliments {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    align-self: flex-start;
+    align-items: center;
     margin: 1em 0 1em 0;
     color: #F5DADF;
 }
@@ -74,4 +75,42 @@
 .footer_disclaimer p a {
     text-decoration: underline;
     color: #F5DADF;
+    font-size: 1em;
+}
+
+@media screen and (min-width: 1024px) {
+    .footer_compliments {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-bottom: 3em;
+    }
+
+    .footer_compliments div {
+        margin: 0 1em;
+        width: 25%;
+    }
+
+    .footer_compliments div svg {
+        font-size: 1.2em;
+    }
+
+    .footer_compliments div h2 {
+        font-size: .8em;
+    }
+
+    .footer_compliments div p {
+        font-size: .7em;
+    }
+
+    .footer_about h2 {
+        font-size: .8em;
+    }
+
+    .footer_about p {
+        font-size: .8em;
+    }
+
+    .footer_disclaimer p {
+        font-size: .8em;
+    }
 }
