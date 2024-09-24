@@ -98,20 +98,22 @@ const calculatePriceController = async(req, res) => {
             }
 
             const alreadyUsed = searchCoupon.users.find(userCoupon => userCoupon.id === userId)
-            if (!alreadyUsed) {
-                if (searchCoupon.minimum < orderPrice) {
-                    if (searchCoupon.percentage) {
-                        discount = orderPrice * (searchCoupon.quantity / 100)
-                        orderPrice -= parseFloat(discount)
-                    } else if (!searchCoupon.percentage) {
-                        discount = orderPrice - searchCoupon.quantity
-                        orderPrice -= parseFloat(discount)
-                    }
-                } else if (searchCoupon.minimum > orderPrice) {
-                    discount = `Pedido minimo de R$${searchCoupon.minimum}`
-                }
-            } else if (alreadyUsed) {
-                discount = "Cupom já foi utilizado"
+            if (alreadyUsed) {
+                res.status(400).json({ msg: "Cupom já utilizado" })
+                return
+            }
+
+            if (searchCoupon.minimum > orderPrice) {
+                res.status(400).json({ msg: `Pedido minimo de R$${searchCoupon.minimum} não atingido` })
+                return
+            }
+
+            if (searchCoupon.percentage) {
+                discount = orderPrice * (searchCoupon.quantity / 100)
+                orderPrice -= parseFloat(discount)
+            } else if (!searchCoupon.percentage) {
+                discount = orderPrice - searchCoupon.quantity
+                orderPrice -= parseFloat(discount)
             }
         }
 
