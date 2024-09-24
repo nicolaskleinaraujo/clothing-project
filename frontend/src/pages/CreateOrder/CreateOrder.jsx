@@ -82,11 +82,9 @@ const CreateOrder = () => {
 
             setLoading(false)
         } catch (error) {
-            if (error.response.data.msg === "Codigo de cupom incorreto") {
-                toast.error("Código de cupom incorreto")
-                setCoupon("")
-                setAux(!aux)
-            }
+            toast.error(error.response.data.msg)
+            setCoupon("")
+            setAux(!aux)
         }
     }
 
