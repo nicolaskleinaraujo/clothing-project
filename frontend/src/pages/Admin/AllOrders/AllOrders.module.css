@@ -13,7 +13,7 @@
 
 .all_orders select {
     margin: 1.2em 0;
-    width: 75%;
+    width: 18em;
     padding: .5em;
     border-radius: .3em;
     color: #F5DADF;
@@ -47,9 +47,9 @@
 }
 
 .all_orders_products img {
-    width: 80px;
+    width: 27vw;
+    height: 35vw;
     border-radius: .5em 0 0 .5em;
-    max-height: 7.2em;
     margin: 0 .5em;
 }
 
@@ -79,4 +79,28 @@
     background-color: #F5DADF;
     color: #00453D;
     border: 2px solid #00453D;
+}
+
+@media screen and (min-width: 500px) {
+    .all_orders_products p {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .all_orders_products img {
+        width: 15vw;
+        height: 20vw;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .all_orders_products img {
+        width: 12vw;
+        height: 15vw;
+    }
+
+    .all_orders_products p:first-of-type {
+        margin-left: 2em;
+    }
 }
