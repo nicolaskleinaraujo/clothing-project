@@ -55,9 +55,9 @@
 }
 
 .order_products div img {
-    width: 80px;
+    width: 28vw;
+    height: 32vw;
     border-radius: .5em 0 0 .5em;
-    max-height: 8em;
 }
 
 .order_products > div > div {
@@ -76,4 +76,28 @@
 
 .order_products > div > p {
     margin-right: 2em;
+}
+
+@media screen and (min-width: 500px) {
+    .order_products p {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .order_products div img {
+        width: 18vw;
+        height: 22vw;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .order_products div img {
+        width: 12vw;
+        height: 15vw;
+    }
+
+    .order_products div > div {
+        margin-left: 7em;
+    }
 }
