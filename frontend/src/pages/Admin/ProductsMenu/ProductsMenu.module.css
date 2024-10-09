@@ -41,8 +41,8 @@
 
 .products_products div img {
     padding-top: .3em;
-    width: 100px;
-    height: 120px;
+    width: 32vw;
+    height: 40vw;
     margin-bottom: .8em;
     border-radius: .5em;
 }
@@ -96,4 +96,26 @@
     border: none;
     border-bottom: 2px solid #00453D;
     border-radius: .2em .2em 0 0;
+}
+
+@media screen and (min-width: 600px) {
+    .products_products div img {
+        width: 18vw;
+        height: 25vw;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .products_products {
+        gap: 1em;
+    }
+
+    .products_products div {
+        width: 40vw;
+    }
+
+    .products_products div img {
+        width: 15vw;
+        height: 20vw;
+    }
 }
