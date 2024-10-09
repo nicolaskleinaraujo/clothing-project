@@ -78,3 +78,63 @@
     border-bottom: 2px solid #00453D;
     border-radius: .2em .2em 0 0;
 }
+
+@media screen and (min-width: 500px) {
+    .sort_products div {
+        width: 46vw;
+        height: 62vw;
+    }
+
+    .sort_products img {
+        width: 28vw;
+        height: 35vw;
+    }
+
+    .sort_products p {
+        font-size: 3.5vw;
+    }
+
+    .sort_products div button svg {
+        font-size: 5vw;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .sort_products div {
+        width: 30vw;
+        height: 38vw;
+    }
+
+    .sort_products img {
+        width: 16vw;
+        height: 20vw;
+    }
+
+    .sort_products p {
+        font-size: 2vw;
+    }
+
+    .sort_products div button svg {
+        font-size: 4vw;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .sort_products div {
+        width: 23vw;
+        height: 30vw;
+    }
+
+    .sort_products img {
+        width: 12vw;
+        height: 18vw;
+    }
+
+    .sort_products p {
+        font-size: 1.5vw;
+    }
+
+    .sort_products div button svg {
+        font-size: 2vw;
+    }
+}
