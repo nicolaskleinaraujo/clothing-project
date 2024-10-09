@@ -33,12 +33,13 @@
 }
 
 .products label textarea {
-    width: 88vw;
+    width: 22em;
     height: 20vh;
+    resize: vertical;
 }
 
 .products label select {
-    width: 88vw;
+    width: 20em;
     padding: .5em;
     border-radius: .5em;
     color: #F5DADF;
@@ -113,4 +114,18 @@
     background-color: #00453D;
     color: #F5DADF;
     border: 2px solid #F5DADF;
+}
+
+@media screen and (min-width: 700px) {
+    .products label input {
+        width: 30em;
+    }
+
+    .products label textarea {
+        width: 36em;
+    }
+
+    .products label select {
+        width: 33em;
+    }
 }
