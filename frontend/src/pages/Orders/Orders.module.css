@@ -32,7 +32,8 @@
 }
 
 .orders_products img {
-    width: 26%;
+    width: 28vw;
+    height: 32vw;
     border-radius: .5em 0 0 .5em;
 }
 
@@ -57,4 +58,34 @@
 
 .orders_products div > div > p:first-child {
     margin-bottom: .7em;
+}
+
+@media screen and (min-width: 500px) {
+    .orders_products div p {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .orders_products img {
+        width: 18vw;
+        height: 22vw;
+    }
+
+    .orders_products div p {
+        margin-left: 1.8em;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .orders_products img {
+        width: 12vw;
+        height: 15vw;
+    }
+}
+
+@media screen and (min-width: 1150px) {
+    .orders_products div p {
+        margin-left: 5em;
+    }
 }
