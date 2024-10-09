@@ -50,18 +50,15 @@ const Cart = () => {
         } catch (error) {
             if (error.response.data.msg === "Informações insuficientes") {
                 toast.info("Adicione produtos no seu carrinho")
-
-                if (getRedirect !== "") {
-                    navigate(getRedirect)
-                    return
-                }
-
-                navigate("/")
-                return
+            } else {
+                toast.error(error.response.data.msg)
             }
 
-            toast.error(error.response.data.msg)
-            navigate("/")
+            if (getRedirect !== "") {
+                return navigate(getRedirect)
+            }
+
+            return navigate("/")
         }
     }
 
