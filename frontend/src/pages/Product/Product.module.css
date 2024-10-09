@@ -35,8 +35,8 @@
 }
 
 .product_carousel img {
-    width: 250px;
-    height: 300px;
+    width: 75vw;
+    height: 99vw;
 }
 
 .product > div > h1 {
@@ -111,4 +111,32 @@
     background-color: #F5DADF;
     color: #00453D;
     border: 2px solid #00453D;
+}
+
+@media screen and (min-width: 450px) {
+    .product_carousel img {
+        width: 68vw;
+        height: 80vw;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .product_carousel img {
+        width: 55vw;
+        height: 60vw;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .product_carousel img {
+        width: 35vw;
+        height: 40vw;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .product_carousel img {
+        width: 25vw;
+        height: 30vw;
+    }
 }
