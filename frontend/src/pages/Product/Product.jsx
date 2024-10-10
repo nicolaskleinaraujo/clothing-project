@@ -93,60 +93,67 @@ const Product = () => {
     }, [])
 
     return (
-        <div className={styles.product}>
+        <div>
             { loading ? (
                 <Loading />
             ) : (
-                <div>
-                    <div className={styles.product_carousel}>
-                        <FiArrowLeft onClick={() => changeImage("PREV")} />
-                        <img src={images[imageIndex]} alt="Foto Produto" />
-                        <FiArrowRight onClick={() => changeImage("NEXT")} />
+                <div className={styles.product}>
+                    <div className={styles.product_flex_top}>
+                        <div className={styles.product_carousel}>
+                            <FiArrowLeft onClick={() => changeImage("PREV")} />
+                            <img src={images[imageIndex]} alt="Foto Produto" />
+                            <FiArrowRight onClick={() => changeImage("NEXT")} />
+                        </div>
+                    
+
+                        <div className={styles.product_infos}>
+                            <h1>{product.name}</h1>
+                            <p style={{ color: "#70012b" }}>R${product.price}</p>
+                            <p style={{ fontSize: "1.5em", color: "#70012b", fontWeight: "bolder", marginLeft: ".7em" }}>Parcelamos até 5x no cartão</p>
+                        </div>
                     </div>
 
-                    <h1>{product.name}</h1>
-                    <p style={{ color: "#70012b" }}>R${product.price}</p>
-                    <p style={{ fontSize: "1.5em", color: "#70012b", fontWeight: "bolder", marginLeft: ".7em" }}>Parcelamos até 5x no cartão</p>
+                    <div className={styles.product_flex_bottom}>
+                        <h2>Cor</h2>
+                        <div className={styles.product_colors}>
+                            { colors &&
+                                colors.map((color, index) => (
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            name="colors"
+                                            id="colors"
+                                            value={color}
+                                            onChange={(e) => setSelectedColor(e.target.value)}
+                                        />
+                                        <p>{color}</p>
+                                    </label>
+                                ))
+                            }
+                        </div>
 
-                    <h2>Cor</h2>
-                    <div className={styles.product_colors}>
-                        { colors &&
-                            colors.map((color, index) => (
-                                <label key={index}>
-                                    <input 
-                                        type="radio" 
-                                        name="colors" 
-                                        id="colors" 
-                                        value={color} 
-                                        onChange={(e) => setSelectedColor(e.target.value)} 
-                                    />
-                                    <p>{color}</p>
-                                </label>
-                            ))
-                        }
+                        <h2>Tamanho</h2>
+                        <div className={styles.product_sizes}>
+                            { sizes &&
+                                sizes.map(size => (
+                                    <label key={size.id}>
+                                        <input
+                                            type="radio"
+                                            name="sizes"
+                                            id="sizes"
+                                            value={size.id}
+                                            onChange={(e) => setSelectedSize(e.target.value)}
+                                        />
+                                        <p>{size.size}</p>
+                                    </label>
+                                ))
+                            }
+                        </div>
+
+                        <button onClick={() => addToCart()}>ADICIONAR AO CARRINHO</button>
+
+                        <p style={{ fontSize: "1.5em", fontWeight: "lighter", paddingBottom: "1.8em" }}>{product.description}</p>
                     </div>
-
-                    <h2>Tamanho</h2>
-                    <div className={styles.product_sizes}>
-                        { sizes &&
-                            sizes.map(size => (
-                                <label key={size.id}>
-                                    <input 
-                                        type="radio" 
-                                        name="sizes" 
-                                        id="sizes" 
-                                        value={size.id} 
-                                        onChange={(e) => setSelectedSize(e.target.value)} 
-                                    />
-                                    <p>{size.size}</p>
-                                </label>
-                            ))
-                        }
-                    </div>
-
-                    <button onClick={() => addToCart()}>ADICIONAR AO CARRINHO</button>
-
-                    <p style={{ fontSize: "1.5em", fontWeight: "lighter", paddingBottom: "1.8em" }}>{product.description}</p>
                 </div>
             )}
         </div>
