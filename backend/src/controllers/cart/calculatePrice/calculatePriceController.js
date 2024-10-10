@@ -24,27 +24,32 @@ const calculatePriceController = async(req, res) => {
         })
 
         if (!product) {
+            res.clearCookie("cart")
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
 
         if (!product.avaiable) {
+            res.clearCookie("cart")
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
 
         if (product.quantity < cart[index].quantity) {
+            res.clearCookie("cart")
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
 
         const sizeAvaiable = product.sizes.some(size => size.id === cart[index].sizeId)
         if (!sizeAvaiable) {
+            res.clearCookie("cart")
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }
 
         if (!product.colors.includes(cart[index].color)) {
+            res.clearCookie("cart")
             res.status(400).json({ msg: "Pedido invalido" })
             return
         }

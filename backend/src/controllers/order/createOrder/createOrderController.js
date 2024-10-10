@@ -146,7 +146,7 @@ const createOrderController = async (req, res) => {
             }
         })
 
-        // TODO remove cart cookie values
+        res.clearCookie("cart")
 
         res.status(201).json({ msg: "Pedido feito com sucesso", order })
     } catch (error) {
