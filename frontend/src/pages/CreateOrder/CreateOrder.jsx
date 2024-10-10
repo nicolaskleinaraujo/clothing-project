@@ -169,7 +169,7 @@ const CreateOrder = () => {
                     </div>
 
                     <h2>Resumo da Compra</h2>
-                    <p>Subtotal: R${productPrice}</p>
+                    <p>Subtotal: R${productPrice.toFixed(2)}</p>
                     <p>Frete: R${selectedShipping.price}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount.toFixed(2)}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>

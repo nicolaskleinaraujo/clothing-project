@@ -111,7 +111,7 @@ const Cart = () => {
 
                     { productPrice != 0 &&
                         <div className={styles.cart_infos}>
-                            <p>Total: R${productPrice}</p>
+                            <p>Total: R${productPrice.toFixed(2)}</p>
                         </div>
                     }
 
