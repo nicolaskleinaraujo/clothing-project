@@ -41,8 +41,10 @@ const adminSortController = async(req, res) => {
             const selectedAddress = order.user.Address.filter(address => address.id === order.addressId)
             order.user.Address = selectedAddress
 
-            // Converting image to base64
-            order.orderProducts[0].product.Images[0].content = order.orderProducts[0].product.Images[0].content.toString("base64")
+            // Converting images to base64
+            order.orderProducts.map(product => {
+                product.product.Images[0].content = product.product.Images[0].content.toString("base64")
+            })
         })
 
         res.status(200).json({ msg: "Busca feita com sucesso", orders })
