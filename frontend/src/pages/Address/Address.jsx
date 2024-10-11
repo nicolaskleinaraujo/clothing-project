@@ -33,8 +33,12 @@ const Address = () => {
 
     const saveRedirect = () => {
         if (redirect !== "") {
+            setLoading(true)
+
             setGetRedirect(redirect)
             setRedirect("")
+
+            setLoading(false)
         }
     }
 
