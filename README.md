@@ -2,7 +2,7 @@
  ![MIT License](https://img.shields.io/badge/license-MIT-blue) [![Netlify Status](https://api.netlify.com/api/v1/badges/e62d980b-f102-42e9-9be4-86db4addc8ed/deploy-status)](https://app.netlify.com/sites/klein-store/deploys)
 <br>
   <img src="./frontend/public/home-page.png" alt="Print Home Page" width="700">.
-  ### Demo app: https://klein-store.netlify.app
+  ### Demo app: https://klein-store.nkportfolio.tech
 # About
  This project is a clothing shop that let users buy and pay for they purchases.
  In order to use admin features, please use the following account: email: "admin@gmail.com", password: "12345".
@@ -42,9 +42,9 @@
   - CSS
 
   ### Implantation
-  - Website: https://klein-store.netlify.app
-  - API: Under Maintence (check project for routes)
+  - Website: https://klein-store.nkportfolio.tech
+  - API: https://klein-store-api.nkportfolio.tech
 
   # Author
    Nicolas Klein Faria de Araujo <br>
-   https://nk-portfolio-react.netlify.app
+   https://nkportfolio.tech
