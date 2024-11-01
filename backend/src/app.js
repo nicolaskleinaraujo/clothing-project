@@ -21,7 +21,7 @@ app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
 app.use(express.json())
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: process.env.ORIGIN_URL,
         credentials: true,
     })
 )
