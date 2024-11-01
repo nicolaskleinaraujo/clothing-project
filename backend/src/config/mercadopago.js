@@ -22,14 +22,6 @@ const createPayment = async(payload) => {
       }
     ],
 
-    "back_urls": {
-      "success": "https://www.youtube.com/",
-      "failure": "https://www.google.com/",
-      "pending": "https://www.github.com/",
-    },
-
-    "auto_return": "all",
-
     "payer": {
       "email": payload.userEmail,
       "name": payload.userName
