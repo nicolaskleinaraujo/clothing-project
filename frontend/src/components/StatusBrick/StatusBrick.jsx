@@ -12,6 +12,17 @@ const StatusBrick = ({ paymentId }) => {
         paymentId,
     }
 
+    const customization = {
+        visual: {
+            showExternalReference: false,
+            hideStatusDetails: true,
+            hideTransactionDate: true,
+            style: {
+                theme: "flat",
+            }
+        },
+    }
+
     const onError = () => {
         toast.error("Erro ao carregar status")
     }
@@ -20,6 +31,7 @@ const StatusBrick = ({ paymentId }) => {
         <div className={styles.status_brick}>
             <StatusScreen
                 initialization={initialization}
+                customization={customization}
                 onError={onError}
             />
         </div>
