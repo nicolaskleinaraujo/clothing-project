@@ -5,6 +5,12 @@ const cardPayment = async(req, res) => {
     const id = req.body.orderId
 
     try {
+        const orderExists = await prisma.orders.findUnique({ where: { id } })
+        if (!orderExists) {
+            res.status(404).json({ msg: "Pedido não encontrado" })
+            return
+        }
+
         const process = await processPayment(req.body.formData)
 
         if (process.status === "rejected") {
