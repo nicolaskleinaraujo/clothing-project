@@ -88,6 +88,7 @@ model Orders {
   paid              Boolean  @default(false)
   payment           String
   payment_reference String   @unique()
+  payment_method    String
   received          Boolean  @default(false)
   shipping_time     Int
   shipping_type     String
