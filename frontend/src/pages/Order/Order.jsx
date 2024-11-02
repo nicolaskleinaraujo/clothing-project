@@ -1,6 +1,9 @@
 // CSS
 import styles from "./Order.module.css"
 
+// Components
+import CardBrick from "../../components/CardBrick/CardBrick"
+
 // Modules
 import dbFetch from "../../config/axios"
 import dayjs from "dayjs"
@@ -79,7 +82,7 @@ const Order = () => {
                     { !paid && paymentMethod === "PIX" ? (
                         <iframe src={paymentUrl}></iframe> 
                     ) : (
-                        <p>Card Method</p>
+                        <CardBrick amount={100} />
                     )}
 
                     { orderPrice != 0 &&
