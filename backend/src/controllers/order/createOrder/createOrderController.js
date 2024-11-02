@@ -1,11 +1,12 @@
 const prisma = require("../../../db/client")
 const calculateShipping = require("../../../config/shipping")
 const createPayment = require("../../../config/mercadopago")
+const createPix = require("../../../config/createPix")
 const { v4: uuidv4 } = require('uuid')
 
 const createOrderController = async (req, res) => {
     const cart = req.signedCookies.cart
-    const { userId, coupon, addressIndex, delivery } = req.body
+    const { userId, coupon, addressIndex, delivery, paymentMethod } = req.body
 
     if (!cart || delivery === "") {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -123,7 +124,12 @@ const createOrderController = async (req, res) => {
     paymentPayload.price = price
 
     try {
-        const payment = await createPayment(paymentPayload)
+        let payment
+        if (paymentMethod === "PIX") {
+            payment = await createPix(paymentPayload)
+        } else if (paymentMethod === "CARD") {
+            payment = await createPayment(paymentPayload)
+        }
 
         // Creates the order products payload to create
         const orderProducts = cart.map(item => ({
@@ -141,6 +147,7 @@ const createOrderController = async (req, res) => {
                 price,
                 payment,
                 payment_reference: paymentPayload.external_reference,
+                payment_method: paymentMethod,
                 shipping_time: shippingDate,
                 shipping_type: shippingType,
             }
