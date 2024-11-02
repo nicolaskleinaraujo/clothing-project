@@ -86,7 +86,7 @@ model Orders {
   addressId         Int
   price             Float
   paid              Boolean  @default(false)
-  payment           String
+  payment           String?
   payment_reference String   @unique()
   payment_method    String
   received          Boolean  @default(false)
