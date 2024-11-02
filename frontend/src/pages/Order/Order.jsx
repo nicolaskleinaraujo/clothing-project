@@ -30,6 +30,7 @@ const Order = () => {
     const [orderPrice, setOrderPrice] = useState(0)
     const [paid, setPaid] = useState(false)
     const [paymentUrl, setPaymentUrl] = useState("")
+    const [paymentMethod, setPaymentMethod] = useState("")
     const [received, setReceived] = useState(false)
     const [shippingTime, setShippingTime] = useState(0)
     const [trackingCode, setTrackingCode] = useState("")
@@ -45,6 +46,7 @@ const Order = () => {
             setOrderPrice(res.data.order.price)
             setPaid(res.data.order.paid)
             setPaymentUrl(res.data.order.payment)
+            setPaymentMethod(res.data.order.payment_method)
             setReceived(res.data.order.received)
             setShippingTime(res.data.order.shipping_time)
             setTrackingCode(res.data.order.tracking_code)
@@ -73,7 +75,12 @@ const Order = () => {
             ) : (
                 <>
                     { !paid && <p>Você tem até as {hours}:{minutes} de hoje para efetuar o pagamento abaixo</p> }
-                    { !paid && <iframe src={paymentUrl}></iframe> }
+
+                    { !paid && paymentMethod === "PIX" ? (
+                        <iframe src={paymentUrl}></iframe> 
+                    ) : (
+                        <p>Card Method</p>
+                    )}
 
                     { orderPrice != 0 &&
                         <div className={styles.order_infos}>
