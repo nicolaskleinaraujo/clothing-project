@@ -2,7 +2,9 @@
 import styles from "./Order.module.css"
 
 // Components
+import Loading from "../../components/Loading/Loading"
 import CardBrick from "../../components/CardBrick/CardBrick"
+import StatusBrick from "../../components/StatusBrick/StatusBrick"
 
 // Modules
 import dbFetch from "../../config/axios"
@@ -14,7 +16,6 @@ import { useParams, useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { LoadingContext } from "../../context/LoadingContext"
 import { toast } from "react-toastify"
-import Loading from "../../components/Loading/Loading"
 
 // DayJS Configs
 dayjs.extend(utc)
@@ -33,6 +34,7 @@ const Order = () => {
     const [orderPrice, setOrderPrice] = useState(0)
     const [paid, setPaid] = useState(false)
     const [paymentUrl, setPaymentUrl] = useState("")
+    const [paymentId, setPaymentId] = useState("")
     const [paymentMethod, setPaymentMethod] = useState("")
     const [received, setReceived] = useState(false)
     const [shippingTime, setShippingTime] = useState(0)
@@ -51,6 +53,7 @@ const Order = () => {
             setOrderPrice(res.data.order.price)
             setPaid(res.data.order.paid)
             setPaymentUrl(res.data.order.payment)
+            setPaymentId(res.data.order.payment_reference)
             setPaymentMethod(res.data.order.payment_method)
             setReceived(res.data.order.received)
             setShippingTime(res.data.order.shipping_time)
@@ -82,6 +85,8 @@ const Order = () => {
 
                     { !paid && paymentMethod === "PIX" && <iframe src={paymentUrl}></iframe> } 
                     { !paid && paymentMethod === "CARD" && <CardBrick amount={orderPrice} orderId={id} getOrder={getOrder} /> }
+
+                    { paid && <StatusBrick paymentId={paymentId} /> }
 
                     { orderPrice != 0 &&
                         <div className={styles.order_infos}>
