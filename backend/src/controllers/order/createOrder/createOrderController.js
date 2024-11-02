@@ -1,7 +1,6 @@
 const prisma = require("../../../db/client")
 const calculateShipping = require("../../../config/shipping")
 const createPix = require("../../../config/createPix")
-const { v4: uuidv4 } = require('uuid')
 
 const createOrderController = async (req, res) => {
     const cart = req.signedCookies.cart
