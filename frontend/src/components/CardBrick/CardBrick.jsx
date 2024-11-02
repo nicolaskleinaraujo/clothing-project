@@ -11,7 +11,7 @@ const CardBrick = ({ amount, orderId }) => {
 
     const onSubmit = async(formData) => {
         try {
-            const res = await dbFetch.post("/process-payment", { formData, orderId })
+            const res = await dbFetch.post("/orders/card", { formData, orderId })
         } catch (error) {
             console.log(error)
         }

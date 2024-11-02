@@ -14,5 +14,6 @@ router.route("/user").post(validateToken, validateUser, (req, res) => orderContr
 router.route("/ipn").post((req, res) => orderController.ipnController(req, res))
 router.route("/id").post(validateToken, validateUser, (req, res) => orderController.sortById(req, res))
 router.route("/sort").post(validateToken, validateAdmin, (req, res) => orderController.adminSortController(req, res))
+router.route("/card").post((req, res) => orderController.cardPayment(req, res))
 
 module.exports = router

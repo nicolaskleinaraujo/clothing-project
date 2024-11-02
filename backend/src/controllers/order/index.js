@@ -1,4 +1,5 @@
 const adminSortController = require("./adminSort/adminSortController")
+const cardPayment = require("./cardPayment/cardPayment")
 const createOrderController = require("./createOrder/createOrderController")
 const deleteOrderController = require("./deleteOrder/deleteOrderController")
 const ipnController = require("./ipnController/ipnController")
@@ -14,6 +15,7 @@ const orderController = {
     ipnController,
     sortById,
     adminSortController,
+    cardPayment,
 }
 
 module.exports = orderController
