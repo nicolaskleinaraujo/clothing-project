@@ -20,7 +20,10 @@ const cardPayment = async(req, res) => {
 
         const order = await prisma.orders.update({
             where: { id: parseInt(id) },
-            data: { paid: true },
+            data: {
+                paid: true,
+                payment_reference: String(process.id),
+            },
         })
 
         res.status(200).json({ msg: "Pagamento efetuado com sucesso", order })
