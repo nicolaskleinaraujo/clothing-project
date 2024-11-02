@@ -1,6 +1,5 @@
 const prisma = require("../../../db/client")
 const calculateShipping = require("../../../config/shipping")
-const createPayment = require("../../../config/mercadopago")
 const createPix = require("../../../config/createPix")
 const { v4: uuidv4 } = require('uuid')
 
@@ -127,8 +126,6 @@ const createOrderController = async (req, res) => {
         let payment
         if (paymentMethod === "PIX") {
             payment = await createPix(paymentPayload)
-        } else if (paymentMethod === "CARD") {
-            payment = await createPayment(paymentPayload)
         }
 
         // Creates the order products payload to create
