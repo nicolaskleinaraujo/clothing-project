@@ -2,15 +2,19 @@
 import styles from "./CardBrick.module.css"
 
 // Modules
+import dbFetch from "../../config/axios"
 import { initMercadoPago, CardPayment } from '@mercadopago/sdk-react'
 import { toast } from "react-toastify"
 
-
-const CardBrick = ({ amount }) => {
+const CardBrick = ({ amount, orderId }) => {
     initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY)
 
     const onSubmit = async(formData) => {
-        console.log(formData)
+        try {
+            const res = await dbFetch.post("/process-payment", { formData, orderId })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const onError = () => {

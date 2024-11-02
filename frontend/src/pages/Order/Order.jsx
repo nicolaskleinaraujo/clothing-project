@@ -82,7 +82,7 @@ const Order = () => {
                     { !paid && paymentMethod === "PIX" ? (
                         <iframe src={paymentUrl}></iframe> 
                     ) : (
-                        <CardBrick amount={100} />
+                        <CardBrick amount={100} orderId={id} />
                     )}
 
                     { orderPrice != 0 &&
