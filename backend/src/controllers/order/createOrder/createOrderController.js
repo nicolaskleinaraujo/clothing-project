@@ -17,7 +17,6 @@ const createOrderController = async (req, res) => {
         price: 0,
         userName: "",
         userEmail: "",
-        external_reference: uuidv4(),
     }
 
     // Gets the user address to calculate the shipping price
@@ -123,11 +122,6 @@ const createOrderController = async (req, res) => {
     paymentPayload.price = price
 
     try {
-        let payment
-        if (paymentMethod === "PIX") {
-            payment = await createPix(paymentPayload)
-        }
-
         // Creates the order products payload to create
         const orderProducts = cart.map(item => ({
             product: { connect: { id: item.productId } },
@@ -136,19 +130,37 @@ const createOrderController = async (req, res) => {
             color: item.color
         }))
 
-        const order = await prisma.orders.create({
-            data: {
-                orderProducts: { create: orderProducts },
-                userId,
-                addressId,
-                price,
-                payment,
-                payment_reference: paymentPayload.external_reference,
-                payment_method: paymentMethod,
-                shipping_time: shippingDate,
-                shipping_type: shippingType,
-            }
-        })
+        let order
+
+        if (paymentMethod === "CARD") {
+            order = await prisma.orders.create({
+                data: {
+                    orderProducts: { create: orderProducts },
+                    userId,
+                    addressId,
+                    price,
+                    payment_method: paymentMethod,
+                    shipping_time: shippingDate,
+                    shipping_type: shippingType,
+                }
+            })
+        } else if (paymentMethod === "PIX") {
+            const paymentInfo = await createPix(paymentPayload)
+
+            order = await prisma.orders.create({
+                data: {
+                    orderProducts: { create: orderProducts },
+                    userId,
+                    addressId,
+                    price,
+                    payment: paymentInfo.pix,
+                    payment_reference: String(paymentInfo.paymentId),
+                    payment_method: paymentMethod,
+                    shipping_time: shippingDate,
+                    shipping_type: shippingType,
+                }
+            })
+        }
 
         res.clearCookie("cart")
 

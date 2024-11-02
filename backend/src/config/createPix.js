@@ -25,7 +25,6 @@ const createPix = async(payload) => {
         "transaction_amount": payload.price, 
 
         "notification_url": `${process.env.API_URL}/orders/ipn`,
-        "external_reference": payload.external_reference,
     }
 
     try {
@@ -33,7 +32,10 @@ const createPix = async(payload) => {
 
         const payment = await payments.create({ body })
 
-        return payment.point_of_interaction.transaction_data.ticket_url
+        const pix = payment.point_of_interaction.transaction_data.ticket_url
+        const paymentId = payment.id
+
+        return { pix, paymentId }
     } catch (error) {
         console.log(error)
     }
