@@ -9,6 +9,22 @@ import { toast } from "react-toastify"
 const CardBrick = ({ amount, orderId, getOrder }) => {
     initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY)
 
+    const customization = {
+        visual: {
+            style: {
+                customVariables: {
+                    baseColor: "#00453D",
+                    baseColorSecondVariant: "#F5DADF",
+                },
+                theme: "flat",
+            },
+        },
+
+        paymentMethods: {
+            maxInstallments: 4,
+        }
+    }
+
     const onSubmit = async(formData) => {
         try { 
             const res = await dbFetch.post("/orders/card", { formData, orderId })
@@ -28,6 +44,7 @@ const CardBrick = ({ amount, orderId, getOrder }) => {
         <div className={styles.CardBrick}>
             <CardPayment
                 initialization={{ amount }}
+                customization={customization}
                 onSubmit={onSubmit}
                 onError={onError}
             />
