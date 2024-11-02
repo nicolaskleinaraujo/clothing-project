@@ -39,6 +39,8 @@ const Order = () => {
     const [trackingCode, setTrackingCode] = useState("")
 
     const getOrder = async() => {
+        setLoading(true)
+
         try {
             const res = await dbFetch.post(`/orders/id`, {
                 "id": id,
@@ -67,7 +69,6 @@ const Order = () => {
     }
 
     useEffect(() => {
-        setLoading(true)
         getOrder()
     }, [])
 
@@ -79,11 +80,8 @@ const Order = () => {
                 <>
                     { !paid && <p>Você tem até as {hours}:{minutes} de hoje para efetuar o pagamento abaixo</p> }
 
-                    { !paid && paymentMethod === "PIX" ? (
-                        <iframe src={paymentUrl}></iframe> 
-                    ) : (
-                        <CardBrick amount={100} orderId={id} />
-                    )}
+                    { !paid && paymentMethod === "PIX" && <iframe src={paymentUrl}></iframe> } 
+                    { !paid && paymentMethod === "CARD" && <CardBrick amount={orderPrice} orderId={id} getOrder={getOrder} /> }
 
                     { orderPrice != 0 &&
                         <div className={styles.order_infos}>
