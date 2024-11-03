@@ -97,6 +97,7 @@ const CreateOrder = () => {
                 "coupon": coupon,
                 "addressIndex": addressIndex,
                 "delivery": delivery,
+                "paymentMethod": paymentMethod,
                 "userId": userId,
             })
 
@@ -184,6 +185,7 @@ const CreateOrder = () => {
                                 name="payment" 
                                 id="payment" 
                                 value="PIX" 
+                                defaultChecked 
                                 onChange={(e) => setPaymentMethod(e.target.value)} 
                             />
                             <img src="./pix-logo.png" alt="Logo do Pix" />
