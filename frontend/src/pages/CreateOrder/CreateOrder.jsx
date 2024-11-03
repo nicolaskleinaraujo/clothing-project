@@ -32,6 +32,7 @@ const CreateOrder = () => {
 
     const [delivery, setDelivery] = useState("")
     const [coupon, setCoupon] = useState("")
+    const [paymentMethod, setPaymentMethod] = useState("")
 
     const getUserAddress = async() => {
         setLoading(true)
@@ -173,6 +174,31 @@ const CreateOrder = () => {
                     <p>Frete: R${selectedShipping.price}</p>
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount.toFixed(2)}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
+
+                    <h2>Forma de Pagamento</h2>
+                    <div>
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="payment" 
+                                id="payment" 
+                                value="PIX" 
+                                onChange={(e) => setPaymentMethod(e.target.value)} 
+                            />
+                            <img src="./pix-logo.png" alt="Logo do Pix" />
+                        </label>
+
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="payment" 
+                                id="payment" 
+                                value="CARD" 
+                                onChange={(e) => setPaymentMethod(e.target.value)} 
+                            />
+                            <img src="./card-logo.png" alt="Logo de um cartão generico" />
+                        </label>
+                    </div>
 
                     <button onClick={() => createOrder()}>Finalizar compra</button>
                 </>
