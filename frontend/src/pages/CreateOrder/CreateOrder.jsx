@@ -175,8 +175,9 @@ const CreateOrder = () => {
                     { discount != undefined && <p>Disconto: { discount != "Cupom já foi utilizado" ? `R$${discount.toFixed(2)}` : "Cupom já utilizado" }</p> }
                     <p>Total: R${orderPrice}</p>
 
-                    <h2>Forma de Pagamento</h2>
-                    <div>
+                    <div className={styles.create_order_payment}>
+                        <h2>Formas de Pagamento</h2>
+
                         <label>
                             <input 
                                 type="radio" 
