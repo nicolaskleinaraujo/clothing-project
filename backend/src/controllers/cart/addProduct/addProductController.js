@@ -37,7 +37,16 @@ const addProductController = async(req, res) => {
         cart = []
     }
 
-    cart.push({ productId, sizeId, quantity, color })
+    // Checks if the product is already on the cart
+    if (cart.find(item => item.productId === productId && item.sizeId === sizeId && item.color === color)) {
+        cart.map((item, index) => {
+            if (item.productId === productId && item.sizeId === sizeId && item.color === color && cart[index].quantity + 1 <= product.quantity) {
+                cart[index].quantity += 1
+            }
+        })
+    } else {
+        cart.push({ productId, sizeId, quantity, color })
+    }
 
     try {
         res.cookie("cart", cart, {
