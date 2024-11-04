@@ -60,6 +60,7 @@ const calculatePriceController = async(req, res) => {
         // Adds the product to order products
         product.sizes = product.sizes.filter(size => size.id === cart[index].sizeId)
         product.colors = product.colors.split(", ").filter(color => color == cart[index].color)
+        product.quantity = cart[index].quantity
         orderProducts.push(product)
 
         // Calculates the product price
