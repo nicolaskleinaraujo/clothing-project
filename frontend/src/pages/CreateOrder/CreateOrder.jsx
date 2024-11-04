@@ -32,7 +32,7 @@ const CreateOrder = () => {
 
     const [delivery, setDelivery] = useState("")
     const [coupon, setCoupon] = useState("")
-    const [paymentMethod, setPaymentMethod] = useState("")
+    const [paymentMethod, setPaymentMethod] = useState("PIX")
 
     const getUserAddress = async() => {
         setLoading(true)
