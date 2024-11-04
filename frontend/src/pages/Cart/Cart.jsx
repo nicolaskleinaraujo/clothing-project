@@ -62,13 +62,13 @@ const Cart = () => {
         }
     }
 
-    const removeItem = async(id) => {
+    const removeItem = async(index) => {
         try {
             setLoading(true)
 
             await dbFetch.delete("/cart", {
                 data: {
-                    "id": id,
+                    "index": index,
                     "userId": userId,
                 }
             })
@@ -95,14 +95,14 @@ const Cart = () => {
 
                     <div className={styles.cart_products}>
                         { products &&
-                            products.map(product => (
+                            products.map((product, index) => (
                                 <div key={product.id}>
                                     <img src={`data:image/png;base64,${product.Images[0].content}`} alt="Foto Produto" />
                                     <div>
                                         <p style={{ marginBottom: ".5em" }}>{product.quantity}x {product.name}</p>
                                         <p>{product.sizes[0].size} | {product.colors[0]}</p>
                                     </div>
-                                    <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
+                                    <button onClick={() => removeItem(index)}><MdOutlineRemoveShoppingCart /></button>
                                     <p>R${product.price}</p>
                                 </div>
                             ))
