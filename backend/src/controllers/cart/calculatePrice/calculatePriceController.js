@@ -64,7 +64,7 @@ const calculatePriceController = async(req, res) => {
         orderProducts.push(product)
 
         // Calculates the product price
-        productPrice += parseFloat(product.price)
+        productPrice += parseFloat((product.price * cart[index].quantity).toFixed(2))
     }
 
     try {
