@@ -99,7 +99,7 @@ const Cart = () => {
                                 <div key={product.id}>
                                     <img src={`data:image/png;base64,${product.Images[0].content}`} alt="Foto Produto" />
                                     <div>
-                                        <p style={{ marginBottom: ".5em" }}>{product.name}</p>
+                                        <p style={{ marginBottom: ".5em" }}>{product.quantity}x {product.name}</p>
                                         <p>{product.sizes[0].size} | {product.colors[0]}</p>
                                     </div>
                                     <button onClick={() => removeItem(product.id)}><MdOutlineRemoveShoppingCart /></button>
