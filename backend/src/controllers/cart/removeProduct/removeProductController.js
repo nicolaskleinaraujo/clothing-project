@@ -1,16 +1,16 @@
 const removeProductController = async(req, res) => {
     const cart = req.signedCookies.cart
-    const id = parseInt(req.body.id)
+    const index = parseInt(req.body.index)
 
-    if (!cart || isNaN(id)) {
+    if (!cart || isNaN(index)) {
         res.status(400).json({ msg: "Infomações insuficientes" })
         return
     }
 
     try {
-        const updatedCart = cart.filter(item => item.productId !== id)
+        cart.splice(index, 1)
 
-        res.cookie("cart", updatedCart, {
+        res.cookie("cart", cart, {
             httpOnly: true,
             signed: true,
             secure: true,
