@@ -1,5 +1,5 @@
 # Clothing Shop made with React and Node.js
- ![MIT License](https://img.shields.io/badge/license-MIT-blue) [![Netlify Status](https://api.netlify.com/api/v1/badges/e62d980b-f102-42e9-9be4-86db4addc8ed/deploy-status)](https://app.netlify.com/sites/klein-store/deploys)
+ ![MIT License](https://img.shields.io/badge/license-MIT-blue)
 <br>
   <img src="./frontend/public/home-page.png" alt="Print Home Page" width="700">.
   ### Demo app: https://klein-store.nkportfolio.tech
@@ -12,7 +12,7 @@
  Please, fell free to use all the features moderately.
 
 # Working on
- - [ ] Better UI
+ - [x] ~~Better UI~~ 
  - [ ] Tests with JEST on the backend
 
 # Stacks
@@ -44,7 +44,7 @@
   ### Implantation
   - Website: https://klein-store.nkportfolio.tech
   - API: https://klein-store-api.nkportfolio.tech
-
+  
   # Author
    Nicolas Klein Faria de Araujo <br>
    https://nkportfolio.tech
