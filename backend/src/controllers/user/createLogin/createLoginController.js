@@ -17,6 +17,11 @@ const createLoginController = async (req, res) => {
         return
     }
 
+    if (user.isGoogle !== isGoogle) {
+        res.status(400).json({ msg: "Forma de login incorreta" })
+        return
+    }
+
     // Checks if the provided password is correct
     if (!isGoogle) {
         const testPassword = bcrypt.compareSync(password, user.password)
