@@ -8,7 +8,7 @@ import deleteExpiredOrders from "./config/cron"
 const app: Application = express()
 
 // Routers
-const users = require("./routes/users")
+import usersRouter from "./routes/users"
 const address = require("./routes/address")
 const products = require("./routes/products")
 const categories = require("./routes/categories")
@@ -32,7 +32,7 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Bem-vindo a minha API, para mais informações, confira o repositório do projeto")
 })
 app.use("/images", express.static(path.resolve("product_images")))
-app.use("/users", users)
+app.use("/users", usersRouter)
 app.use("/address", address)
 app.use("/products", products)
 app.use("/categories", categories)
