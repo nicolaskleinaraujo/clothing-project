@@ -12,7 +12,8 @@
  Please, fell free to use all the features moderately.
 
 # Working on
- - [x] ~~Better UI~~ 
+ - [x] ~~Better UI~~
+ - [ ] Migrate to TypeScript
  - [ ] Tests with JEST on the backend
 
 # Stacks
