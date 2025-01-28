@@ -1,7 +1,8 @@
-const prisma = require("../db/client")
+import prisma from "../db/client"
+import { Request, Response, NextFunction } from "express"
 
-const validateAddress = async (req, res, next) => {
-    const userId = req.body.userId
+const validateAddress = async (req: Request, res: Response, next: NextFunction) => {
+    const userId: number = Number(req.body.userId)
 
     if (isNaN(userId)) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -27,4 +28,4 @@ const validateAddress = async (req, res, next) => {
     next()
 }
 
-module.exports = validateAddress
+export default validateAddress
