@@ -1,4 +1,6 @@
-const removeAuthController = async(req, res) => {
+import { Request, Response } from "express"
+
+const removeAuthController = async(req: Request, res: Response) => {
     try {
         res.clearCookie("access")
         res.clearCookie("refresh")
@@ -9,4 +11,4 @@ const removeAuthController = async(req, res) => {
     }
 }
 
-module.exports = removeAuthController
+export default removeAuthController

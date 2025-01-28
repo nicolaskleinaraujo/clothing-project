@@ -1,7 +1,8 @@
-const prisma = require("../../../db/client")
-const bcrypt = require("bcryptjs")
+import prisma from "../../../db/client"
+import bcrypt from "bcryptjs"
+import { Request, Response } from "express"
 
-const updateUserController = async (req, res) => {
+const updateUserController = async (req: Request, res: Response) => {
     const {
         userId,
         firstName,
@@ -11,7 +12,7 @@ const updateUserController = async (req, res) => {
         oldPassword,
     } = req.body
 
-    parseInt(userId)
+    Number(userId)
 
     if (
         userId === undefined ||
@@ -48,7 +49,7 @@ const updateUserController = async (req, res) => {
     }
 
     // Checking old password
-    const checkOldPassword = await bcrypt.compare(oldPassword, user.password)
+    const checkOldPassword = await bcrypt.compare(oldPassword, user.password as string)
     if (!checkOldPassword) {
         res.status(400).json({ msg: "Senha antiga incorreta" })
         return
@@ -75,4 +76,4 @@ const updateUserController = async (req, res) => {
     }
 }
 
-module.exports = updateUserController
+export default updateUserController

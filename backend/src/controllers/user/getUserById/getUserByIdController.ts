@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const getUserByIdController = async(req, res) => {
+const getUserByIdController = async (req: Request, res: Response) => {
     const { id, userId } = req.body
 
     if (isNaN(id) || isNaN(userId)) {
@@ -23,7 +24,7 @@ const getUserByIdController = async(req, res) => {
         }
 
         // Removes user password from the payload
-        delete user.password
+        user.password = ""
 
         res.status(200).json({ msg: "Usuario encontrado", user })
     } catch (error) {
@@ -31,4 +32,4 @@ const getUserByIdController = async(req, res) => {
     }
 }
 
-module.exports = getUserByIdController
+export default getUserByIdController

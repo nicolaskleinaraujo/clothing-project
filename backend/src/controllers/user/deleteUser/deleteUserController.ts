@@ -1,14 +1,15 @@
-const prisma = require("../../../db/client")
-const bcrypt = require("bcryptjs")
+import prisma from "../../../db/client"
+import bcrypt from "bcryptjs"
+import { Request, Response } from "express"
 
-const deleteUserController = async (req, res) => {
+const deleteUserController = async (req: Request, res: Response) => {
     const {
         userId,
         password,
         isGoogle,
     } = req.body
 
-    parseInt(userId)
+    Number(userId)
 
     if (userId === undefined || (!isGoogle && password === "")) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -29,7 +30,7 @@ const deleteUserController = async (req, res) => {
     }
 
     if (!isGoogle) {
-        const checkPassword = bcrypt.compare(password, user.password)
+        const checkPassword = bcrypt.compare(password, user.password as string)
 
         if (!checkPassword) {
             res.status(401).json({ msg: "Senha incorreta" })
@@ -51,4 +52,4 @@ const deleteUserController = async (req, res) => {
     }
 }
 
-module.exports = deleteUserController
+export default deleteUserController

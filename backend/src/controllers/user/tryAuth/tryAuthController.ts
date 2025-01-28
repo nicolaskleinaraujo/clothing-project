@@ -1,8 +1,13 @@
-const prisma = require("../../../db/client")
-const jwt = require("jsonwebtoken")
+import prisma from "../../../db/client"
+import jwt, { JwtPayload } from "jsonwebtoken"
+import { Request, Response } from "express"
 
-const tryAuthController = async(req, res) => {
-    const refreshToken = req.signedCookies.refresh
+interface jwtInfos extends JwtPayload {
+    id: number,
+}
+
+const tryAuthController = async(req: Request, res: Response) => {
+    const refreshToken: string = req.signedCookies.refresh
 
     if (!refreshToken) {
         res.status(400).json({ msg: "Falha ao tentar autenticação" })
@@ -10,13 +15,17 @@ const tryAuthController = async(req, res) => {
     }
 
     try {
-        const refreshJwt = jwt.verify(refreshToken, process.env.JWT_SECRET)
+        const refreshJwt = jwt.verify(refreshToken, process.env.JWT_SECRET as string) as jwtInfos
 
         // Getting user from ID inside token
         const user = await prisma.user.findUnique({ where: { id: refreshJwt.id } })
+        if (!user) {
+            res.status(404).json({ msg: "Falha ao tentar autenticação" })
+            return
+        }
 
         // Creating the access and refresh JWT Token
-        const newAccessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        const newAccessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "1h" })
 
         res.cookie("access", newAccessToken, {
             httpOnly: true,
@@ -32,4 +41,4 @@ const tryAuthController = async(req, res) => {
     }
 }
 
-module.exports = tryAuthController
+export default tryAuthController

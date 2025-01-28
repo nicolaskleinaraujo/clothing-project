@@ -1,8 +1,9 @@
-const prisma = require("../../../db/client")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+import prisma from "../../../db/client"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { Request, Response } from "express"
 
-const createLoginController = async (req, res) => {
+const createLoginController = async (req: Request, res: Response) => {
     const { email, password, isGoogle } = req.body
 
     if (email === "" || (!isGoogle && password === "")) {
@@ -24,7 +25,7 @@ const createLoginController = async (req, res) => {
 
     // Checks if the provided password is correct
     if (!isGoogle) {
-        const testPassword = bcrypt.compareSync(password, user.password)
+        const testPassword = bcrypt.compareSync(password, user.password as string)
         if (!testPassword) {
             res.status(400).json({ msg: "Email ou senha incorretos" })
             return
@@ -37,11 +38,11 @@ const createLoginController = async (req, res) => {
     }
 
     // Removes password from user to send for the client
-    delete user.password
+    user.password = ""
 
     // Creating the access and refresh token
-    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
-    const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "1h" })
+    const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "7d" })
 
     res.cookie("access", accessToken, {
         httpOnly: true,
@@ -62,4 +63,4 @@ const createLoginController = async (req, res) => {
     res.status(200).json({ msg: "Login feito com sucesso", user })
 }
 
-module.exports = createLoginController
+export default createLoginController

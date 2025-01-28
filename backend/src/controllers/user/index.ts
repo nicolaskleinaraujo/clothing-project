@@ -1,11 +1,11 @@
 // Controllers
-const createUserController = require("./createUser/createUserController")
-const deleteUserController = require("./deleteUser/deleteUserController")
-const updateUserController = require("./updateUser/updateUserController")
-const createLoginController = require("./createLogin/createLoginController")
-const tryAuthController = require("./tryAuth/tryAuthController")
-const removeAuthController = require("./removeAuth/removeAuthController")
-const getUserByIdController = require("./getUserById/getUserByIdController")
+import createUserController from "./createUser/createUserController"
+import deleteUserController from "./deleteUser/deleteUserController"
+import updateUserController from "./updateUser/updateUserController"
+import createLoginController from "./createLogin/createLoginController"
+import tryAuthController from "./tryAuth/tryAuthController"
+import removeAuthController from "./removeAuth/removeAuthController"
+import getUserByIdController from "./getUserById/getUserByIdController"
 
 // Exporting all controllers
 export const userController = {

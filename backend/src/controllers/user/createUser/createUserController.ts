@@ -1,8 +1,9 @@
-const prisma = require("../../../db/client")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+import prisma from "../../../db/client"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import { Request, Response } from "express"
 
-const createUserController = async (req, res) => {
+const createUserController = async (req: Request, res: Response) => {
     const {
         firstName,
         lastName,
@@ -44,7 +45,7 @@ const createUserController = async (req, res) => {
                     isGoogle,
                 },
             })
-        } else if (isGoogle) {
+        } else {
             user = await prisma.user.create({
                 data: {
                     firstName,
@@ -56,8 +57,8 @@ const createUserController = async (req, res) => {
         }
 
         // Creating the access and refresh JWT Token
-        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" })
-        const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "1h" })
+        const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "7d" })
 
         res.cookie("access", accessToken, {
             httpOnly: true,
@@ -81,4 +82,4 @@ const createUserController = async (req, res) => {
     }
 }
 
-module.exports = createUserController
+export default createUserController
