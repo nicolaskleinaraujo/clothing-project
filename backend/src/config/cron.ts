@@ -1,5 +1,5 @@
-const prisma = require("../db/client")
-const dayjs = require("dayjs")
+import prisma from "../db/client"
+import dayjs from "dayjs"
 
 const deleteExpiredOrders = async() => {
     try {
@@ -32,4 +32,4 @@ const deleteExpiredOrders = async() => {
     }
 }
 
-module.exports = deleteExpiredOrders
+export default deleteExpiredOrders

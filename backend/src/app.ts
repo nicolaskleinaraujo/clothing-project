@@ -4,9 +4,8 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import path from "node:path"
 import cron from "node-cron"
+import deleteExpiredOrders from "./config/cron"
 const app: Application = express()
-
-const deleteExpiredOrders = require("./config/cron")
 
 // Routers
 const users = require("./routes/users")
