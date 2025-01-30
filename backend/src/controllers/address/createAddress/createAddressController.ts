@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const createAddressController = async(req, res) => {
+const createAddressController = async(req: Request, res: Response) => {
     const {
         cep,
         state,
@@ -58,4 +59,4 @@ const createAddressController = async(req, res) => {
     }
 }
 
-module.exports = createAddressController
+export default createAddressController

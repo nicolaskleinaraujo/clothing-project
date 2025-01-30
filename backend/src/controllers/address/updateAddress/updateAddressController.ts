@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const updateAddressController = async (req, res) => {
+const updateAddressController = async (req: Request, res: Response) => {
     const {
         id,
         cep,
@@ -45,14 +46,14 @@ const updateAddressController = async (req, res) => {
 
     try {
         const updatedAddress = await prisma.address.update({
-            where: { id: parseInt(id) },
+            where: { id: Number(id) },
             data: {
                 cep,
                 state,
                 city,
                 district,
                 street,
-                houseNum: parseInt(houseNum),
+                houseNum: Number(houseNum),
                 complement,
                 name,
                 number,
@@ -65,4 +66,4 @@ const updateAddressController = async (req, res) => {
     }
 }
 
-module.exports = updateAddressController
+export default updateAddressController

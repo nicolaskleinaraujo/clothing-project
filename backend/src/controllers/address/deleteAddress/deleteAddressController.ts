@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const deleteAddressController = async (req, res) => {
+const deleteAddressController = async (req: Request, res: Response) => {
     const {
         id,
         userId,
@@ -34,4 +35,4 @@ const deleteAddressController = async (req, res) => {
     }
 }
 
-module.exports = deleteAddressController
+export default deleteAddressController

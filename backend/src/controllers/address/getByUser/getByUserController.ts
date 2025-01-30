@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const getByUserController = async(req, res) => {
+const getByUserController = async(req: Request, res: Response) => {
     const id = parseInt(req.body.id)
 
     if (isNaN(id)) {
@@ -22,4 +23,4 @@ const getByUserController = async(req, res) => {
     }
 }
 
-module.exports = getByUserController
+export default getByUserController
