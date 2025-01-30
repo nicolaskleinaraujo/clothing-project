@@ -9,7 +9,7 @@ const app: Application = express()
 
 // Routers
 import usersRouter from "./routes/users"
-const address = require("./routes/address")
+import addressRouter from "./routes/address"
 const products = require("./routes/products")
 const categories = require("./routes/categories")
 const orders = require("./routes/orders")
@@ -33,7 +33,7 @@ app.get("/", (req: Request, res: Response) => {
 })
 app.use("/images", express.static(path.resolve("product_images")))
 app.use("/users", usersRouter)
-app.use("/address", address)
+app.use("/address", addressRouter)
 app.use("/products", products)
 app.use("/categories", categories)
 app.use("/orders", orders)

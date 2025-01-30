@@ -5,7 +5,7 @@ import getByUserController from "./getByUser/getByUserController"
 import updateAddressController from "./updateAddress/updateAddressController"
 
 // Exporting all controllers
-export const userController = {
+export const addressController = {
     createAddressController,
     updateAddressController,
     deleteAddressController,
