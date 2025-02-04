@@ -1,4 +1,4 @@
-const currencyHandler = (currency) => {
+const currencyHandler = (currency: string) => {
     // Removes unnecessary values
     const input = currency.toString().replace(/[\s()\-]/g, "").replace(/\D/g, "").replace(/^0/, "")
 
@@ -12,4 +12,4 @@ const currencyHandler = (currency) => {
     return parseFloat(`${decimal}.${integer}`)
 }
 
-module.exports = currencyHandler
+export default currencyHandler
