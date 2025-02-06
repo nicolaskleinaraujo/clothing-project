@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const deleteCategoryController = async (req, res) => {
+const deleteCategoryController = async (req: Request, res: Response) => {
     const { id } = req.body
 
     if (isNaN(id)) {
@@ -25,4 +26,4 @@ const deleteCategoryController = async (req, res) => {
     }
 }
 
-module.exports = deleteCategoryController
+export default deleteCategoryController

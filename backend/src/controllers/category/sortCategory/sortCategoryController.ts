@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const sortCategoryController = async (req, res) => {
+const sortCategoryController = async (req: Request, res: Response) => {
     try {
         const categories = await prisma.categories.findMany({ orderBy: { id: "asc" } })
         const sizes = await prisma.sizes.findMany({ orderBy: { id: "asc" } })
@@ -11,4 +12,4 @@ const sortCategoryController = async (req, res) => {
     }
 }
 
-module.exports = sortCategoryController
+export default sortCategoryController

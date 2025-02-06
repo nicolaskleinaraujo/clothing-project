@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const updateCategoryController = async (req, res) => {
+const updateCategoryController = async (req: Request, res: Response) => {
     const { id, name } = req.body
 
     if (isNaN(id) || name === "") {
@@ -34,4 +35,4 @@ const updateCategoryController = async (req, res) => {
     }
 }
 
-module.exports = updateCategoryController
+export default updateCategoryController

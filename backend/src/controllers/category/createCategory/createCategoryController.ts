@@ -1,6 +1,7 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const createCategoryController = async (req, res) => {
+const createCategoryController = async (req: Request, res: Response) => {
     const { name } = req.body
 
     if (name === "") {
@@ -23,4 +24,4 @@ const createCategoryController = async (req, res) => {
     }
 }
 
-module.exports = createCategoryController
+export default createCategoryController
