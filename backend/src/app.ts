@@ -11,7 +11,7 @@ const app: Application = express()
 import usersRouter from "./routes/users"
 import addressRouter from "./routes/address"
 import productsRouter from "./routes/products"
-const categories = require("./routes/categories")
+import categoriesController from "./routes/categories"
 const orders = require("./routes/orders")
 const cart = require("./routes/cart")
 const coupons = require("./routes/coupons")
@@ -35,7 +35,7 @@ app.use("/images", express.static(path.resolve("product_images")))
 app.use("/users", usersRouter)
 app.use("/address", addressRouter)
 app.use("/products", productsRouter)
-app.use("/categories", categories)
+app.use("/categories", categoriesController)
 app.use("/orders", orders)
 app.use("/cart", cart)
 app.use("/coupons", coupons)
