@@ -1,7 +1,19 @@
-const prisma = require("../../../db/client")
-const currencyHandler = require("../../../config/currencyHandler")
+import prisma from "../../../db/client"
+import currencyHandler from "../../../config/currencyHandler"
+import { Request, Response } from "express"
 
-const updateProductController = async (req, res) => {
+interface UpdateProductRequest {
+    id: number,
+    name: string,
+    description: string,
+    price: string,
+    sizes: string,
+    colors: string,
+    quantity: number,
+    categoryId: number
+}
+
+const updateProductController = async (req: Request, res: Response) => {
     const {
         id,
         name,
@@ -11,7 +23,7 @@ const updateProductController = async (req, res) => {
         colors,
         quantity,
         categoryId,
-    } = req.body
+    } = req.body as UpdateProductRequest
 
     if (
         isNaN(id) ||
@@ -55,15 +67,15 @@ const updateProductController = async (req, res) => {
                 price: formatedPrice,
                 sizes: { disconnect, connectOrCreate },
                 colors,
-                quantity: parseInt(quantity),
-                categoryId: parseInt(categoryId),
+                quantity: Number(quantity),
+                categoryId: Number(categoryId),
             },
         })
 
         res.status(200).json({ msg: "Produto atualizado com sucesso", newProduct })
     } catch (error) {
-        res.status(500).json({ msg: "Erro interno, tente novamente" })
+        res.status(500).json({ msg: "Erro interno, tente novamente", error })
     }
 }
 
-module.exports = updateProductController
+export default updateProductController

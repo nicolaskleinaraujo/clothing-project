@@ -1,7 +1,8 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const changeAvaiableController = async (req, res) => {
-    const id = req.body.id
+const changeAvaiableController = async (req: Request, res: Response) => {
+    const id: number = req.body.id
 
     if (isNaN(id)) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -27,4 +28,4 @@ const changeAvaiableController = async (req, res) => {
     }
 }
 
-module.exports = changeAvaiableController
+export default changeAvaiableController

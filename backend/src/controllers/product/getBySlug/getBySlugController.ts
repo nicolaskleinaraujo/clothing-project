@@ -1,6 +1,19 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
+import { Products } from "@prisma/client"
+import { Request, Response } from "express"
 
-const getBySlugController = async(req, res) => {
+interface ImagesInfos {
+    id: number
+    filename: string
+    productId: number
+    content: string | Buffer
+}
+
+interface ProductInfos extends Products {
+    Images: ImagesInfos[]
+}
+
+const getBySlugController = async(req: Request, res: Response) => {
     const slug = req.params.slug
 
     if (!slug) {
@@ -9,13 +22,18 @@ const getBySlugController = async(req, res) => {
     }
 
     try {
-        const product = await prisma.products.findUnique({ 
+        const product: ProductInfos | null = await prisma.products.findUnique({ 
             where: { slug }, 
             include: { 
                 sizes: { orderBy: { id: "asc" } },
                 Images: { orderBy: { id: "asc" } },
             },
         })
+
+        if (!product) {
+            res.status(404).json({ msg: "Produto não encontrado" })
+            return
+        }
 
         product.Images.forEach(image => {
             image.content = image.content.toString("base64")
@@ -27,4 +45,4 @@ const getBySlugController = async(req, res) => {
     }
 }
 
-module.exports = getBySlugController
+export default getBySlugController

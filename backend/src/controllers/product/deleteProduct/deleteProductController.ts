@@ -1,9 +1,8 @@
-const prisma = require("../../../db/client")
-const fs = require("node:fs")
-const path = require("node:path")
+import prisma from "../../../db/client"
+import { Request, Response } from "express"
 
-const deleteProductController = async (req, res) => {
-    const id = parseInt(req.body.id)
+const deleteProductController = async (req: Request, res: Response) => {
+    const id: number = Number(req.body.id)
 
     if (isNaN(id)) {
         res.status(400).json({ msg: "Informações insuficientes" })
@@ -29,4 +28,4 @@ const deleteProductController = async (req, res) => {
     }
 }
 
-module.exports = deleteProductController
+export default deleteProductController

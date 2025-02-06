@@ -1,9 +1,10 @@
-const prisma = require("../../../db/client")
-const slugify = require("slugify")
-const sharp = require("sharp")
-const currencyHandler = require("../../../config/currencyHandler")
+import prisma from "../../../db/client"
+import slugify from "slugify"
+import sharp from "sharp"
+import currencyHandler from "../../../config/currencyHandler"
+import { Request, Response } from "express"
 
-const createProductController = async (req, res) => {
+const createProductController = async (req: Request, res: Response) => {
     const {
         name,
         description,
@@ -21,17 +22,18 @@ const createProductController = async (req, res) => {
         sizes === "" ||
         colors === "" ||
         isNaN(quantity) ||
-        isNaN(categoryId)
+        isNaN(categoryId) ||
+        !Array.isArray(req.files)
     ) {
         res.status(400).json({ msg: "Informações insuficientes" })
         return
     }
 
     // Transforming the sizes string into an array
-    const sizesArray = sizes.split(", ").map(size => size.trim())
+    const sizesArray = sizes.split(", ").map((size: string) => size.trim())
 
     // Creating the connectOrCreate prisma payload
-    const connectOrCreate = sizesArray.map(size => ({
+    const connectOrCreate = sizesArray.map((size: string) => ({
         where: { size: size },
         create: { size: size },
     }))
@@ -56,10 +58,13 @@ const createProductController = async (req, res) => {
             include: { sizes: true }
         })
 
-        const imagesInfos = await Promise.all(req.files.map(async(file) => {
+        // Typing the files correctly
+        const files: Express.Multer.File[] = req.files
+
+        const imagesInfos = await Promise.all(files.map(async(file: Express.Multer.File) => {
             return {
                 filename: file.fieldname,
-                content: await sharp(file.buffer).resize(1024, 1350, "inside").toFormat("webp").toBuffer(),
+                content: await sharp(file.buffer).resize(1024, 1350).toFormat("webp").toBuffer(),
                 productId: product.id
             }
         }))
@@ -74,4 +79,4 @@ const createProductController = async (req, res) => {
     }
 }
 
-module.exports = createProductController
+export default createProductController
