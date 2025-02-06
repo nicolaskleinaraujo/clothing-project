@@ -10,7 +10,7 @@ const app: Application = express()
 // Routers
 import usersRouter from "./routes/users"
 import addressRouter from "./routes/address"
-const products = require("./routes/products")
+import productsRouter from "./routes/products"
 const categories = require("./routes/categories")
 const orders = require("./routes/orders")
 const cart = require("./routes/cart")
@@ -34,7 +34,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/images", express.static(path.resolve("product_images")))
 app.use("/users", usersRouter)
 app.use("/address", addressRouter)
-app.use("/products", products)
+app.use("/products", productsRouter)
 app.use("/categories", categories)
 app.use("/orders", orders)
 app.use("/cart", cart)

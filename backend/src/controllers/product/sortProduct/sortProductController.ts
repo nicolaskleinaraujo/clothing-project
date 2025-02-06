@@ -61,7 +61,8 @@ const sortProductController = async (req: Request, res: Response) => {
         const totalPages = Math.ceil(Number(totalProducts) / 12)
 
         if (Number(page) === 0) {
-            return skip = 0
+            skip = 0
+            return
         }
 
         const products: ProductsInfos[] = await prisma.products.findMany({
