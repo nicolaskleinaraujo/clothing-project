@@ -2,9 +2,7 @@
 import express, { Request, Response, IRouter } from "express"
 import { productController } from "../controllers/product"
 import validateAdmin from "../middlewares/validateAdmin"
-
-// Multer
-const upload = require("../config/multer")
+import upload from "../config/multer"
 
 const productsRouter: IRouter = express.Router()
 
