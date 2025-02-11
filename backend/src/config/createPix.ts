@@ -1,12 +1,17 @@
-const MercadoPago = require("mercadopago").MercadoPagoConfig
-const Payment = require("mercadopago").Payment
-const dayjs = require("dayjs")
+import { MercadoPagoConfig, Payment } from "mercadopago"
+import dayjs from "dayjs"
 
-const client = new MercadoPago({
-    accessToken: process.env.MERCADO_PAGO_TOKEN,
+interface PixPayload {
+    price: number
+    userName: string
+    userEmail: string
+}
+
+const client = new MercadoPagoConfig({
+    accessToken: process.env.MERCADO_PAGO_TOKEN as string,
 })
 
-const createPix = async(payload) => {
+const createPix = async(payload: PixPayload) => {
     const date_of_expiration = dayjs().add(10, "minute").toISOString()
 
     const body = {
@@ -32,6 +37,10 @@ const createPix = async(payload) => {
 
         const payment = await payments.create({ body })
 
+        if (payment.point_of_interaction?.transaction_data === undefined) {
+            throw Error
+        }
+
         const pix = payment.point_of_interaction.transaction_data.ticket_url
         const paymentId = payment.id
 
@@ -41,4 +50,4 @@ const createPix = async(payload) => {
     }
 }
 
-module.exports = createPix
+export default createPix
