@@ -1,8 +1,9 @@
-const prisma = require("../../../db/client")
-const calculateShipping = require("../../../config/shipping")
+import prisma from "../../../db/client"
+import calculateShipping from "../../../config/shipping"
 const createPix = require("../../../config/createPix")
+import { Request, Response } from "express"
 
-const createOrderController = async (req, res) => {
+const createOrderController = async (req: Request, res: Response) => {
     const cart = req.signedCookies.cart
     const { userId, coupon, addressIndex, delivery, paymentMethod } = req.body
 

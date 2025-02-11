@@ -10,7 +10,7 @@ const createPayment = async(payload: PaymentCreateRequest) => {
   try {
     return await payment.create({ body: payload })
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }
 

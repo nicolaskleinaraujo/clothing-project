@@ -1,5 +1,5 @@
 import prisma from "../../../db/client"
-const processPayment = require("../../../config/processPayment")
+import createPayment from "../../../config/processPayment"
 import { Request, Response } from "express"
 
 const cardPayment = async(req: Request, res: Response) => {
@@ -12,7 +12,7 @@ const cardPayment = async(req: Request, res: Response) => {
             return
         }
 
-        const process = await processPayment(req.body.formData)
+        const process = await createPayment(req.body.formData)
 
         if (process.status === "rejected") {
             res.status(400).json({ msg: "Pagamento rejeitado, tente novamente" })
