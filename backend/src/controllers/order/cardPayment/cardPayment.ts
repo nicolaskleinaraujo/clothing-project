@@ -1,11 +1,12 @@
-const prisma = require("../../../db/client")
+import prisma from "../../../db/client"
 const processPayment = require("../../../config/processPayment")
+import { Request, Response } from "express"
 
-const cardPayment = async(req, res) => {
-    const id = req.body.orderId
+const cardPayment = async(req: Request, res: Response) => {
+    const id: number = req.body.orderId
 
     try {
-        const orderExists = await prisma.orders.findUnique({ where: { id: parseInt(id) } })
+        const orderExists = await prisma.orders.findUnique({ where: { id: Number(id) } })
         if (!orderExists) {
             res.status(404).json({ msg: "Pedido não encontrado" })
             return
@@ -19,7 +20,7 @@ const cardPayment = async(req, res) => {
         }
 
         const order = await prisma.orders.update({
-            where: { id: parseInt(id) },
+            where: { id: Number(id) },
             data: {
                 paid: true,
                 payment_reference: String(process.id),
@@ -32,4 +33,4 @@ const cardPayment = async(req, res) => {
     }
 }
 
-module.exports = cardPayment
+export default cardPayment
